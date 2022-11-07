@@ -1,0 +1,414 @@
+{% comment %} Masonry Gallery Assets {% endcomment %}
+<link rel="preload" href="{{ 'section-masonry-gallery.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ 'section-masonry-gallery.css' | asset_url }}"></noscript>
+
+{% comment %}Masonry Gallery Logic{% endcomment %}
+{%- liquid
+
+  assign masonry_gallery_classes = 'masonry-gallery'
+
+  if section.settings.full_width
+    assign masonry_gallery_classes = masonry_gallery_classes | append: ' masonry-gallery--full-width'
+  endif
+
+  if section.settings.image_padding == 'no-padding'
+    assign masonry_gallery_classes = masonry_gallery_classes | append: ' masonry-gallery--no-padding'
+  endif
+
+  assign section_padding = ''
+  if section.settings.section_padding == 'top'
+    assign section_padding = 'pb0'
+  elsif section.settings.section_padding == 'bottom'
+    assign section_padding = 'mt0'
+  elsif section.settings.section_padding == 'none'
+    assign section_padding = 'mt0 pb0'
+  endif
+
+  if settings.section_title_align == 'left'
+    assign heading_align = 'a-left'
+  else
+    assign heading_align = 'a-center'
+  endif
+
+-%}
+{% comment %}Masonry Gallery Template{% endcomment %}
+<div
+  class="global__section section section--{{ section.id }} no-fouc  section--masonry-gallery {{ masonry_gallery_classes }} masonry-gallery--{{ section.id }} {{ section_padding }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="masonry-gallery"
+  data-asset-url="{{ 'section-masonry-gallery.js' | asset_url }}"
+  data-vendor-asset-url="{{ 'vendor-masonry.js' | asset_url }}">
+
+  {%- if section.settings.title != blank -%}
+    <div class="grid__wrapper">
+      {% render 'snip-headings', align: heading_align,  grid: 'span-12 sm-span-8 auto mb3', heading: section.settings.title %}
+    </div><!-- /.wrapper -->
+  {%- endif -%}
+
+  {% if section.blocks.size > 0 %}
+
+  <!-- masonry section grid -->
+  <div class="grid__wrapper {% if section.settings.full_width %}edge{% endif %}">
+    <div class="span-12">
+      <div class="masonry-grid js-masonry-grid relative">
+        <div class="grid-sizer"></div>
+        <div class="gutter-sizer"></div>
+          {% for block in section.blocks %}
+            <div class="grid-item grid-item--{{ forloop.index }} grid-item--{{ block.id }}" {{ block.shopify_attributes }}>
+              {% if block.settings.link != blank %}
+                <a href="{{ block.settings.link }}" class="grid-item__link">
+              {% endif %}
+              <div class="grid-item__inner">
+                <div class="grid-item__box-ratio">
+                  {% if block.settings.image != blank %}
+                    {% render 'helper-image',
+                     type: block.settings.image,
+                     sm_render: 'calc(100vw)'
+                     md_render: 'calc((100vw / 12) * 3)',
+                     lg_render: 'calc((1600px / 12) * 3)' %}
+                   {% else %}
+                    <div class="onboard demo-1 color-1">
+                      {{ 'image' | placeholder_svg_tag: 'placeholder-svg grid-item__img grid-item__img--svg' }}
+                    </div>
+                  {% endif %}
+                </div><!-- /.grid-item__box-ratio -->
+                <div class="grid-item__caption grid-item__caption--bottom">
+                  {% if block.settings.title != blank %}
+                    <h3>{{ block.settings.title | escape }}</h3>
+                  {% endif %}
+                  {% if block.settings.subheading != blank %}
+                    <p class="mb1">{{ block.settings.subheading | escape }}</p>
+                  {% endif %}
+                </div><!-- /.grid-item__caption -->
+              </div><!-- /.grid-item__inner -->
+              {% if block.settings.link != blank %}
+                </a><!-- /.grid-item__link -->
+              {% endif %}
+              <style>
+                .grid-item--{{ block.id }} .grid-item__caption h3 {
+                  color: {{ block.settings.heading_color }};
+                }
+                .grid-item--{{ block.id }} .grid-item__caption p {
+                  color: {{ block.settings.subheading_color  }};
+                }
+              </style>
+            </div><!-- /.grid-item -->
+          {% endfor %}
+      </div><!-- /.masonry-grid -->
+    </div><!-- /.span-12 -->
+  </div><!-- /.wrapper -->
+
+  <div class="clear"></div><!-- /.clear -->
+
+  <!-- masonry section carousel -->
+  <div class="carousel-wrapper grid__wrapper">
+    <div class="carousel js-carousel span-12">
+        {% for block in section.blocks %}
+          {% capture sub-cell %}
+            <div class="carousel-sub-cell carousel-sub-cell--{{ block.id }} carousel-sub-cell--{{ forloop.index }} {% cycle '', 'carousel-sub-cell--no-btm-margin', 'carousel-sub-cell--no-btm-margin', '' %}">
+              {% if block.settings.link != blank %}
+              <a href="{{ block.settings.link }}" class="carousel-sub-cell__link">
+              {% endif %}
+              <div class="carousel-sub-cell__inner">
+                <div class="carousel-sub-cell__box-ratio">
+                  {% if block.settings.image != blank %}
+                    {% render 'helper-image',
+                     type: block.settings.image,
+                     sm_render: 'calc(100vw)'
+                     md_render: 'calc((100vw / 12) * 3)',
+                     lg_render: 'calc((1600px / 12) * 3)' %}
+                  {% else %}
+                    <div class="onboard demo-1 color-1">
+                      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                    </div>
+                  {% endif %}
+                </div><!-- /.carousel-sub-cell__box-ratio -->
+                <div class="carousel-sub-cell__caption carousel-sub-cell__caption--bottom">
+                  {% if block.settings.title != blank %}
+                  <h3>{{ block.settings.title | escape }}</h3>
+                  {% endif %}
+                  {% if block.settings.subheading != blank %}
+                    <p class="mb1">{{ block.settings.subheading | escape }}</p>
+                  {% endif %}
+                </div><!-- /.carousel-sub-cell__caption -->
+              </div><!-- /.carousel-sub-cell__inner -->
+              {% if block.settings.link != blank %}
+                </a><!-- /.carousel-sub-cell__link -->
+              {% endif %}
+              <style>
+                .carousel-sub-cell--{{ block.id }} .carousel-sub-cell__caption h3 {
+                  color: {{ block.settings.heading_color }};
+                }
+                .carousel-sub-cell--{{ block.id }} .carousel-sub-cell__caption p {
+                  color: {{ block.settings.subheading_color  }};
+                }
+                .grid-item--{{ block.id }} .grid-item__caption h3 {
+                  font-size: {{ block.settings.heading_size }}px;
+                  line-height: 1;
+                }
+                .grid-item--{{ block.id }} .grid-item__caption p {
+                  font-size: {{ block.settings.subheading_size }}px;
+                  line-height: 1;
+                }
+              </style>
+            </div><!-- /.carousel-sub-cell -->
+          {% endcapture %}
+          {% assign i = forloop.index0 %}
+          {% assign remainder = i | modulo: 2 %}
+          {% if remainder == 0 %}
+            <div class="carousel-cell carousel-cell--{% increment carousel_cell_counter %}">
+                {{ sub-cell }}
+          {% else %}
+                {{ sub-cell }}
+            </div><!-- /.carousel-cell -->
+          {% endif %}
+        {% endfor %}
+    </div><!-- /.carousel -->
+  </div><!-- /.carousel-wrapper -->
+
+  {% else %}
+    <div class="grid__wrapper {% if section.settings.full_width %}edge{% endif %}">
+      {% render 'onboard-no-blocks' %}
+    </div><!-- /.wrapper -->
+  {% endif %}
+
+  <style>
+    .masonry-gallery--{{ section.id }} .section-heading {
+      padding-bottom: 0;
+    }
+    .masonry-gallery--{{ section.id }} .flickity-button.previous {
+      position: absolute;
+      top: -60px;
+      right: 50px;
+      left: unset;
+    }
+    .masonry-gallery--{{ section.id }} .flickity-button.next {
+      position: absolute;
+      top: -60px;
+      right: 0;
+      left: unset;
+    }
+
+    .masonry-gallery--{{ section.id }} .flickity-viewport,
+    .masonry-gallery--{{ section.id }} .flickity-enabled.is-draggable {
+      outline: none !important;
+      outline-offset: none !important;
+    }
+
+
+    /*
+     * Block gallery item height
+     */
+
+    /* set variables */
+    .masonry-gallery--{{ section.id }} {
+      --item-base-height: {{ section.settings.item_base_height }}px;
+      --item-height-ratio: {{ section.settings.item_height_ratio }};
+    }
+
+    /* gallery */
+    .masonry-gallery--{{ section.id }} .grid-item:nth-child(odd) {
+      height: var(--item-base-height);
+    }
+    .masonry-gallery--{{ section.id }}  .grid-item:nth-child(even) {
+      height: calc(var(--item-base-height) / var(--item-height-ratio));
+    }
+
+    /* carousel */
+    .masonry-gallery--{{ section.id }} .carousel-sub-cell:nth-child(odd) {
+      height: var(--item-base-height);
+    }
+    .masonry-gallery--{{ section.id }} .carousel-sub-cell:nth-child(even) {
+      height: calc(var(--item-base-height) / var(--item-height-ratio));
+    }
+
+    {%- if section.settings.title == blank -%}
+      @media (max-width:  967px) {
+        .masonry-gallery--{{ section.id }} .carousel-wrapper { padding-top: 60px; }
+      }
+    {%- endif -%}
+  </style>
+</div><!-- /.div--masonry-gallery -->
+
+{% schema %}
+{
+    "name": "Masonry gallery",
+    "tag": "section",
+    "class": "dynamic-section",
+    "max_blocks": 16,
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "full_width",
+        "label": "Enable full width",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Masonry Gallery"
+      },
+      {
+        "type": "range",
+        "id": "item_base_height",
+        "min": 200,
+        "max": 800,
+        "step": 100,
+        "unit": "px",
+        "label": "Item base height",
+        "default": 400
+      },
+      {
+        "type": "select",
+        "id": "item_height_ratio",
+        "label": "Height ratio between odd and even items",
+        "default": "3",
+        "options": [
+         {
+             "value": "1",
+             "label": "1:1"
+          },
+          {
+             "value": "3",
+             "label": "1:3"
+          },
+          {
+             "value": "2",
+             "label": "1:2"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "image_padding",
+        "label": "Choose Style",
+        "default": "padding",
+        "options": [
+         {
+             "value": "padding",
+             "label": "Space around images"
+          },
+          {
+             "value": "no-padding",
+             "label": "Images touching"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "section_padding",
+        "label": "Section spacing",
+        "options": [
+          {
+            "value": "top",
+            "label": "Top"
+          },
+          {
+            "value": "bottom",
+            "label": "Bottom"
+          },
+          {
+            "value": "both",
+            "label": "Both"
+          },
+          {
+            "value": "none",
+            "label": "None"
+          }
+        ],
+        "default": "both"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "image",
+        "name": "Image",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link",
+            "info": "Optional"
+          },
+           {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Heading"
+           },
+           {
+            "type": "text",
+            "id": "subheading",
+            "label": "Subheading",
+            "default": "Subheading",
+            "info": "Shown on hover"
+           },
+           {
+             "type": "range",
+             "id": "heading_size",
+             "min": 12,
+             "max": 48,
+             "step": 1,
+             "unit": "px",
+             "label": "Heading size",
+             "default": 22
+           },
+           {
+             "type": "range",
+             "id": "subheading_size",
+             "min": 12,
+             "max": 32,
+             "step": 1,
+             "unit": "px",
+             "label": "Subheading size",
+             "default": 16
+           },
+          {
+            "type": "color",
+            "id": "heading_color",
+            "label": "Heading color",
+            "default": "#FAF4E8"
+          },
+          {
+            "type": "color",
+            "id": "subheading_color",
+            "label": "Subheading color",
+            "default": "#FAF4E8"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Masonry Gallery",
+        "blocks": [
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          }
+        ]
+      }
+    ],
+    "templates": ["404", "article", "blog", "cart", "collection", "list-collections", "index", "page", "product", "search"]
+  }
+{% endschema %}

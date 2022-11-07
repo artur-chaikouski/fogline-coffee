@@ -1,0 +1,245 @@
+{%- liquid
+  assign text_color = 'var(--scheme-' | append: section.settings.mobile_nav_scheme | append: '-text)'
+  assign bg_color = 'var(--scheme-' | append: section.settings.mobile_nav_scheme | append: '-bg)'
+  assign hover_color = 'var(--scheme-' | append: section.settings.mobile_nav_scheme | append: '-hover)'
+-%}
+
+{% comment %} Mobile Navigation Assets {% endcomment %}
+<link rel="preload" href="{{ 'section-mobile-navigation.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ 'section-mobile-navigation.css' | asset_url }}"></noscript>
+<link rel="preload" href="{{ 'component-accordions.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ 'component-accordions.css' | asset_url }}"></noscript>
+<link rel="preload" href="{{ 'component-slideouts.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ 'component-slideouts.css' | asset_url }}"></noscript>
+<link rel="preload" href="{{ 'component-modals.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ 'component-modals.css' | asset_url }}"></noscript>
+<script src="{{ 'section-mobile-navigation.js' | asset_url }}" defer></script>
+
+{% comment %} Mobile Navigation Template {% endcomment %}
+<div
+  class="mobile-nav__wrapper no-section-animation"
+  data-section-id="{{ section.id }}"
+  data-asset-url="{{ 'section-mobile-navigation.js' | asset_url }}"
+  data-section-type="mobile-navigation">
+
+  {% render 'header-mobile', type: 'mobile-menu', slideout_direction: 'left', fill_color: text_color, hover_color: hover_color %}
+
+  <div class="mobile-nav__menu-blocks pt6">
+    {% if section.settings.main_nav != blank %}
+      <div class="mobile-nav__mobile-menu-wrapper">
+
+        {% assign unique_id = section.id | slice: 0, 7 %}
+        {% assign mobile_menu_allow_multiple = false %}
+
+        <ul class="js-accordion js-accordion-mobile-nav c-accordion c-accordion--mobile-nav c-accordion--outer__wrapper c-accordion--{{ unique_id }}"
+          id="c-accordion--mobile"
+          {% if mobile_menu_allow_multiple %}data-accordion-allow-multiple{% endif %}>
+
+        {% assign menu = linklists[section.settings.main_nav] %}
+
+        {% for link in menu.links %}
+
+          {% assign level_one_nested_link_count = 0 %}
+
+          {% if link.links != blank %}
+
+            {% assign level_one_nested_link_count = level_one_nested_link_count | plus: 1 %}
+            {% assign level_one_link_index = forloop.index %}
+            {% assign accordion_content_class = 'c-accordion__panel--' %}
+            {% assign accordion_content_id = accordion_content_class | append: unique_id | append: '-' | append: forloop.index %}
+
+            <li class="js-accordion-header c-accordion__header c-accordion__top-level">
+              <a class="js-accordion-link c-accordion__link mb0" href="{{ link.url }}">{{ link.title | escape }}</a>
+              <button class="dropdown-arrow" aria-label="{{ link.title | escape }}" data-toggle="accordion" aria-expanded="false" aria-controls="{{ accordion_content_id }}" >
+                {% render 'snip-icons',
+                   wrapper: '.js-accordion-header',
+                   type: 'theme',
+                   icon: 'down-carrot',
+                   size: '8px',
+                   classes: 'inactive-arrow mt0 mr0 mb0 ml0',
+                   fill: text_color,
+                   hover: hover_color %}
+              </button>
+            </li>
+
+            <li class="c-accordion__panel {{ accordion_content_id }}" id="{{ accordion_content_id }}" data-parent="#c-accordion--mobile">
+
+              {% assign level_two_unique_id = unique_id | append: '-' | append: level_one_nested_link_count %}
+
+              <ul class="js-accordion js-accordion-mobile-nav c-accordion c-accordion--mobile-nav c-accordion--mobile-nav__inner c-accordion__second-level-wrapper c-accordion--{{ level_two_unique_id }}"
+              id="c-accordion--mobile-1">
+
+                {% for sub_link in link.links %}
+                  {% if sub_link.links != blank %}
+
+                      {% assign level_two_link_index = forloop.index %}
+                      {% assign level_two_accordion_content_id = 'c-accordion__panel--' | append: unique_id | append: '-' | append: level_one_link_index | append: '-' | append: level_two_link_index %}
+
+                      <li class="js-accordion-header c-accordion__header c-accordion__second-level">
+                        <a class="js-accordion-link c-accordion__link mb0" href="{{ sub_link.url }}">{{ sub_link.title | escape }}</a>
+                        <button class="dropdown-arrow" aria-label="{{ sub_link.title | escape }}" data-toggle="accordion" aria-expanded="false" aria-controls="{{ level_two_accordion_content_id }}" >
+                          {% render 'snip-icons',
+                             wrapper: '.js-accordion-header',
+                             type: 'theme',
+                             icon: 'down-carrot',
+                             size: '8px',
+                             classes: 'inactive-arrow mt0 mr0 mb0 ml0',
+                             fill: text_color,
+                             hover: hover_color %}
+                        </button>
+                      </li>
+
+                      <li class="c-accordion__panel c-accordion__third-level {{ level_two_accordion_content_id }}" id="{{ level_two_accordion_content_id }}" data-parent="#c-accordion--mobile-1">
+                        <ul>
+                          {% for sub_sub_link in sub_link.links %}
+
+                            <li>
+                              <a class="js-accordion-link c-accordion__link mb0" href="{{ sub_sub_link.url }}">{{ sub_sub_link.title }}</a>
+                            </li>
+
+                          {% endfor %}
+                        </ul>
+                      </li>
+                  {% else %}
+                  <li class="c-accordion__second-level">
+                    <a class="js-accordion-link c-accordion__link mb0" href="{{ sub_link.url }}">{{ sub_link.title | escape }}</a>
+                  </li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            </li>
+          {% else %}
+          <li class="c-accordion__top-level">
+            <a class="js-accordion-link c-accordion__link mb0" href="{{ link.url }}">{{ link.title | escape }}</a>
+          </li>
+          {% endif %}
+        {% endfor %}
+        {% if shop.customer_accounts_enabled %}
+          {% if customer %}
+            <li class="c-accordion__top-level">
+              <a class="js-accordion-link c-accordion__link mb0" href="{{ routes.account_url }}">
+                {{ 'general.header.account' | t }}
+              </a>
+            </li>
+            <li class="c-accordion__top-level">
+              <a class="js-accordion-link c-accordion__link mb0" href="{{ routes.account_logout_url }}">
+                {{ 'general.header.logout' | t }}
+              </a>
+            </li>
+          {% else %}
+            <li class="c-accordion__top-level">
+              <a class="js-accordion-link c-accordion__link mb0" href="{{ routes.account_login_url }}">{{ 'general.header.login' | t }}</a>
+            </li>
+          {% endif %}
+        {% endif %}
+      </ul>
+
+      </div>
+    {% endif %}
+    {% if section.settings.menu_image != blank %}
+      <div class="grid__wrapper narrow py8">
+        <div class="mobile-nav__img-wrapper span-12 auto">
+          {% render 'helper-image',
+             type: section.settings.menu_image,
+             sm_render: '360px'
+             md_render: '360px',
+             lg_render: '360px' %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+  <style>
+    #slideout-mobile-navigation,
+    #slideout-mobile-navigation .mobile-nav__mobile-header,
+    .mobile-nav__wrapper .c-accordion__second-level-wrapper {
+      background-color: {{ bg_color }} !important;
+    }
+    #slideout-mobile-navigation .mobile-nav__mobile-header svg .hover-fill {
+      fill: {{ text_color }};
+    }
+    #slideout-mobile-navigation .dropdown-arrow .icon-fill {
+      stroke: {{ text_color }} !important;
+    }
+    #slideout-mobile-navigation .mobile-nav__mobile-header svg:hover .hover-fill {
+      fill: {{ hover_color }};
+    }
+    .mobile-nav__wrapper input::placeholder {
+      color: {{ text_color }} !important;
+      opacity: 1;
+    }
+    .mobile-nav__wrapper input:-ms-input-placeholder {
+      color: {{ text_color }} !important;
+      opacity: 1;
+    }
+    .mobile-nav__wrapper input::-ms-input-placeholder {
+      color: {{ text_color }} !important;
+      opacity: 1;
+    }
+
+    .mobile-nav__wrapper .mobile-nav__logo-wrapper a,
+    .mobile-nav__wrapper .c-accordion__link {
+      color: {{ text_color }} !important;
+    }
+    .mobile-nav__wrapper .c-accordion--outer__wrapper {
+      border-top: 0.8px solid {{ text_color }} !important;
+    }
+    .mobile-nav__wrapper .c-accordion__top-level  {
+      border-bottom: 0.8px solid {{ text_color }} !important;
+    }
+    .mobile-nav__wrapper .c-accordion.c-accordion--mobile-nav li:not(.c-accordion__panel) {
+      border-color: {{ text_color }} !important;
+    }
+    .mobile-nav__wrapper .c-accordion__link:hover {
+      color: {{ hover_color }} !important;
+    }
+  </style>
+</div>
+
+
+
+{% schema %}
+  {
+    "name": "Mobile navigation",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "main_nav",
+        "label": "Choose mobile menu",
+        "default":"main-menu",
+        "info": "It is best practice to select the same menu used in the Header. [Learn More](https://developers.google.com/search/mobile-sites/mobile-first-indexing)"
+      },
+      {
+        "type": "image_picker",
+        "id": "menu_image",
+        "label": "Menu image",
+        "info": "Optional"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo image",
+        "info": "Optional"
+      },
+      {
+        "type": "select",
+        "id": "mobile_nav_scheme",
+        "label": "Color scheme",
+        "default":"1",
+        "options": [
+          {
+            "value": "1",
+            "label": "1"
+          },
+          {
+            "value": "2",
+            "label": "2"
+          },
+          {
+            "value": "3",
+            "label": "3"
+          }
+        ]
+      }
+	  ]
+  }
+{% endschema %}

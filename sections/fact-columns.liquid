@@ -1,0 +1,212 @@
+{% comment %} Fact Columns Logic {% endcomment %}
+{%- liquid
+
+  assign section_padding = ''
+  if section.settings.section_padding == 'top'
+    assign section_padding = 'pb0'
+  elsif section.settings.section_padding == 'bottom'
+    assign section_padding = 'mt0'
+  elsif section.settings.section_padding == 'none'
+    assign section_padding = 'mt0 pb0'
+  endif
+
+  case section.blocks.size
+    when 1, 0
+      assign full_class = 'span-12 auto'
+      assign block_width = 'span-12 auto sm-span-6'
+    when 2
+      assign full_class = 'span-12 auto'
+      assign block_width = 'span-6 auto sm-span-6'
+    when 3
+      assign full_class = 'span-12 auto'
+      assign block_width = 'span-4 auto sm-span-6'
+    when 4
+      assign full_class = 'span-12 auto'
+      assign block_width = 'span-3 auto sm-span-6'
+    when 5
+      assign wrapper_class = 'wrapper-fifths'
+      assign full_class = 'span-12 span-full-fifths'
+      assign block_width = 'span-3 auto sm-span-6'
+    when 6
+     assign full_class = 'span-12 auto'
+     assign block_width = 'span-2 auto sm-span-6'
+  endcase
+
+  if settings.section_title_align == 'left'
+    assign heading_align = 'a-left'
+  else
+    assign heading_align = 'a-center'
+  endif
+-%}
+
+
+{% comment %} Fact Columns Template {% endcomment %}
+<div
+  class="global__section fact-columns-{{ section.id }} {{ section_padding }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="fact-columns"
+  data-section-loaded="false">
+
+  <div class="grid__wrapper narrow {{ wrapper_class }}">
+    {% render 'snip-headings', align: heading_align,  grid: full_class, heading: section.settings.title %}
+
+    {% for block in section.blocks %}
+      <article class="fact-columns-{{ block.id }} {{ block_width }} v-center" {{ block.shopify_attributes }}>
+        {% assign id = 'fact-columns-' | append: block.id %}
+        <div class="fact-columns__item relative a-center">
+          {% if block.settings.link != blank %}<a href="{{ block.settings.link }}">{% endif %}
+            <p class="fact-columns__item--text absolute-center lh1 mb0">{{ block.settings.title }}</p>
+            {% render 'snip-icons',
+              type: 'theme',
+              icon: block.settings.bg_shape,
+              classes: 'fact-columns__item--shape',
+              size: '250px'
+              wrapper: id
+              fill: block.settings.bg_color,
+              hover: block.settings.bg_color %}
+          {% if block.settings.link != blank %}</a>{% endif %}
+        </div>
+        <style>
+          .fact-columns-{{ block.id }} .fact-columns__item--text {
+            color: {{ block.settings.text_color }};
+            font-size: {{ block.settings.text_size }}px;
+            font-family: var(--heading-family);
+            font-weight: var(--heading-weight);
+            font-style: var(--heading-style);
+          }
+          .fact-columns-{{ block.id }} svg {
+            width: 100%;
+            max-width: 200px;
+          }
+          .fact-columns-{{ block.id }} svg:hover {
+            cursor: unset;
+          }
+        </style>
+      </article>
+    {% endfor %}
+  </div>
+  {% if section.blocks.size == 0 %}
+    {% render 'onboard-no-blocks' %}
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Fact columns",
+  "tag": "section",
+  "class": "dynamic-section",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "section_padding",
+      "label": "Section spacing",
+      "options": [
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        },
+        {
+          "value": "both",
+          "label": "Both"
+        },
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "both"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "select",
+          "id": "bg_shape",
+          "label": "Background shape",
+          "options": [{
+            "value": "rough_circle_shape",
+            "label": "Rough circle"
+          }, {
+            "value": "circle_shape",
+            "label": "Circle"
+          }, {
+            "value": "square_shape",
+            "label": "Square"
+          }, {
+            "value": "hexagon_shape",
+            "label": "Hexagon"
+          }],
+          "default": "rough_circle_shape"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Fact Text"
+        },
+        {
+          "type": "range",
+          "id": "text_size",
+          "min": 12,
+          "max": 60,
+          "step": 1,
+          "unit": "px",
+          "label": "Text size",
+          "default": 32
+        },
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Shape",
+          "default": "#4B2C1B"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text",
+          "default": "#ffffff"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Optional"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Fact Columns",
+      "blocks": [
+        {
+          "type": "text"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "text"
+        }
+      ]
+    }
+  ],
+  "templates": ["404", "article", "blog", "cart", "collection", "list-collections", "index", "page", "product", "search"]
+  }
+{% endschema %}

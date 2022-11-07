@@ -1,0 +1,172 @@
+{% comment %} Announcement Bar Assets {% endcomment %}
+<link rel="preload" href="{{ 'section-announcement-bar.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ 'section-announcement-bar.css' | asset_url }}"></noscript>
+
+{% comment %} Announcement Bar Logic {% endcomment %}
+{%- liquid
+  assign has_phone = false
+  assign has_note = false
+  assign has_text = false
+
+  for block in section.blocks
+    if block.type == 'phone_number'
+      assign has_phone = true
+    endif
+    if block.type == 'shop_note'
+      assign has_note = true
+    endif
+    if block.type == 'announcement_text'
+      assign has_text = true
+    endif
+  endfor
+-%}
+{% comment %} Announcement Template {% endcomment %}
+<div class="section-top-bar__wrapper sm-hide js-top-bar"
+  data-section-id="{{ section.id }}"
+  data-section-type="announcement-bar">
+  <div class="grid__wrapper wrapper-nest edge cg0 block-one--{{ has_phone }} block-two--{{ has_note }} block-three--{{ has_text }} ">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'phone_number' -%}
+          <div id="block-{{ block.id }}" class="section-top-bar__one one span-2 auto a-{{ block.settings.alignment }}">
+            <div class="px3">{{ block.settings.phone_number }}</div>
+          </div>
+        {%- when 'shop_note' -%}
+          <div id="block-{{ block.id }}" class="section-top-bar__two two span-3 auto a-{{ block.settings.alignment }}">
+            <div class="px3">{{ block.settings.shop_note }}</div>
+          </div>
+        {%- when 'announcement_text' -%}
+          <div id="block-{{ block.id }}" class="section-top-bar__three three auto a-{{ block.settings.alignment }}">
+            <div class="px3">{{ block.settings.announcement_text }}</div>
+          </div>
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+  <style>
+    .section-top-bar__wrapper a,
+    .section-top-bar__wrapper p {
+      color: var(--announcement-text);
+      font-size: {{ section.settings.announcement_text_size }}px !important;
+      margin-bottom: 0;
+    }
+  </style>
+</div>
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": [
+    {
+      "type": "range",
+      "id": "announcement_text_size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Text size",
+      "default": 13
+    }
+	],
+  "blocks": [
+    {
+      "type": "phone_number",
+       "name": "Phone number",
+       "limit": 1,
+       "settings": [
+         {
+           "type": "richtext",
+           "id": "phone_number",
+           "label": "Phone number",
+           "default": "<p>777-777-7777</p>"
+         },
+         {
+           "type": "select",
+           "id": "alignment",
+           "label": "Text alignment",
+           "options": [
+             {
+               "value": "left",
+               "label": "Left"
+             },
+             {
+               "value": "center",
+               "label": "Center"
+             }
+           ],
+           "default": "center"
+         }
+      ]
+    },
+    {
+      "type": "shop_note",
+       "name": "Shop note",
+       "limit": 1,
+       "settings": [
+         {
+           "type": "richtext",
+           "id": "shop_note",
+           "label": "Shop note",
+           "default": "<p>Order Pickup | Delivery</p>"
+         },
+         {
+           "type": "select",
+           "id": "alignment",
+           "label": "Text alignment",
+           "options": [
+             {
+               "value": "left",
+               "label": "Left"
+             },
+             {
+               "value": "center",
+               "label": "Center"
+             }
+           ],
+           "default": "center"
+         }
+      ]
+    },
+    {
+       "type": "announcement_text",
+       "name": "Announcement text",
+       "limit": 1,
+       "settings": [
+         {
+           "type": "richtext",
+           "id": "announcement_text",
+           "label": "Shop announcement",
+           "default": "<p>Share a shop announcement or message</p>"
+         },
+         {
+           "type": "select",
+           "id": "alignment",
+           "label": "Text alignment",
+           "options": [
+             {
+               "value": "left",
+               "label": "Left"
+             },
+             {
+               "value": "center",
+               "label": "Center"
+             }
+           ],
+           "default": "center"
+         }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "phone_number"
+      },
+      {
+        "type": "shop_note"
+      },
+      {
+        "type": "announcement_text"
+      }
+    ]
+  }
+}
+{% endschema %}

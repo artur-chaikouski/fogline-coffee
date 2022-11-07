@@ -1,0 +1,294 @@
+{% comment %} Product Details Assets {% endcomment %}
+<link rel="preload" href="{{ 'section-main-product-details.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ 'section-main-product-details.css' | asset_url }}"></noscript>
+
+{% comment %} Product Details Logic {% endcomment %}
+{%- liquid
+
+  assign detail_photo_uploaded = false
+  assign detail_block = false
+  assign detail_photo = false
+
+  for media in product.media
+    if media.alt contains '#detail-photo'
+      assign detail_photo_uploaded = true
+    endif
+  endfor
+
+  for block in section.blocks
+    if block.type == 'product_detail_image'
+      assign detail_block = true
+    endif
+  endfor
+
+  if detail_photo_uploaded and detail_block
+    assign detail_photo = true
+  endif
+
+  assign collection_handle_namespace = product.type | handle | append: "-details"
+  assign current_variant = product.selected_or_first_available_variant
+
+-%}
+
+{% comment %} Product Details Template {% endcomment %}
+<section class="section__product-details product-bottom grid__wrapper pt10 pb10 cg9 sm-cg0 product__section--details"
+data-product-details
+data-section-id="{{ section.id }}"
+data-section-type="product-details"
+data-section-loaded="false">
+  {% if product.media.size >= 2 and detail_photo == true %}
+    {% assign grid = 'span-7 auto' %}
+  {% else %}
+    {% assign grid = 'span-8 push-2 auto' %}
+  {% endif %}
+
+  <article class="{{ grid }} v-center sm-span-12">
+    <ul class="product-template__details-table mb0">
+      {% if product.handle contains 'gift-card' and product.description != blank %}
+        <li class="description rte">
+          <p class="label mb3">{{ 'products.product.product_info' | t }}</p>
+          {% if product.description contains '[#' %}
+            {{ product.description | split: '[#' | first }}
+          {% else %}
+            {{ product.description }}
+          {% endif %}
+        </li>
+      {% endif %}
+
+      {%- unless product.handle contains 'gift-card' -%}
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'product_description' -%}
+              {% if product.description != blank %}
+                <li class="description rte" {{ block.shopify_attributes }}>
+                  <p class="label mb3 h4">{{ 'products.product.product_info' | t }}</p>
+                  {% if product.description contains '[#' %}
+                    {{ product.description | split: '[#' | first }}
+                  {% else %}
+                    {{ product.description }}
+                  {% endif %}
+                </li>
+              {% endif %}
+            {%- when 'product_metafield' -%}
+              <li class="detail" {{ block.shopify_attributes }}>
+                <p class="label">{{ block.settings.metafield_label | escape }}:</p>
+                <p class="item custom_metafield">
+                  {{ block.settings.metafield_content }}
+                </p>
+              </li>
+            {%- when 'product_metafield_multi' -%}
+              <li class="detail" {{ block.shopify_attributes }}>
+                <p class="label">{{ block.settings.metafield_label | escape }}:</p>
+                <div class="rte item custom_metafield mb0 span-3 sm-span-3 auto">
+                  {{ block.settings.metafield_content }}
+                </div>
+              </li>
+            {%- when 'product_tag_groups' -%}
+              {% for link in linklists[collection_handle_namespace].links %}
+                {% assign tag_group = link.title %}
+                {% assign tag_group_collection = product.type %}
+                {% assign product_tags = product.tags | downcase %}
+
+                {% assign tags = "" %}
+                {% for sub_link in link.links %}
+                  {% assign tag = sub_link.title | downcase %}
+                   {% if product_tags contains tag %}
+                    {% assign tags = tag | split: ", " %}
+                   {% endif %}
+                {% endfor %}
+
+                {% if tags.size > 0 %}
+                  <li class="detail" {{ block.shopify_attributes }}>
+                    <p class="label">{{ tag_group }}:</p>
+                    <p class="item">
+                      {% for sub_link in link.links %}
+                        {% assign tag = sub_link.title | downcase %}
+                         {% if product_tags contains tag %}
+                           <a href="/collections/{{ tag_group_collection | handle }}/{{ sub_link.title | handleize }}">
+                           {{ sub_link.title }}<span>,</span></a>
+                         {% endif %}
+                      {% endfor %}
+                    </p>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            {%- when 'product_inventory' -%}
+              <li class="detail" {{ block.shopify_attributes }}>
+                <p class="label">{{ 'products.product.inventory' | t }}:</p>
+                <p class="item variant_inventory">
+                  {{ current_variant.inventory_quantity }}
+                </p>
+              </li>
+            {%- when 'product_weight' -%}
+              <li class="detail" {{ block.shopify_attributes }}>
+                <p class="label">{{ 'products.product.weight' | t }}:</p>
+                <p class="item variant_weight">
+                  {{ current_variant.weight | weight_with_unit }}
+                </p>
+              </li>
+            {%- when 'product_type' -%}
+              {% if product.type != blank %}
+                <li class="detail" {{ block.shopify_attributes }}>
+                  <p class="label">{{ 'products.product.product_type' | t }}:</p>
+                  <p class="item">
+                    {{ product.type }}
+                  </p>
+                </li>
+              {% endif %}
+            {%- when 'product_sku' -%}
+              <li class="detail" {{ block.shopify_attributes }}>
+                <p class="label">{{ 'products.product.sku' | t }}:</p>
+                <p class="item variant_sku">
+                  {{ current_variant.sku }}
+                </p>
+              </li>
+            {%- when 'product_vendor' -%}
+              {% if product.vendor != blank %}
+                <li class="detail" {{ block.shopify_attributes }}>
+                  <p class="label">{{ 'products.product.brand' | t }}:</p>
+                  <p class="item">
+                    {{ product.vendor }}
+                  </p>
+                </li>
+              {% endif %}
+            {%- when 'product_collection' -%}
+              {% if collection %}
+                <li class="detail" {{ block.shopify_attributes }}>
+                  <p class="label">{{ 'products.product.collection' | t }}:</p>
+                  <p class="item">
+                    {% capture url %}/collections/{{ collection.handle }}{% endcapture %}
+                    {{ collection.title | link_to: url }}
+                  </p>
+                </li>
+              {% endif %}
+          {%- endcase -%}
+        {%- endfor -%}
+
+      {%- endunless -%}
+
+    </ul>
+  </article>
+
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'product_detail_image' -%}
+      {% for media in product.media %}
+        {% if media.alt contains '#detail-photo' %}
+          <article class="span-5 auto v-center sm-span-12" {{ block.shopify_attributes }}>
+            {% render 'helper-image',
+            type: media.image,
+            sm_render: '100vw'
+            md_render: 'calc(100vw / 2)',
+            lg_render: 'calc(1600px / 2)' %}
+          </article>
+        {% endif %}
+      {% endfor %}
+    {%- endif -%}
+  {%- endfor -%}
+</section>
+
+{% schema %}
+{
+  "name": "Product details",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "product_description",
+      "name": "Description",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "product_metafield",
+      "name": "Single line text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "metafield_label",
+          "label": "Label"
+        },
+        {
+          "type": "text",
+          "id": "metafield_content",
+          "label": "Content",
+          "info": "Add a [new custom metafield](\/admin\/metafields\/product\/create) then insert dynamic source."
+        }
+      ]
+    },
+    {
+      "type": "product_metafield_multi",
+      "name": "Multi-line text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "metafield_label",
+          "label": "Label"
+        },
+        {
+          "type": "richtext",
+          "id": "metafield_content",
+          "label": "Content",
+          "info": "Add a [new custom metafield](\/admin\/metafields\/product\/create) then insert dynamic source."
+        }
+      ]
+    },
+    {
+      "type": "product_tag_groups",
+      "name": "Tag Groups",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Show groups of product tags which link to all products with the same tags. Follow our [guide](https:\/\/www.weareunderground.com\/blogs\/foodie-support\/foodie-product-pages#tag_groups) to get tag groups set up."
+        }
+      ]
+    },
+    {
+      "type": "product_inventory",
+      "name": "Inventory",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "product_weight",
+      "name": "Weight",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "product_type",
+      "name": "Type",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "product_sku",
+      "name": "Sku",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "product_vendor",
+      "name": "Vendor",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "product_collection",
+      "name": "Collection",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "product_detail_image",
+      "name": "Detail image",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Follow our [guide](https:\/\/www.weareunderground.com\/blogs\/foodie-support\/foodie-product-pages#detail_image) to add a unique detail image."
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,364 @@
+{% comment %} Locations Page Assets {% endcomment %}
+<link rel="preload" href="{{ 'section-page.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ 'section-page.css' | asset_url }}"></noscript>
+
+
+{% comment %} Locations Page Template {% endcomment %}
+<section
+class="locations-page-template"
+data-section-id="{{ section.id }}"
+data-section-type="page-locations-template"
+data-section-loaded="false">
+
+  <div class="grid__wrapper pt8">
+
+    {% render 'snip-headings', heading: page.title,  align: 'a-center', grid: 'span-12' %}
+
+    <div id="full-width-filter" class="span-12">
+      <div class="grid__wrapper wrapper-nest edge desktop-filters">
+        <ul class="location-filters span-7 auto inline-block v-end a-left mb0">
+          {%- liquid
+            assign show_clear_filters = false
+            assign show_filter_by = true
+            assign filters_shown = section.settings.iwt_filters_shown  | replace: ' ,', ',' | replace: ', ', ',' | split: ','
+            assign filter_tags = ""
+            for block in section.blocks
+              assign block_tag = block.settings.iwt_filters_tags | append: ','
+              assign filter_tags = filter_tags | append: block_tag
+            endfor
+            assign filter_tags = filter_tags | split: ',' | uniq
+          -%}
+
+          {% for tag in filter_tags %}
+            {% if filters_shown contains tag %}
+              {% assign show_clear_filters = true %}
+              {% if show_filter_by %}
+                <p class="sm mb1">{{ 'collections.filter.filter' | t }}</p>
+                {% assign show_filter_by = false %}
+              {% endif %}
+              <li class="mr2"><button data-location-tag="{{ tag }}">
+                {{ tag }}
+              </button></li>
+            {% endif %}
+          {% endfor %}
+
+          {% if show_clear_filters %}
+          <li>
+            <button class="clear-filters" data-location-clear>
+              {% render 'snip-icons', type: 'theme', icon: 'close', classes:'sm m0 p0', fill: 'var(--text-color)', hover: 'var(--text-color)' %}
+            </button>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  {% if section.blocks.size > 0 %}
+  {% for block in section.blocks %}
+    {%- liquid
+
+       assign text_color = 'var(--scheme-' | append: block.settings.color_scheme | append: '-text)'
+       assign bg_color = 'var(--scheme-' | append: block.settings.color_scheme | append: '-bg)'
+       assign hover_color = 'var(--scheme-' | append: block.settings.color_scheme | append: '-hover)'
+
+    -%}
+    <div id="block-{{ block.id }}"
+     class="section-image-with-text-{{ block.id }} grid__wrapper relative cg0 rg0 pt8 pb9"
+     data-item-tags="{{ block.settings.iwt_filters_tags }}"
+     {{ block.shopify_attributes }}>
+
+      <article class="image span-6 auto" style="{% if block.settings.iwt_layout == 'image_left' %}order: 1;{% else %}order: 2; z-index: 1;{% endif %}">
+        {% if block.settings.iwt_image != blank %}
+         <div class="background-image"></div>
+        {% else %}
+          <div class="onboard demo-1 color-3">
+            {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+        {% endif %}
+      </article>
+      <article class="info span-6 auto relative" style="order: {% if block.settings.iwt_layout == 'image_left' %}2{% else %}1{% endif %};">
+        <div class="info__inner-wrapper p11 sm-px6 sm-py8">
+          {% if block.settings.iwt_heading != blank %}
+            <h3>{{ block.settings.iwt_heading }}</h3>
+          {% endif %}
+          {% if block.settings.iwt_address != blank %}
+            {{ block.settings.iwt_address }}
+          {% endif %}
+          {% if block.settings.iwt_hours != blank %}
+            <p>{{ block.settings.iwt_hours }}</p>
+          {% endif %}
+          {% if block.settings.iwt_phone != blank %}
+            <p class="mb1">{{ block.settings.iwt_phone }}</p>
+          {% endif %}
+          <div class="links shrink-wrap">
+            {% if block.settings.iwt_menu_link != blank %}
+              <a href="{{ block.settings.iwt_menu_link }}">{{ block.settings.menu_link_text }}</a>
+            {% endif %}
+            {% if block.settings.iwt_map_link != blank %}
+              <a target="_blank" rel="noreferrer" href="{{ block.settings.iwt_map_link }}">{{ block.settings.map_link_text }}</a>
+            {% endif %}
+          </div>
+        </div>
+      </article>
+      <script type="text/javascript" defer>
+        (function locationFilters() {
+          var filters = document.querySelector('.location-filters');
+
+          if (!filters) return false;
+
+          var tags = filters.querySelectorAll('[data-location-tag]');
+          var clear = filters.querySelector('[data-location-clear]');
+
+          tags.forEach(function(tag) {
+            tag.addEventListener("click", function(event) {
+              event.preventDefault();
+              var currentTag = this.innerHTML.toString().trim(),
+                hideTags = document.querySelectorAll('[data-item-tags]'),
+                buttons = document.querySelectorAll('[data-location-tag]'),
+                showTags = document.querySelectorAll('[data-item-tags="' + currentTag + '"]');
+
+              hideTags.forEach(function(hideTag) {
+                hideTag.classList.add("hide");
+              });
+
+              buttons.forEach(function(button) {
+                button.classList.remove("selected");
+              });
+
+              showTags.forEach((showTag) => {
+                showTag.classList.remove("hide");
+                this.classList.add("selected");
+              });
+            });
+          });
+
+          clear.addEventListener("click", function(event) {
+            event.preventDefault();
+
+            document.querySelectorAll('[data-item-tags]').forEach(function(element) {
+              element.classList.remove("hide");
+            });
+
+            document.querySelectorAll('[data-location-tag]').forEach(function(element) {
+              element.classList.remove("selected");
+            });
+          });
+        })();
+      </script>
+      <style>
+        {%- unless section.settings.color_scheme == 'none' -%}
+          .section-image-with-text-{{ block.id }} .info {
+            background-color: {{ bg_color }};
+          }
+          .section-image-with-text-{{ block.id }} .info__inner-wrapper h2,
+          .section-image-with-text-{{ block.id }} .info__inner-wrapper h3,
+          .section-image-with-text-{{ block.id }} .info__inner-wrapper p,
+          .section-image-with-text-{{ block.id }} .info__inner-wrapper a {
+            color: {{ text_color }};
+          }
+          .section-image-with-text-{{ block.id }} .info__inner-wrapper a.button {
+            border-color: {{ text_color }};
+            color: {{ text_color }};
+          }
+          .section-image-with-text-{{ block.id }} .info__inner-wrapper a.button:hover {
+            border-color: {{ hover_color }};
+            color: {{ hover_color }};
+          }
+          .section-image-with-text-{{ block.id }} .info__inner-wrapper a.button:after {
+            border-color: {{ hover_color }};
+          }
+          .section-image-with-text-{{ block.id }} article {
+            -webkit-box-shadow: 20px 20px 0 0 var(--box-shadow-color);
+            -moz-box-shadow: 20px 20px 0 0 var(--box-shadow-color);
+            box-shadow: 20px 20px 0 0 var(--box-shadow-color);
+          }
+        {%- endunless -%}
+
+
+        @media (min-width: 768px) {
+          #block-{{ block.id }} article {
+            height: {{ block.settings.iwt_section_height }}px;
+          }
+          .info__inner-wrapper {
+            position: absolute;
+            transform: translateY(-50%);
+            top: 50%;
+          }
+        }
+        @media (max-width: 767px) {
+          #block-{{ block.id }} article.image {
+            height: 400px;
+          }
+        }
+        #block-{{ block.id }} .background-image {
+          height: 100%;
+          width: 100%;
+          background-size: cover;
+          background-position: center center;
+        }
+        @media (min-width: 1367px) {
+          #block-{{ block.id }} .background-image {
+            background-image: url({{ block.settings.iwt_image | img_url: '975x' }});
+          }
+        }
+        @media (min-width: 769px) and (max-width: 1366px) {
+          #block-{{ block.id }} .background-image {
+            background-image: url({{ block.settings.iwt_image | img_url: '700x' }});
+          }
+        }
+        @media (min-width: 412px) and (max-width: 768px) {
+          #block-{{ block.id }} .background-image {
+            background-image: url({{ block.settings.iwt_image | img_url: '770x' }});
+          }
+        }
+        @media (max-width: 411px) {
+          #block-{{ block.id }} .background-image {
+            background-image: url({{ block.settings.iwt_image | img_url: '420x' }});
+          }
+        }
+      </style>
+    </div>
+  {% endfor %}
+  {% else %}
+    <div class="grid__wrapper">
+      {% render 'onboard-no-blocks' %}
+    </div><!-- /.wrapper -->
+  {% endif %}
+
+</section>
+
+{% schema %}
+{
+  "name": "Locations page",
+  "settings": [{
+    "type": "textarea",
+    "id": "iwt_filters_shown",
+    "label": "Filter by",
+    "info": "Filters to show"
+  }],
+  "blocks": [{
+    "type": "image_text",
+    "name": "Location",
+    "settings": [{
+        "type": "range",
+        "id": "iwt_section_height",
+        "min": 200,
+        "max": 1200,
+        "step": 100,
+        "unit": "px",
+        "label": "Section height",
+        "default": 500
+      },
+      {
+        "type": "select",
+        "id": "iwt_layout",
+        "label": "Layout",
+        "default": "image_left",
+        "options": [{
+            "value": "image_left",
+            "label": "Image left"
+          },
+          {
+            "value": "image_right",
+            "label": "Image right"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "color_scheme",
+        "label": "Color scheme",
+        "default":"1",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "1",
+            "label": "1"
+          },
+          {
+            "value": "2",
+            "label": "2"
+          },
+          {
+            "value": "3",
+            "label": "3"
+          }
+        ]
+      },
+      {
+        "type": "image_picker",
+        "id": "iwt_image",
+        "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "iwt_filters_tags",
+        "label": "Filter tag"
+      },
+      {
+        "type": "text",
+        "id": "iwt_heading",
+        "label": "Heading",
+        "default": "Heading"
+      },
+      {
+        "type": "richtext",
+        "id": "iwt_address",
+        "label": "Address",
+        "default": "<p>1234 N Street Name<br/>City, State 123456</p>"
+      },
+      {
+        "type": "text",
+        "id": "iwt_hours",
+        "label": "Hours",
+        "default": "Hours"
+      },
+      {
+        "type": "text",
+        "id": "iwt_phone",
+        "label": "Phone",
+        "default": "Phone: 1-234-567-8912"
+      },
+      {
+        "type": "text",
+        "id": "menu_link_text",
+        "default": "Menu",
+        "label": "Link one label"
+      },
+      {
+        "type": "url",
+        "id": "iwt_menu_link",
+        "label": "Link one"
+      },
+      {
+        "type": "text",
+        "id": "map_link_text",
+        "default": "Map",
+        "label": "Link two label"
+      },
+      {
+        "type": "url",
+        "id": "iwt_map_link",
+        "label": "Link two"
+      }
+    ]
+  }],
+  "default": {
+    "blocks": [{
+        "type": "image_text"
+      },
+      {
+        "type": "image_text"
+      },
+      {
+        "type": "image_text"
+      }
+    ]
+  }
+}
+{% endschema %}

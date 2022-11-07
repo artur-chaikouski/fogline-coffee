@@ -1,0 +1,246 @@
+{% comment %} Footer Assets {% endcomment %}
+<link rel="preload" href="{{ 'section-footer.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ 'section-footer.css' | asset_url }}"></noscript>
+
+{% comment %} Footer Logic {% endcomment %}
+{%- liquid
+  assign locale_selector = false
+  assign currency_selector = false
+
+  if section.settings.show_country_selector and localization.available_countries.size > 1
+    assign currency_selector = true
+  endif
+
+  if section.settings.show_locale_selector and shop.published_locales.size > 1
+    assign locale_selector = true
+  endif
+-%}
+
+{% comment %} Footer Template {% endcomment %}
+<footer
+  class="section-footer pt10 pb7"
+  data-section-id="{{ section.id }}"
+  data-section-type="footer-section"
+  data-section-loaded="false">
+  <section class="top-footer grid__wrapper">
+    <div class="span-4 auto">
+      {% if section.settings.footer_logo != blank %}
+        <a class="footer-logo mb4 lh0 inline-block" href="{{ routes.root_url }}">
+          <img src="{{ section.settings.footer_logo | img_url: '800x' }}" alt="{{ shop.name }}">
+        </a>
+      {% endif %}
+      {% if section.settings.footer_text != blank %}
+        {{ section.settings.footer_text }}
+      {% endif %}
+      {% if section.settings.show_social %}
+        {% render 'snip-footer-social-icons' %}
+      {% endif %}
+    </div>
+  </section>
+  <section class="bottom-footer grid__wrapper">
+    <div class="left-footer span-6 auto a-left v-end">
+      {% if section.settings.footer_nav != blank %}
+        <ul class="inline-block mb0">
+          {% for link in linklists[section.settings.footer_nav].links %}
+            <li class="mr3">
+              <a href="{{ link.url }}">
+                {{ link.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+    <div class="right-footer span-6 auto a-right v-end">
+      {%- if locale_selector or currency_selector -%}
+        <div class="span-12 auto bottom-footer__localization mb4">
+          {%- if locale_selector -%}
+            <div class="localization__language mx2 mb3 sm-mx0 sm-mr2">
+              <noscript>
+                {%- form 'localization', id: 'FooterLanguageFormNoScript', class: 'localization-form' -%}
+                  <div class="localization-form__select inline-block v-center">
+                    <h2 class="visually-hidden" id="FooterLanguageLabelNoScript">{{ 'localization.language_label' | t }}</h2>
+                    <select class="localization-selector link" name="locale_code" aria-labelledby="FooterLanguageLabelNoScript">
+                      <option value="" disabled>{{ 'general.language.dropdown_label' | t }}</option>
+                      {%- for language in localization.available_languages -%}
+                        <option value="{{ language.iso_code }}" lang="{{ language.iso_code }}" {%- if language.iso_code == localization.language.iso_code %} selected{% endif %}>
+                          {{ language.endonym_name | capitalize }}
+                        </option>
+                      {%- endfor -%}
+                    </select>
+                  </div>
+                  <button class="localization-form__noscript-btn button mb0 btn-as-link inline-block v-center">
+                    {% render 'snip-icons',
+                       wrapper: '.section-top-bar__lang',
+                       type: 'theme',
+                       icon: 'checkmark',
+                       size: '12px',
+                       fill: 'var(--footer-bg)',
+                       hover: 'var(--footer-bg)' %}
+                  </button>
+                {%- endform -%}
+              </noscript>
+
+              <div data-localization-form>
+                {%- form 'localization', id: 'FooterLanguageForm', class: 'localization-form' -%}
+                  <div class="no-js-hidden">
+                    <h2 class="visually-hidden" id="FooterLanguageLabel">{{ 'localization.language_label' | t }}</h2>
+                    <div class="disclosure">
+                      <button type="button" class="disclosure__button localization-form__select btn-outline" aria-expanded="false" aria-controls="FooterLanguageList" aria-describedby="FooterLanguageLabel">
+                        {{ localization.language.endonym_name | capitalize }}
+                      </button>
+                      <ul id="FooterLanguageList" role="list" class="disclosure__list" hidden>
+                        {%- for language in localization.available_languages -%}
+                          <li class="disclosure__item" tabindex="-1">
+                            <a class="disclosure__link {% if language.iso_code == localization.language.iso_code %} disclosure__link--active{% endif %}" href="#" hreflang="{{ language.iso_code }}" lang="{{ language.iso_code }}"{% if language.iso_code == localization.language.iso_code %} aria-current="true"{% endif %} data-value="{{ language.iso_code }}">
+                              {{ language.endonym_name | capitalize }}
+                            </a>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    </div>
+                    <input type="hidden" name="locale_code" value="{{ localization.language.iso_code }}">
+                  </div>
+                {%- endform -%}
+              </div>
+            </div>
+          {%- endif -%}
+          {%- if currency_selector -%}
+            <div class="localization__currency mx2 mb3 sm-mx0">
+              <noscript>
+                {%- form 'localization', id: 'FooterCountryFormNoScript', class: 'localization-form' -%}
+                  <div class="localization-form__select inline-block v-center">
+                    <h2 class="visually-hidden" id="FooterCountryLabelNoScript">{{ 'general.currency.dropdown_label' | t }}</h2>
+                    <select class="localization-selector link" name="country_code" aria-labelledby="FooterCountryLabelNoScript">
+                      <option value="" disabled>{{ 'general.currency.dropdown_label' | t }}</option>
+                      {%- for country in localization.available_countries -%}
+                        <option value="{{ country.iso_code }}" {%- if country.iso_code == localization.country.iso_code %} selected{% endif %}>
+                          {{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})
+                        </option>
+                      {%- endfor -%}
+                    </select>
+                  </div>
+                  <button class="localization-form__noscript-btn button mb0 btn-as-link inline-block v-center">
+                    {% render 'snip-icons',
+                       wrapper: '.bottom-footer__localization',
+                       type: 'theme',
+                       icon: 'checkmark',
+                       size: '12px',
+                       fill: 'var(--footer-bg)',
+                       hover: 'var(--footer-bg)' %}
+                  </button>
+                {%- endform -%}
+              </noscript>
+              <div data-localization-form>
+                {%- form 'localization', id: 'FooterCountryForm', class: 'localization-form' -%}
+                  <div class="no-js-hidden">
+                    <h2 class="visually-hidden" id="FooterCountryLabel">{{ 'general.currency.dropdown_label' | t }}</h2>
+                    <div class="disclosure">
+                      <button type="button" class="disclosure__button localization-form__select localization-selector btn-outline" aria-expanded="false" aria-controls="FooterCountryList" aria-describedby="FooterCountryLabel">
+                        {{ localization.country.name }} ({{ localization.country.currency.iso_code }} {{ localization.country.currency.symbol }})
+                      </button>
+                      <ul id="FooterCountryList" role="list" class="disclosure__list" hidden>
+                        {%- for country in localization.available_countries -%}
+                          <li class="disclosure__item" tabindex="-1">
+                            <a class="disclosure__link {% if country.iso_code == localization.country.iso_code %} disclosure__link--active{% endif %}" href="#"{% if country.iso_code == localization.country.iso_code %} aria-current="true"{% endif %} data-value="{{ country.iso_code }}">
+                              {{ country.name }} <span class="localization-form__currency">({{ country.currency.iso_code }} {{ country.currency.symbol }})</span>
+                            </a>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    </div>
+                    <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">
+                  </div>
+                {%- endform -%}
+              </div>
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+      {% if section.settings.show_credit_cards %}
+        <div class="payment-methods mb6">
+          {% for type in shop.enabled_payment_types %}
+            {{ type | payment_type_svg_tag: class:'payment-icon' }}
+          {% endfor %}
+        </div>
+      {% endif %}
+      <div class="copyright">
+        <small>{% if section.settings.show_copyright %}<a href="{{ routes.root_url }}">&copy; {{ 'now' | date: "%Y" }} {{ shop.name }}</a> •{% endif %} {{ powered_by_link }}</small>
+      </div>
+    </div>
+  </section>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+       "type": "header",
+       "content": "Footer Top"
+    },
+    {
+      "type": "image_picker",
+      "id": "footer_logo",
+      "label": "Logo"
+    },
+    {
+      "type": "richtext",
+      "id": "footer_text",
+      "label": "Text",
+      "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut laborez.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social",
+      "label": "Show social icons",
+      "default": true
+    },
+    {
+       "type": "header",
+       "content": "Footer Bottom"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_nav",
+      "label": "Footer menu",
+      "default":"footer"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_credit_cards",
+      "label": "Show payment icons",
+      "default": true,
+      "info": "The icons that show are determined by your store's payment settings."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_copyright",
+      "label": "Show site name and copyright",
+      "default": true
+    },
+    {
+       "type": "header",
+       "content": "Language Selector",
+       "info": "To add a language, go to your [language settings.](/admin/settings/languages)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_locale_selector",
+      "label": "Enable language selector",
+      "default": true
+    },
+    {
+       "type": "header",
+       "content": "Country/Region Selector",
+       "info": "To add a country/region, go to your [payment settings.](/admin/settings/payments)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_country_selector",
+      "label": "Enable country/region selector",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

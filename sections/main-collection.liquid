@@ -1,0 +1,278 @@
+{% comment %} Collection Page Assets {% endcomment %}
+<link rel="preload" href="{{ 'section-main-collection.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ 'section-main-collection.css' | asset_url }}"></noscript>
+<link rel="preload" href="{{ 'component-product-grid.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ 'component-product-grid.css' | asset_url }}"></noscript>
+
+{% comment %} Collection Page Logic {% endcomment %}
+{%- liquid
+  case section.settings.items_per_row
+  when 4
+    assign items_per_row = 'span-3 sm-span-6 auto'
+  when 3
+    assign items_per_row = 'span-4 sm-span-6 auto'
+  when 2
+    assign items_per_row = 'span-6 sm-span-6 auto'
+  when 1
+    assign items_per_row = 'span-12 sm-span-12'
+  endcase
+
+  assign page_limit = section.settings.items_per_page
+
+  assign has_sortby = false
+  for block in section.blocks
+    if block.type == 'sort_by'
+      assign has_sortby = true
+      assign sort_by_id = block.id
+    endif
+  endfor
+
+  assign has_filter = false
+  for block in section.blocks
+    if block.type == 'filter'
+      assign has_filter = true
+      assign filter_id = block.id
+    endif
+  endfor
+
+  assign has_tag_group = false
+  for block in section.blocks
+    if block.type == 'tag_group'
+      assign has_tag_group = true
+      assign tag_group_id = block.id
+    endif
+  endfor
+
+  assign filter_count = 0
+  for filter in collection.filters
+    if filter.type == 'price_range'
+      if filter.min_value.value != nil or filter.max_value.value != nil
+        assign filter_count = 1
+      endif
+    endif
+
+    assign filter_count = filter_count | plus: filter.active_values.size
+  endfor
+
+  if section.settings.collection_image and collection.image
+    assign collection_image = true
+    assign header_width = 'span-8'
+  else
+    assign collection_image = false
+    assign header_width = 'span-8 push-2'
+  endif
+
+  assign empty_collection = true
+  if collection.products.size > 0
+    assign empty_collection = false
+  endif
+
+-%}
+
+{% comment %} Collection Page Template {% endcomment %}
+<section
+  id="collection-page"
+  class="collection__page--wrapper collection-template collection-{{ section.id }} mt9 pb9 no-section-animation"
+  data-section-id="{{ section.id }}"
+  data-section-type="collection"
+  data-asset-url="{{ 'section-main-collection.js' | asset_url }}"
+  data-collection-handle="{{ collection.handle }}"
+  data-empty="{{ empty_collection }}">
+
+  {% paginate collection.products by page_limit %}
+    <div id="CollectionProductGrid" class="grid__wrapper">
+
+      <div class="collection__page--description collection-description {{ header_width }} auto mt2 pb2 a-center">
+        <h1>{{ collection.title }}</h1>
+        <div class="rte">
+          {{ collection.description | remove: "[banner]" }}
+        </div>
+      </div>
+
+      {%- if collection_image -%}
+       <div class="collection__page--image span-4 auto">
+         {% render 'helper-image',
+            type: collection.image,
+            sm_render: '100vw'
+            md_render: 'calc((100vw / 12) * 4)',
+            lg_render: 'calc((1600px / 12) * 4)' %}
+       </div>
+     {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="collection__page--sm-filters span-12 lg-hide">
+        <div class="slideout__trigger--open">
+          <button class="slideout__trigger-filters button js-slideout-open a-center"
+            data-wau-slideout-target="collection-filters"
+            data-slideout-direction="right"
+            aria-label="Open filters"
+            tabindex="0" type="button" name="button">
+            {% render 'snip-icons',
+              type: 'theme',
+              wrapper: '.slideout__trigger-filters',
+              icon: 'menu-bars',
+              classes: 'mr1 vib-center',
+              size: '14px',
+              fill: 'var(--button-text)',
+              hover: 'var(--button-text)' %}
+            <span class="vib-center">{{ 'collections.filter.filter' | t }}</span>
+          </button>
+        </div>
+      </div>
+      <aside class="slideout slideout__drawer-right"
+       data-wau-slideout="collection-filters"
+       id="slideout-collection-filters">
+       <div class="collection__page--sm-filter-content relative">
+
+         {% render 'header-mobile', type: 'filters', slideout_direction: 'right', fill_color: 'var(--text-color)', hover_color: 'var(  --text-color-light)' %}
+
+         <h2 class="px4 a-center h3">{{ 'collections.filter.filter' | t }}</h2>
+
+         <form id="CollectionMobileFiltersForm">
+           <ul id="c-accordion--collection-mobile-filters" class="js-accordion c-accordion c-accordion--filters c-accordion--outer__wrapper"
+           data-accordion-allow-multiple data-mobile-filters>
+             {% render 'mobile-filters',
+                type: collection,
+                has_filter: has_filter,
+                filter_id: filter_id,
+                has_sortby: has_sortby,
+                sort_by_id:  sort_by_id,
+                has_tag_group: has_tag_group,
+                tag_group_id:  tag_group_id %}
+           </ul>
+         </form>
+       </div>
+     </aside>
+    {%- endif -%}
+
+      {%- if has_sortby or has_filter or has_tag_group -%}
+        <div id="full-width-filter" class="span-12 mb4 {% if collection_image %}mt4{% endif %}">
+          <form id="CollectionFiltersForm" class="grid__wrapper wrapper-nest edge desktop-filters no-js-hidden" data-filters>
+            {% render 'filters',
+               type: collection,
+               has_filter: has_filter,
+               has_sortby: has_sortby,
+               has_tag_group: has_tag_group,
+               filter_count: filter_count %}
+          </form>
+        </div>
+      {%- endif -%}
+
+      {%- if collection.products.size >= 1 -%}
+        <div class="collection span-12" id="main-collection-product-grid" data-id="{{ section.id }}">
+          <div class="product-loop grid__wrapper edge cg6 sm-cg1 rg9">
+            {% if collection != blank %}
+              {% for product in collection.products limit: page_limit %}
+                {% render 'product-loop',
+                  collection: collection,
+                  product: product,
+                  grid_items: section.settings.items_per_row,
+                  product_info_align: 'a-center',
+                  items_per_row: items_per_row %}
+              {% endfor %}
+            {% else %}
+              {% for i in (1..3) %}
+                {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                {% assign placeholder = 'product-' | append: current %}
+                <article class="product-listing relative {{ settings.image_ratio }} a-center">
+                  <div class="product-image">
+                    <div class="reveal relative demo-1 color-2">
+                      {{ placeholder | placeholder_svg_tag: 'placeholder-svg' }}
+                    </div>
+                  </div>
+                  <div class="product-info mt1 pb1 px1 sm-px0 a-center">
+                    <small class="product-vendor block mb1">Product Vendor</small>
+                    <p class="product-title">Product Title</p>
+                    <p class="product-subtitle mb0">Product subtitle</p>
+                  </div>
+                </article>
+              {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+      {%- else -%}
+        <div class="collection collection--empty span-12 relative" id="main-collection-product-grid" data-id="{{ section.id }}">
+          <div class="js-coll-empty-filter py10 a-center" style="display: none;">
+            <h2>{{ 'collections.filter.no_results' | t  }}</h2>
+            <p>{{ 'collections.filter.use_fewer_filters' | t }}</p>
+            <a class="button btn-outlined" href="{{ collection.url }}">{{ 'collections.filter.clear_all' | t }}</a>
+          </div>
+          <div class="js-coll-empty py10 a-center no-js-show">
+            <h2>{{ 'collections.general.empty' | t  }}</h2>
+            <p>{{ 'collections.general.no_matches' | t }}</p>
+            <a class="button btn-outlined" href="{{ routes.collections_url }}">{{ 'collections.general.all_collections' | t }}</a>
+          </div>
+        </div>
+      {%- endif -%}
+   </div>
+   {% unless collection.products_count <= page_limit %}
+     {% render 'snip-pagination', paginate: paginate %}
+   {% endunless %}
+  {% endpaginate %}
+</section>
+
+{% schema %}
+{
+  "name": "Collection page",
+  "max_blocks": 10,
+  "settings":[
+    {
+      "type": "range",
+      "id": "items_per_page",
+      "min": 2,
+      "max": 48,
+      "step": 1,
+      "label": "Products per page",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "items_per_row",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "label": "Products per row",
+      "default": 3
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_image",
+      "label": "Show collection image",
+      "default": false
+    }
+  ],
+  "blocks":[
+    {
+      "type":"sort_by",
+      "name":"Sort by",
+      "limit": 1,
+        "settings":[]
+    },
+    {
+      "type":"filter",
+      "name":"Filters",
+      "limit": 1,
+      "settings":[]
+    },
+    {
+      "type":"tag_group",
+      "name":"Tag group",
+      "limit": 3,
+      "settings":[
+        {
+          "type": "text",
+          "id": "filter_by_heading",
+          "label": "Tag group heading",
+          "default": "Coffee"
+        },
+        {
+          "type": "textarea",
+          "id": "filter_by",
+          "label": "Filter tags",
+          "info": "List filter group product tags comma separated"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

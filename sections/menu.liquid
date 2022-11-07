@@ -1,0 +1,260 @@
+{% comment %} Menu Assets {% endcomment %}
+<link rel="preload" href="{{ 'section-menu.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ 'section-menu.css' | asset_url }}"></noscript>
+
+{% comment %} Menu Logic {% endcomment %}
+{%- liquid
+
+  assign section_padding = ''
+  if section.settings.section_padding == 'top'
+    assign section_padding = 'pb0'
+  elsif section.settings.section_padding == 'bottom'
+    assign section_padding = 'mt0'
+  elsif section.settings.section_padding == 'none'
+    assign section_padding = 'mt0 pb0'
+  endif
+
+  if section.settings.show_box_shadow
+    assign show_box_shadow =  'section-menu__box-show--true'
+  else
+    assign show_box_shadow =  'section-menu__box-show--false'
+  endif
+-%}
+
+{% comment %} Menu Template {% endcomment %}
+<section
+  class="global__section section-menu menu-{{ section.id }} {{ show_box_shadow }} {{ section_padding }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="menu-section"
+  data-section-loaded="false">
+
+  <div class="grid__wrapper">
+    <div class="menu-wrapper grid__wrapper wrapper-nest span-12 pt9 pb8">
+      {% render 'snip-headings', url: section.settings.menu_link,  align: 'a-center', grid: 'span-12', classes: 'animate--text' %}
+
+      {% for block in section.blocks %}
+        <div class="span-12 auto block-{{ block.id }} mt4 mb4" {{ block.shopify_attributes }}>
+          <div class="grid__wrapper narrow wrapper-nest cg8 sm-cg0">
+            {% assign collection = collections[block.settings.menu_collection] %}
+            {%- liquid
+              if block.settings.show_product_options == false and block.settings.show_product_desc == false
+               assign v_align = 'v-start'
+              else
+               assign v_align = 'v-center'
+              endif
+            -%}
+
+            {% if collection != blank %}
+              <h3 class="collection-heading span-12 auto animate--text delay--1">
+                <a href="{{ collection.url }}" title="{{ collection.title }}">{{ collection.title }}</a>
+              </h3>
+
+              {% for product in collection.products limit: block.settings.items_shown %}
+                <article class="menu-item span-6 auto product-{{ product.id }}">
+                  <div class="grid__wrapper wrapper-nest edge">
+                    <div class="menu__item--info span-7 sm-span-12 auto v-start mb4">
+                      <h4 class="mb1 animate--text delay--2">
+                        <a href="{{ product.url }}" title="{{ product.title }}">{{ product.title }}</a>
+                      </h4>
+
+                      {%- liquid
+                        if product.description contains '[#'
+                          assign description = product.description | split: '[#' | first
+                          assign description = description | strip_html
+                        else
+                          assign description = product.description | strip_html
+                        endif
+                      -%}
+
+                      {% if block.settings.show_product_desc and description != blank %}
+                        <div class="featured-menu__product-description mb1 animate--text delay--3">
+                          <p class="a-left">{{ description | truncatewords: 8 }}</p>
+                        </div>
+                      {% endif %}
+                      {% if block.settings.show_product_options %}
+                        {% for option in product.options_with_values %}
+                          <div class="variants mb0 animate--text delay--4">
+                            {% for value in option.values %}
+                              {% unless value == 'Default Title' or value == 'Default' %}
+                                {{ value }}{% unless forloop.last %},{% endunless %}
+                              {% endunless %}
+                            {% endfor %}
+                          </div>
+                        {% endfor %}
+                      {% endif %}
+                    </div>
+                    <div class="menu__item--price span-5 sm-span-12 auto a-right {{ v_align }} mb0 sm-mb2 animate--text delay--3">
+                      <p class="variant">
+                        {% if product.price_varies %}
+                          <span class="v-price"><em class="from">{{ 'products.product.starting_at' | t }}</em> {{ product.price_min | money }}</span>
+                        {% else %}
+                          <span>{{ product.price | money }}</span>
+                        {% endif %}
+                      </p>
+                    </div>
+                  </div>
+                </article>
+              {% endfor %}
+            {%- else -%}
+              <h3 class="collection-heading span-12 auto animate--text">
+                <a href="#" rel="nofollow" title="{{ 'collections.onboarding.collection_name' | t }}">{{ 'collections.onboarding.collection_name' | t }}</a>
+              </h3>
+              {%- for n in (1..block.settings.items_shown) -%}
+                <article class="menu-item span-6 auto">
+                  <div class="grid__wrapper wrapper-nest edge">
+                    <div class="menu__item--info span-7 sm-span-12 auto v-start mb4">
+                      <h4 class="mb1 animate--text delay--1"><a href="#" rel="nofollow" title="">{{ 'collections.onboarding.menu_item' | t }} {{ forloop.index }}</a></h4>
+                      {% if block.settings.show_product_desc %}
+                        <div class="featured-menu__product-description mb1 animate--text delay--2">
+                          <p class="a-left">{{ 'collections.onboarding.menu_item_description' | t }}</p>
+                        </div>
+                      {% endif %}
+                      {% if block.settings.show_product_options %}
+                        <div class="variants mb0 animate--text delay--3">
+                          {{ 'collections.onboarding.menu_item_option' | t }} 1, {{ 'collections.onboarding.menu_item_option' | t }} 2, {{ 'collections.onboarding.menu_item_option' | t }} 3
+                        </div>
+                      {% endif %}
+                    </div>
+                    <div class="menu__item--price span-5 sm-span-12 auto a-right {{ v_align }} mb0 sm-mb2 animate--text delay--3">
+                      <p class="variant">
+                         <span class="v-price">
+                          ${{ n }}.00 | ${{ n | plus: 3 }}.00
+                          </span>
+                      </p>
+                    </div>
+                  </div>
+                </article>
+              {%- endfor -%}
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+
+      {% if section.settings.menu_link != blank %}
+        <div class="span-12 auto a-center mt5">
+          <a class="button btn-outline" href="{{ section.settings.menu_link }}">{{ section.settings.button }}</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  <style media="screen">
+    .menu-{{ section.id }} h2,
+    .menu-{{ section.id }} h4,
+    .menu-{{ section.id }} p,
+    .menu-{{ section.id }} a,
+    .menu-{{ section.id }} h3,
+    .menu-{{ section.id }} div.variants {
+      color: {{ section.settings.text_color }};
+    }
+
+    .menu-{{ section.id }} h3 {
+      border-color: {{ section.settings.text_color }} !important;
+    }
+  </style>
+</section>
+{% schema %}
+{
+  "name": "Menu",
+  "class": "dynamic-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_box_shadow",
+      "label": "Show a box shadow around the menu",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Menu"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#262B2C"
+    },
+    {
+      "type": "text",
+      "id": "button",
+      "label": "Button text",
+      "default": "View Full Menu"
+    },
+    {
+      "id": "menu_link",
+      "type": "url",
+      "label": "Menu link"
+    },
+    {
+      "type": "select",
+      "id": "section_padding",
+      "label": "Section spacing",
+      "options": [
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        },
+        {
+          "value": "both",
+          "label": "Both"
+        },
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "both"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu_collection",
+      "name": "Menu Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "menu_collection",
+          "label": "Featured collection"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_product_options",
+          "label": "Show product options",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_product_desc",
+          "label": "Show short description",
+          "default": true
+        },
+        {
+          "type": "range",
+          "id": "items_shown",
+          "min": 2,
+          "max": 30,
+          "step": 1,
+          "label": "Items shown",
+          "default": 8
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Menu",
+      "blocks": [
+        {
+          "type": "menu_collection"
+        }
+      ]
+    }
+  ],
+  "templates": ["404", "article", "blog", "cart", "collection", "list-collections", "index", "page", "product", "search"]
+}
+{% endschema %}

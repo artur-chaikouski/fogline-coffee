@@ -1,0 +1,169 @@
+{% comment %} Blog Assets {% endcomment %}
+<link rel="preload" href="{{ 'section-main-blog.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ 'section-main-blog.css' | asset_url }}"></noscript>
+
+{% comment %} Blog Logic {% endcomment %}
+{%- liquid
+  assign side_by_side = false
+  case section.settings.items_per_row
+  when 4
+    assign items_per_row = 'span-3 auto'
+  when 3
+    assign items_per_row = 'span-4 auto'
+  when 2
+    assign items_per_row = 'span-6 auto'
+  when 1
+    assign items_per_row = 'span-12'
+    assign side_by_side = true
+  endcase
+
+  assign items_per_page = section.settings.items_per_page
+
+-%}
+
+{% comment %} Blog Template {% endcomment %}
+<section
+  class="blog-template"
+  data-section-id="{{ section.id }}"
+  data-section-type="blog-template"
+  data-section-loaded="false">
+
+  {% paginate blog.articles by items_per_page %}
+
+    <div class="grid__wrapper pt8">
+      <div class="span-12 auto a-center">
+        <h1>{{ blog.title }}</h1>
+      </div>
+    </div>
+
+    <div class="grid__wrapper rg9 pb8">
+
+      {% if section.settings.text != blank or current_tags %}
+        <div class="span-12 auto mb5">
+          {% unless section.settings.text == blank %}
+            <div class="blog-description a-center rte">
+              {{ section.settings.text }}
+            </div>
+          {% endunless %}
+          {% if current_tags %}
+            <div class="blog-template__tags--wrapper">
+              <p class="blog-template__tags--label m mb1">{{ 'blogs.article.tagged' | t }}</p>
+              <ul class="blog-template__tags--group inline-block mb0 w100 v-start">
+                {%- for tag in current_tags -%}
+                  <li class="blog-template__tags--tag mr3">{{ tag | link_to_remove_tag: tag }}</li>
+                {%- endfor -%}
+                <li class="blog-template__tags--clear">
+                  <a href="{{ blog.url }}">
+                    {% render 'snip-icons',
+                       wrapper: '.tag-filters',
+                       type: 'theme',
+                       icon: 'close',
+                       size: '10px',
+                       classes: 'm0 vib-center',
+                       fill: 'var(--text-color)',
+                       hover: 'var(--text-color)' %}
+                     <span class="vib-center">{{ 'collections.general.clear_all_tags' | t }}</span>
+                   </a>
+                 </li>
+              </ul>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% render 'article-loop',
+          blog: blog,
+          grid_items: section.settings.items_per_row,
+          items_per_row: items_per_row,
+          side_by_side: side_by_side,
+          paginate: paginate ,
+          items_per_page: items_per_page %}
+
+    </div>
+
+    {% if paginate.pages > 1 %}
+      <div class="span-12 auto mb8">
+        {% render 'snip-pagination', paginate: paginate %}
+      </div>
+    {% endif %}
+
+  {% endpaginate %}
+
+  <style>
+    .blog-template .article-loop__excerpt {
+      text-align: {{ section.settings.text_align }};
+    }
+  </style>
+</section>
+
+{% schema %}
+{
+  "name": "Blog",
+  "settings": [
+    {
+      "id": "text",
+      "type": "richtext",
+      "label": "Text",
+      "default": "<p>Add some descriptive text to your Blog page.</p>"
+    },
+    {
+      "type": "range",
+      "id": "items_per_page",
+      "min": 2,
+      "max": 48,
+      "step": 1,
+      "label": "Posts per page",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "items_per_row",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Posts per row",
+      "default": 2
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text alignment",
+      "default": "center",
+      "options": [
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "left",
+          "label": "Left"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "label": "Show published date",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "label": "Show author",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tags",
+      "label": "Show tags",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_comments",
+      "label": "Show comment count",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

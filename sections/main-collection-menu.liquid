@@ -1,0 +1,365 @@
+{% comment %} Menu Collection Assets {% endcomment %}
+<link rel="preload" href="{{ 'section-main-collection.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ 'section-main-collection.css' | asset_url }}"></noscript>
+<link rel="preload" href="{{ 'component-product-grid.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ 'component-product-grid.css' | asset_url }}"></noscript>
+
+
+{% comment %} Menu Collection Logic {% endcomment %}
+{%- liquid
+  case section.settings.items_per_row
+  when 4
+    assign items_per_row = 'span-3 auto'
+  when 3
+    assign items_per_row = 'span-4 auto'
+  when 2
+    assign items_per_row = 'span-6 auto'
+  when 1
+    assign items_per_row = 'span-12'
+  endcase
+
+  if section.settings.item_position == 'left'
+    assign position_one = 'last'
+    assign position_two = 'first'
+  elsif section.settings.item_position == 'right'
+    assign position_one = 'first'
+    assign position_two = 'last'
+  elsif section.settings.item_position == 'center'
+    assign position_one = 'a-center'
+    assign position_two = 'a-center'
+  endif
+
+-%}
+
+{% comment %} Menu Collection Template {% endcomment %}
+<section
+  id="collection-menu-page"
+  class="collection-menu-template no-section-animation"
+  data-section-id="{{ section.id }}"
+  data-section-type="collection-menu"
+  data-collection-handle="{{ collection.handle }}">
+
+  {% if section.settings.filter_nav != blank %}
+    <div id="full-width-filter" class="collection-menu__filters--wrapper span-12 mb0 sm-hide md-hide {{ section.settings.filter_alignment }}">
+      <div class="grid__wrapper wrapper-nest collection-menu__filters--desktop desktop-filters">
+
+        <ul class="collection-menu__filters--list menu-filters type-filters inline-block mb0 span-12 auto mt10">
+          {% for link in linklists[section.settings.filter_nav].links %}
+            <li class="collection-menu__filters--item">
+              <a {% if request.path contains link.handle %}class="selected"{% endif %} href="{{ link.url }}">{{ link.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="grid__wrapper pt9">
+    <div class="span-12 a-center">
+      <h1>{{ section.settings.title }}</h1>
+      <div class="rte">
+        {{ collection.description | remove: "[banner]" }}
+      </div>
+    </div>
+  </div>
+
+  {% capture menu_layout %}
+    <div class="collection-menu__blocks--wrapper menu">
+      {% for block in section.blocks %}
+
+        {% assign h5tag = true %}
+        {% if block.settings.show_description == false and block.settings.show_variants == false and  block.settings.show_image == false %}
+          {% assign h5tag = false %}
+        {% endif %}
+
+        {% if block.type == 'collection' %}
+          <div class="{% if section.settings.page_image == blank %}grid__wrapper{% endif %} collection-menu__items-wrapper--settings-{{ h5tag }} menu-collection collection-{{ block.id }} pb8">
+            {% render 'collection-menu-grid', page_limit: block.settings.items_per_page, collection: collection, h5tag: h5tag, block: block %}
+          </div>
+        {% elsif block.type == 'sub_collection' %}
+          <div class="{% if section.settings.page_image == blank %}grid__wrapper{% endif %} collection-menu__items-wrapper--settings-{{ h5tag }} menu-collection collection-{{ block.id }} pb8">
+
+            {% render 'collection-menu-grid',
+               page_limit: block.settings.items_per_page,
+               collection: block.settings.collection,
+               h5tag: h5tag,
+               block: block %}
+
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endcapture %}
+
+  <div class="grid__wrapper cg9 sm-cg0 py8 sm-py7">
+    {% if section.settings.page_image != blank %}
+      <div class="span-6 auto {{ position_two }} banner-image">
+        {% render 'helper-image',
+            type: section.settings.page_image,
+            sm_render: '100vw'
+            md_render: 'calc(100vw / 2)',
+            lg_render: 'calc(1600px / 2)' %}
+      </div>
+
+      <div class="span-6 auto {{ position_one }}">
+        {% if section.blocks.size > 0 %}
+          {{ menu_layout }}
+        {% else %}
+          {% render 'onboard-no-blocks' %}
+        {% endif %}
+      </div>
+    {% else %}
+      <div class="span-10 push-1 auto a-center">
+        {% if section.blocks.size > 0 %}
+          {{ menu_layout }}
+        {% else %}
+          {% render 'onboard-no-blocks' %}
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="grid__wrapper cg9 sm-cg0 py8 sm-py7">
+    {% for block in section.blocks %}
+      {% if block.type == 'menu_key' %}
+        <div id="block-{{ block.id }}" class="collection-menu__key--wrapper span-8 push-2 auto a-center border" {{ block.shopify_attributes }}>
+          <ul class="collection-menu__key--list mb0 py6 px6">
+            {% for n in (1..10) %}
+              {% assign key_item = "key_item_" | append: n %}
+              {% assign key_item = block.settings[key_item] | default: false %}
+
+              {% unless key_item == blank %}
+                <li class="collection-menu__key--item mb3">{{ key_item }}</li>
+              {% endunless %}
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Menu Collection",
+  "max_blocks":10,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Select additional collections that will appear on this single collection page in a menu style layout [learn more](https:\/\/www.weareunderground.com\/blogs\/foodie-support\/foodie-menu-collection)"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Menu"
+    },
+    {
+      "type": "image_picker",
+      "id": "page_image",
+      "label": "Page image"
+    },
+    {
+      "type": "select",
+      "id": "item_position",
+      "label": "Page image position",
+      "default": "left",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "link_list",
+      "id": "filter_nav",
+      "label": "Show submenu of links"
+    },
+    {
+      "type": "select",
+      "id": "filter_alignment",
+      "label": "Submenu alignment",
+      "default": "a-center",
+      "options": [
+        {
+          "value": "a-left",
+          "label": "Left"
+        },
+        {
+          "value": "a-center",
+          "label": "Center"
+        },
+        {
+          "value": "a-right",
+          "label": "Right"
+        }
+      ]
+    }
+  ],
+  "blocks":[
+    {
+      "type":"collection",
+      "name":"Collection",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "range",
+          "id": "items_per_page",
+          "min": 2,
+          "max": 24,
+          "step": 2,
+          "label": "Products shown",
+          "default": 12
+        },
+        {
+          "type": "checkbox",
+          "id": "show_description",
+          "label": "Show product descriptions"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_variants",
+          "label": "Show product options"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_image",
+          "label": "Show product featured image"
+        }
+      ]
+    },
+    {
+      "type":"sub_collection",
+      "name":"Additional collection",
+      "settings": [
+        {
+          "label": "Collection",
+          "id": "collection",
+          "type": "collection"
+        },
+        {
+          "type": "range",
+          "id": "items_per_page",
+          "min": 2,
+          "max": 24,
+          "step": 2,
+          "label": "Products shown",
+          "default": 12
+        },
+        {
+          "type": "checkbox",
+          "id": "show_description",
+          "label": "Show product descriptions"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_variants",
+          "label": "Show product options"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_image",
+          "label": "Show product featured image"
+        }
+      ]
+    },
+    {
+      "type":"menu_key",
+      "name":"Menu Key",
+      "settings": [
+        {
+          "id": "key_item_1",
+          "type": "text",
+          "label": "Key item 1"
+        },
+        {
+          "id": "key_item_2",
+          "type": "text",
+          "label": "Key item 2"
+        },
+        {
+          "id": "key_item_3",
+          "type": "text",
+          "label": "Key item 3"
+        },
+        {
+          "id": "key_item_4",
+          "type": "text",
+          "label": "Key item 4"
+        },
+        {
+          "id": "key_item_5",
+          "type": "text",
+          "label": "Key item 5"
+        },
+        {
+          "id": "key_item_6",
+          "type": "text",
+          "label": "Key item 6"
+        },
+        {
+          "id": "key_item_7",
+          "type": "text",
+          "label": "Key item 7"
+        },
+        {
+          "id": "key_item_8",
+          "type": "text",
+          "label": "Key item 8"
+        },
+        {
+          "id": "key_item_9",
+          "type": "text",
+          "label": "Key item 9"
+        },
+        {
+          "id": "key_item_10",
+          "type": "text",
+          "label": "Key item 10"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "collection",
+        "settings": {
+          "show_description": false,
+          "show_variants": false,
+          "show_image": false
+        }
+      },
+      {
+        "type": "sub_collection",
+        "settings": {
+          "collection": "",
+          "show_description": true,
+          "show_variants": true,
+          "show_image": true
+        }
+      },
+      {
+        "type": "menu_key",
+        "settings": {
+          "key_item_1": "V — Vegan or option available",
+          "key_item_2": "VN — Vegetarian or option available",
+          "key_item_3": "GF — Gluten Free or option available",
+          "key_item_4": "N — Contains Nuts",
+          "key_item_5": "",
+          "key_item_6": "",
+          "key_item_7": "",
+          "key_item_8": "",
+          "key_item_9": "",
+          "key_item_10": ""
+        }
+      }
+    ]
+  }
+}
+{% endschema %}

@@ -1,0 +1,91 @@
+{% comment %} Prefooter Assets {% endcomment %}
+<link rel="preload" href="{{ 'section-prefooter-newsletter.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ 'section-prefooter-newsletter.css' | asset_url }}"></noscript>
+
+{% comment %} Prefooter Template {% endcomment %}
+{%- if section.settings.show_prefooter -%}
+  <section
+    class="pre-footer-section px0 py9 sm-px0"
+    data-section-id="{{ section.id }}"
+    data-section-type="prefooter-newsletter"
+    data-section-loaded="false">
+
+    <article class="grid__wrapper">
+      <div class="span-7 auto v-center">
+        <h2>{{ section.settings.prefooter_heading }}</h2>
+      </div>
+      <div class="span-5 auto v-center">
+        {% form 'customer', id: 'newsletter_form' %}
+          <div class="form form-vertical v-center">
+            {% render 'snip-form-error' %}
+            {% if form.posted_successfully? %}
+              <div class="note note-success">
+                <div class="inline-block v-center">
+                  {% render 'snip-icons', type: 'theme', icon: 'checkmark', classes:'sm mr3', fill: 'var(--success-msg-dark)', hover: 'var(--success-msg-dark)' %}
+                </div>
+                <p class="sm-caps inline-block v-center mb0">{{ 'password.general.thanks' | t }}</p>
+              </div>
+            {% else %}
+              <input type="hidden" name="contact[tags]" value="prospect, password page">
+              <input type="email" name="contact[email]" id="email-address" placeholder="{{ 'general.newsletter_form.email_placeholder' | t }}">
+              <button class="button btn-secondary" type="submit">{{ 'general.newsletter_form.newsletter_email' | t }}</button>
+            {% endif %}
+          </div>
+        {% endform %}
+      </div>
+    </article>
+    <style>
+      .pre-footer-section h2 { font-style: {{ section.settings.prefooter_heading_style }}; }
+      @media (max-width: 767px) {
+        .pre-footer-section h2 {
+          font-size: calc({{ section.settings.prefooter_heading_size }}px - ({{ section.settings.prefooter_heading_size }}px * 0.15));
+        }
+      }
+      @media (min-width: 768px) {
+        .pre-footer-section h2 {
+          font-size: {{ section.settings.prefooter_heading_size }}px;
+        }
+      }
+    </style>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_prefooter",
+      "label": "Show newsletter subscribe",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "prefooter_heading",
+      "label": "Heading",
+      "default": "Drink Good Coffee  —  Join the Club"
+    },
+    {
+      "type": "range",
+      "id": "prefooter_heading_size",
+      "min": 22,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 50
+    },
+    {
+       "type": "select",
+       "id": "prefooter_heading_style",
+       "options": [
+          { "value": "normal", "label": "Normal"},
+          { "value": "italic", "label": "Italic"}
+       ],
+       "label": "Heading style",
+       "default": "italic"
+    }
+  ]
+}
+{% endschema %}
