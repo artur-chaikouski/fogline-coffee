@@ -1,0 +1,21 @@
+.section-image-carousel-text[data-section-loaded="false"] .carousel-cell:last-child,
+.no-js .section-image-carousel-text .carousel-cell:last-child {
+  display: none;
+}
+
+.section-image-carousel-text .flickity-button.previous {
+  right: unset;
+  left: 10px;
+  top: 50%;
+}
+
+.section-image-carousel-text .flickity-button.next {
+  right: 10px;
+  left: unset;
+  top: 50%;
+}
+
+.section-image-carousel-text .main-carousel.v-center .flickity-slider {
+  display: flex;
+  align-items: center;
+}

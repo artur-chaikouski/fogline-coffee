@@ -1,0 +1,35 @@
+.global-age-verification .site-logo a {
+  font-family: var(--heading-family);
+}
+.global-age-verification .modal-prompt a,
+.global-age-verification .modal-prompt h1,
+.global-age-verification .modal-prompt p {
+  color: var(--age-text-color) !important;
+}
+.global-age-verification .modal-prompt a {
+  font-size: var(--font-size);
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: var(--main-spacing);
+  word-break: break-all;
+}
+
+.global-age-verification .modal-prompt select {
+  float: left;
+  margin-right: 10px;
+}
+
+.global-age-verification button#submit_birthdate {
+  padding: 0 var(--space-5) !important;
+  border-color: var(--age-text-color) !important;
+  color:  var(--age-text-color) !important;
+}
+
+.global-age-verification button#submit_birthdate:after {
+  border-color: var(--age-text-color) !important;
+}
+
+.global-age-verification button#submit_birthdate:hover {
+  background-color: transparent !important;
+}

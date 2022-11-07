@@ -1,0 +1,176 @@
+.store-availability-container {
+  animation-duration: 3s;
+  /* don't forget to set a duration! */
+}
+
+.store-availability-container .store-availability-information__title,
+.store-availability-container .store-availability-information__title .slideout__trigger-store-availability {
+  color: var(--text-color);
+  font-size: var(--font-size-sm);
+}
+
+.store-availability-container .store-availability-small-text {
+  font-size: var(--font-size);
+  font-weight: var(--main-weight);
+  text-transform: initial;
+}
+
+.store-availability-container .store-availability__pickup-details {
+  color: var(--text-color);
+  font-size: var(--font-size);
+  font-weight: var(--main-weight);
+}
+
+.store-availability-container .store-availability-information {
+  display: flex;
+  margin-left: 5px;
+}
+
+.store-availability-container .store-availability-information-container {
+  margin-left: 5px;
+  text-align: left;
+}
+
+.store-availability-container .store-availability-information__link:hover,
+.store-availability-container .store-availability-information__link:focus {
+  opacity: 0.6;
+}
+
+.store-availabilities__modal .store-availabilities-modal__variant-title {
+  font-size: var(--font-size);
+}
+
+.store-availabilities__modal .store-availability-list__address p,
+.store-availabilities__modal .store-availability-list__phone {
+  margin: 0 !important;
+  font-size: var(--font-size);
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.4;
+  letter-spacing: var(--main-spacing);
+}
+
+.store-availabilities__modal .store-availabilities-list {
+  overflow: auto;
+}
+
+.store-availabilities__modal .store-availabilities-modal__close {
+  margin-bottom: 13px;
+  cursor: pointer;
+}
+
+.store-availabilities__modal .store-availability-list__item>p {
+  font-size: var(--font-size);
+  margin-bottom: 0;
+}
+
+/* Foodie Custom */
+.store-availability-container {
+  animation-duration: 3s;
+}
+
+.store-availability-container .store-availability-information__title {
+  font-size: var(--font-size);
+  font-family: var(--heading-family);
+  font-weight: var(--main-weight);
+}
+
+.store-availability-container .store-availability-small-text {
+  font-size: var(--font-size);
+  font-weight: var(--main-weight);
+}
+
+.store-availability-container .store-availability__pickup-details {
+  background-color: var(--box-shadow-color);
+  color: var(--text-color);
+  text-align: center;
+  padding: var(--space-6) var(--space-3);
+  margin-right: -1px;
+  border: 1px solid var(--dotted-color);
+  transition: all .1s ease-in-out;
+  width: 100%;
+}
+
+.store-availability-container .store-availability-information {
+  display: flex;
+  margin-left: 5px;
+}
+
+.store-availability-container .store-availability-information-container {
+  margin-left: 5px;
+  text-align: left;
+}
+
+.store-availability-container .store-availability-information i {
+  line-height: 22px;
+}
+
+.store-availability-container .slideout__trigger-store-availability {
+  border: none;
+  height: auto;
+  line-height: var(--font-size);
+  text-transform: initial;
+  margin: 0 auto;
+  margin-top: var(--space-3);
+  text-decoration: underline;
+  background: 0 0;
+}
+
+@media (min-width:768px) {
+  .store-availability-container .slideout__trigger-store-availability {
+    font-size: var(--font-size);
+  }
+}
+
+@media (max-width:767px) {
+  .store-availability-container .slideout__trigger-store-availability {
+    font-size: var(--font-size);
+  }
+}
+
+.store-availability-container .slideout__trigger-store-availability:after {
+  content: none !important;
+  border: none !important;
+}
+
+.store-availability-container .store-availability-information__link {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.store-availability-container .store-availability-information__link:focus, .store-availability-container .store-availability-information__link:hover {
+  opacity: .6;
+}
+
+.store-availabilities__modal .store-availabilities-modal__product-title {
+  font-size: calc(var(--font-size) + 2px);
+  line-height: calc((var(--font-size) * .375) + var(--font-size));
+}
+
+.store-availabilities__modal .store-availabilities-modal__variant-title {
+  font-size: var(--font-size);
+}
+
+.store-availabilities__modal .store-availability-list__address p, .store-availabilities__modal .store-availability-list__phone {
+  margin: 0 !important;
+  font-size: var(--font-size);
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.4;
+  letter-spacing: var(--main-spacing);
+}
+
+.store-availabilities__modal .store-availabilities-list {
+  overflow: auto
+}
+
+.store-availabilities__modal .store-availabilities-modal__close {
+  margin-bottom: 13px;
+  cursor: pointer;
+}
+
+.store-availabilities__modal .store-availability-list__item>p {
+  font-size: var(--font-size);
+  margin-bottom: 0;
+}
+

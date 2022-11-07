@@ -1,0 +1,118 @@
+.section-gallery__item-link {
+  display: block;
+  margin: 0;
+}
+
+.section-gallery__item-wrapper {
+  float: left;
+  margin-bottom: 0;
+  padding: 0;
+}
+
+.section-gallery__item-wrapper:hover {
+  cursor: pointer;
+}
+
+.section-gallery__item-wrapper:hover img {
+  opacity: 0.5;
+}
+
+.section-gallery__caption {
+  position: absolute;
+  bottom: var(--space-6);
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.section-gallery__container {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.section-gallery__item-wrapper--one-quarter {
+  width: 25%;
+}
+
+.section-gallery__item-wrapper--one-third {
+  width: calc(100% / 3);
+}
+
+.section-gallery__item-wrapper--two-thirds {
+  width: 66.667%;
+}
+
+.section-gallery__item-wrapper--one-half {
+  width: 50%;
+}
+
+.section-gallery__item-wrapper--three-quarters {
+  width: 75%;
+}
+
+.section-gallery__item-wrapper--one-whole {
+  width: 100%;
+}
+
+@media (max-width: 1023px) {
+  .section-gallery__container {
+    width: 100%;
+    margin: 0 auto !important;
+  }
+
+  .section-gallery__item-wrapper--one-quarter {
+    width: 50%;
+  }
+
+  .section-gallery__item-wrapper--one-third {
+    width: 100%;
+  }
+
+  .section-gallery__item-wrapper--two-thirds {
+    width: 100%;
+  }
+
+  .section-gallery__item-wrapper--one-half {
+    width: 100%;
+  }
+
+  .section-gallery__item-wrapper--three-quarters {
+    width: 100%;
+  }
+
+  .section-gallery__item-wrapper--one-whole {
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .section-gallery__container {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .section-gallery__item-wrapper--one-quarter, .section-gallery__item-wrapper--one-third, .section-gallery__item-wrapper--two-thirds, .section-gallery__item-wrapper--one-half, .section-gallery__item-wrapper--three-quarters, .section-gallery__item-wrapper--one-whole {
+    flex: 0 0 auto;
+    width: 270px;
+    float: none !important;
+  }
+
+  .section-gallery__block-subheading {
+    font-size: var(--font-size);
+  }
+}
+
+/* Foodie Custom */
+.section-gallery__caption p {
+  font-family: var(--heading-family);
+  font-size: var(--font-size);
+  font-style: italic;
+  visibility: hidden;
+}
+
+.section-gallery__item-wrapper:hover .section-gallery__caption p {
+  visibility: visible;
+}

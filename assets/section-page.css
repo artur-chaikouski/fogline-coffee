@@ -1,0 +1,49 @@
+.locations-page-template .links a {
+  border-left: .8px solid var(--dotted-color);
+  padding-left: var(--space-3);
+  margin-right: var(--space-3);
+}
+
+.locations-page-template .links a:hover {
+  text-decoration: underline;
+}
+
+.locations-page-template .links a:first-child {
+  border-left: none;
+  padding-left: 0;
+}
+
+.locations-page-template .desktop-filters .location-filters li button {
+  font-size: var(--font-size);
+  font-stretch: normal;
+  font-style: normal;
+  line-height: var(--font-size);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: var(--space-3) var(--space-4);
+  color: var(--text-color);
+  border: 1px solid var(--dotted-color);
+  background-color: transparent;
+  display: inline-block;
+  margin-bottom: 0;
+}
+
+.locations-page-template .desktop-filters .location-filters li button::after {
+  content: unset;
+}
+
+.locations-page-template .desktop-filters .location-filters li button.selected, .template-page .locations-page-template .desktop-filters .location-filters li button:hover {
+  color: var(--text-color-light);
+  border-color: var(--dotted-color);
+  background-color: transparent;
+}
+
+.locations-page-template .desktop-filters .location-filters li button.clear-filters {
+  border: none;
+}
+
+@media (max-width:767px) {
+  .locations-page-template .desktop-filters .location-filters li {
+    margin-bottom: 5px;
+  }
+}

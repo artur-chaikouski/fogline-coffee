@@ -1,0 +1,86 @@
+/* Mobile Navigation */
+.mobile-nav__mobile-header.sticky--active {
+  width: 100%;
+  position: fixed;
+  top: 0px;
+  max-width: unset;
+  z-index: 9;
+  -webkit-box-shadow: -1px 9px 4px -4px rgba(0, 0, 0, .05);
+  -moz-box-shadow: -1px 9px 4px -4px rgba(0, 0, 0, .05);
+  box-shadow: -1px 9px 4px -4px rgba(0, 0, 0, .05);
+}
+
+.mobile-nav__mobile-header .header__cart-links--login {
+  display: none;
+}
+
+.mobile-nav__mobile-header .header__cart-links--account {
+  display: none;
+}
+
+.mobile-nav__mobile-header .header__cart-links--logout {
+  display: none;
+}
+
+.mobile-nav__wrapper .c-accordion__link, .mobile-nav__wrapper .dropdown-arrow svg {
+  color: var(--text-color);
+}
+
+.mobile-nav__wrapper .c-accordion.c-accordion--mobile-nav .c-accordion__panel {
+  padding: 0;
+}
+
+.mobile-nav__wrapper .c-accordion__top-level .c-accordion__link, .mobile-nav__wrapper .c-accordion__second-level .c-accordion__link {
+  font-size: var(--font-size);
+  line-height: 2;
+  letter-spacing: 1px;
+}
+
+.mobile-nav__wrapper .c-accordion__third-level .c-accordion__link {
+  font-size: var(--font-size);
+  line-height: 2;
+  letter-spacing: 1px;
+}
+
+.mobile-nav__wrapper .c-accordion--outer__wrapper {
+  border-top: 0.8px solid var(--dotted-color);
+}
+
+.mobile-nav__wrapper input::placeholder {
+  color: var(--text-color);
+  opacity: 1;
+}
+
+.mobile-nav__wrapper input:-ms-input-placeholder {
+  color: var(--text-color);
+  opacity: 1;
+}
+
+.mobile-nav__wrapper input::-ms-input-placeholder {
+  color: var(--text-color);
+  opacity: 1;
+}
+
+.mobile-nav__mobile-header .mobile-nav__logo-wrapper a {
+  font-size: calc(var(--font-size) + 1px) !important;
+  display: inline-block !important;
+  margin-bottom: 0 !important;
+  padding: 0 !important;
+}
+
+.mobile-nav__mobile-header a.mobile-nav__text-logo {
+  padding: 0 !important;
+  height: auto !important;
+  line-height: 30px !important;
+}
+
+.mobile-nav__mobile-header button {
+  padding: 0 !important;
+  height: 30px !important;
+  line-height: 30px !important;
+}
+
+/* Foodie Custom */
+.mobile-nav__wrapper .c-accordion__second-level-wrapper .c-accordion__second-level a {
+  text-transform: initial !important;
+}
