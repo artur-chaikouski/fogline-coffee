@@ -1,0 +1,1 @@
+{"sections":{"banner":{"type":"banner-image","settings":{"full_width":true,"banner_height":400}},"main":{"type":"main-blog","settings":{"text":"","items_per_page":20,"items_per_row":3,"text_align":"left","show_date":true,"show_author":false,"show_tags":true,"show_comments":false}}},"order":["banner","main"]}
