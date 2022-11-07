@@ -1,0 +1,47 @@
+{% for option in product.options %}
+
+  {%- liquid
+    assign option_handle = option | handle
+    assign option_index = forloop.index0
+
+    assign is_color = false
+
+    assign values = ''
+  -%}
+
+  {% capture downcased_option %}{{ option | downcase }}{% endcapture %}
+  {% if downcased_option contains 'color' or downcased_option contains 'colour' %}
+
+  <div class="product-loop__swatch-wrapper a-center">
+    <ul data-option-index="{{ option_index }}" class="product-loop__swatch-options {{ option_handle }}">
+      {% for variant in product.variants %}
+        {%- liquid
+              assign variant_image_url = blank
+              if variant.image
+                assign variant_image_url =  variant.image | img_url: '100x'
+              endif
+              assign value = variant.options[option_index]
+          -%}
+        {% capture wrapped_value %},{{ value }},{% endcapture %}
+        {% unless values contains wrapped_value %}
+        <li data-option-title="{{ value | escape }}" class="product-loop__swatch color {{ value | handle }}">
+          <a title="{{ value | escape }}" href="{{ variant.url | within: collection }}">
+            {% liquid
+              assign swatch_img = null
+              assign swatch_color_name = value | handle | append: '.png'
+
+              if images[swatch_color_name] != blank
+                assign swatch_img = swatch_color_name | file_url
+              endif
+
+            %}
+            <span style="background-color: {{ value | split: ' ' | last | handle }}; background-image: url({% if color_swatch_style == 'variant-image' %}{{ variant_image_url }}{% elsif swatch_img != null %}{{ swatch_img }}{% endif %});"></span>
+          </a>
+        </li>
+        {% capture values %}{{ values }}{{ wrapped_value }}{% endcapture %}
+        {% endunless %}
+      {% endfor %}
+    </ul>
+  </div><!-- .swatch -->
+  {% endif %}
+{% endfor %}

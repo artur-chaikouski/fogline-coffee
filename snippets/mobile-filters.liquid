@@ -1,0 +1,353 @@
+{%- liquid
+
+  if type == search
+    assign class_prefix = 'search'
+  else
+    assign class_prefix = 'collection'
+  endif
+
+-%}
+
+{%- if has_filter -%}
+  {%- for filter in type.filters -%}
+    {% case filter.type %}
+    {% when 'list' %}
+      {%- liquid
+
+        assign accordion_content_id = 'c-accordion__panel--' | append: filter_id | append: '-' | append: 1
+
+        assign is_size_filter = false
+        assign is_color_filter = false
+        assign filter_label_to_lowercase = filter.label | downcase
+
+        if filter_label_to_lowercase contains "color"
+          assign is_color_filter = true
+        elsif filter_label_to_lowercase contains "colour"
+          assign is_color_filter = true
+        elsif filter_label_to_lowercase contains "size"
+          assign is_size_filter = true
+        endif
+
+        if is_color_filter
+          assign filter_type = 'color'
+        elsif is_size_filter
+          assign filter_type = 'size'
+        else
+          assign filter_type = 'regular'
+        endif
+
+      -%}
+
+      <li class="{{ class_prefix }}__sm-filter--tlink js-accordion-header c-accordion__header c-accordion__top-level"
+        aria-haspopup="true" aria-expanded="false" {{ block.shopify_attributes }}
+        data-accordion-context="{{ filter_id }}">
+        <a class="js-accordion-link c-accordion__link mb0" href="" rel="nofollow">{{ filter.label | escape }}</a>
+        <button class="dropdown-arrow" aria-label="{{ filter.label | escape }}" data-toggle="accordion" aria-expanded="false" aria-controls="{{ accordion_content_id }}" >
+          {% render 'snip-icons',
+             wrapper: '.c-accordion__header',
+             type: 'theme',
+             icon: 'down-carrot',
+             classes: 'c-accordion__header--icon vib-center',
+             size: '6px',
+             fill: 'var(--text-color)',
+             hover: 'var(--text-color)' %}
+        </button>
+      </li>
+      <li class="c-accordion__panel {{ accordion_content_id }}" id="{{ accordion_content_id }}"
+        data-parent="#c-accordion--{{ class_prefix }}-mobile-filters"
+        data-accordion-context="{{ filter_id }}">
+        <ul class="js-accordion c-accordion c-accordion--filters c-accordion--filters__inner c-accordion__second-level-wrapper {{ class_prefix }}__color-filter--{{ is_color_filter }}">
+
+          {%- for value in filter.values -%}
+            {%- liquid
+                if value.active
+                  assign status = 'current'
+                elsif value.count == 0 and value.active == false
+                  assign status = 'disabled'
+                else
+                  assign status = ''
+                endif
+              -%}
+
+            {% if is_color_filter %}
+              <li id="Mobile-Filter-{{ filter.label | escape }}-{{ forloop.index }}" class="{{ class_prefix }}__sm-filter--final-level js-collection-mob-filter {{ status }}" aria-haspopup="true" aria-expanded="false">
+                <input type="checkbox"
+                  name="{{ value.param_name }}"
+                  value="{{ value.value }}"
+                  {% if value.active %}checked{% endif %}
+                  {% if value.count == 0 and value.active == false %}disabled{% endif %}
+                >
+                <a class="c-accordion__link" href="{{ url }}">
+                  {%- liquid
+                      assign swatch_color_name = value.label | handleize | downcase | append: '.png'
+                      assign swatch_image_url = swatch_color_name | file_url
+                      assign css_color = value.label | split: ' ' | last | downcase
+
+                      if images[swatch_color_name] != blank
+                        assign bg_img = 'background-image:url(' | append:  swatch_image_url | append: ');'
+                      else
+                        assign bg_img = ''
+                      endif
+                      assign bg_color = 'background-color:' | append:  css_color | append: ';'
+                    -%}
+                  <span class="color-filter color-filter--rounded color-filter--{{ status }} {{ status }}" style="{{ bg_color }}{{ bg_img }}"></span>
+                  <span class="color-filter--label">{{ value.label | escape }} <span class="filter__count">({{ value.count }})</span></span>
+                </a>
+              </li>
+            {% else %}
+              <li id="Mobile-Filter-{{ filter.label | escape }}-{{ forloop.index }}" class="{{ class_prefix }}__sm-filter--final-level js-collection-mob-filter {{ status }}" aria-haspopup="true" aria-expanded="false">
+                <input type="checkbox"
+                  name="{{ value.param_name }}"
+                  value="{{ value.value }}"
+                  {% if value.active %}checked{% endif %}
+                  {% if value.count == 0 and value.active == false %}disabled{% endif %}
+                >
+                <a class="c-accordion__link" href="{{ url }}">
+                  <span class="filter__text--label">{{ value.label | escape }} <span class="filter__count">({{ value.count }})</span></span>
+                </a>
+              </li>
+            {% endif %}
+          {%- endfor -%}
+        </ul>
+      </li>
+    {% when 'price_range' %}
+      {%- liquid
+        assign accordion_content_id = 'c-accordion__panel--' | append: filter_id | append: '-' | append: 2
+
+        assign currencies_using_comma_decimals = "ANG,ARS,BRL,BYN,BYR,CLF,CLP,COP,CRC,CZK,DKK,EUR,HRK,HUF,IDR,ISK,MZN,NOK,PLN,RON,RUB,SEK,TRY,UYU,VES,VND" | split: ','
+        assign uses_comma_decimals = false
+
+        if currencies_using_comma_decimals contains cart.currency.iso_code
+          assign uses_comma_decimals = true
+        endif
+      -%}
+      <li class="{{ class_prefix }}__sm-filter--tlink js-accordion-header c-accordion__header c-accordion__top-level"
+        data-filters-price-range aria-haspopup="true"
+        aria-expanded="false"
+        data-accordion-context="{{ filter_id }}"
+        {{ block.shopify_attributes }}>
+        <a class="js-accordion-link c-accordion__link mb0" href="" rel="nofollow">{{ filter.label | escape }}</a>
+        <button class="dropdown-arrow" aria-label="{{ filter.label | escape }}" data-toggle="accordion" aria-expanded="false" aria-controls="{{ accordion_content_id }}" >
+          {% render 'snip-icons',
+             wrapper: '.c-accordion__header',
+             type: 'theme',
+             icon: 'down-carrot',
+             classes: 'c-accordion__header--icon vib-center',
+             size: '6px',
+             fill: 'var(--text-color)',
+             hover: 'var(--text-color)' %}
+        </button>
+      </li>
+      <li class="c-accordion__panel {{ accordion_content_id }}" id="{{ accordion_content_id }}"
+        data-parent="#c-accordion--{{ class_prefix }}-mobile-filters"
+        data-accordion-context="{{ filter_id }}">
+          <ul class="js-accordion c-accordion c-accordion--filters c-accordion--filters__inner c-accordion__second-level-wrapper">
+            <li class="filter-price__dropdown js-hz-filter-price-dropdown">
+              <div class="filter-range__boxes js-price-range">
+                <div class="filter-range__field">
+                  <label class="filter-range__field__label visually-hidden" for="Filter-{{ filter.label | escape }}-{{ forloop.index }}">{{ 'collections.filter.from' | t }}</label>
+                  <span class="filter-range__field__currency">{{ cart.currency.symbol }}</span>
+                  <input class="filter-range__field__input js-filter-range-input js-price-min-output"
+                    name="{{ filter.min_value.param_name }}"
+                    id="Filter-{{ filter.label | escape }}-{{ forloop.index }}"
+                    {%- if filter.min_value.value -%}
+                      {%- if uses_comma_decimals -%}
+                        value="{{ filter.min_value.value | money_without_currency | replace: '.', '' | replace: ',', '.' | split: '.' | first }}"
+                      {%- else -%}
+                        value="{{ filter.min_value.value | money_without_currency | replace: ',', '' | round }}"
+                      {%- endif -%}
+                    {%- endif -%}
+                    type="number"
+                    min="0"
+                    {%- if uses_comma_decimals -%}
+                      max="{{ filter.range_max | money_without_currency | replace: '.', '' | replace: ',', '.' | ceil }}"
+                    {%- else -%}
+                      max="{{ filter.range_max | money_without_currency | replace: ',', '' | ceil }}"
+                    {%- endif -%}>
+                  </input>
+                </div>
+                <div class="filter-range__field">
+                  <label class="filter-range__field__label visually-hidden" for="Filter-{{ filter.label | escape }}-{{ forloop.index }}">{{ 'collections.filter.to' | t }}</label>
+                  <span class="filter-range__field__currency">{{ cart.currency.symbol }}</span>
+                  <input class="filter-range__field__input js-filter-range-input js-price-max-output"
+                    name="{{ filter.max_value.param_name }}"
+                    id="Filter-{{ filter.label | escape }}-{{ forloop.index }}"
+                    {%- if filter.max_value.value -%}
+                      {%- if uses_comma_decimals -%}
+                        value="{{ filter.max_value.value | money_without_currency | replace: '.', '' | replace: ',', '.' | split: '.' | first }}"
+                      {%- else -%}
+                        value="{{ filter.max_value.value | money_without_currency | replace: ',', '' | round }}"
+                      {%- endif -%}
+                    {%- endif -%}
+                    type="number"
+                    min="0"
+                    {%- if uses_comma_decimals -%}
+                      max="{{ filter.range_max | money_without_currency | replace: '.', '' | replace: ',', '.' | ceil }}"
+                    {%- else -%}
+                      max="{{ filter.range_max | money_without_currency | replace: ',', '' | ceil }}"
+                    {%- endif -%}>
+                  </input>
+                </div>
+
+                <div class="filter-range__slider--wrapper span-2 auto">
+                  <input class="filter-range__slider--input"
+                    {%- if filter.min_value.value -%}
+                      {%- if uses_comma_decimals -%}
+                        value="{{ filter.min_value.value | money_without_currency | replace: '.', '' | replace: ',', '.' | split: '.' | first }}"
+                      {%- else -%}
+                        value="{{ filter.min_value.value | money_without_currency | replace: ',', '' | round }}"
+                      {% endif %}
+                    {%- else -%}
+                      value="0"
+                    {%- endif -%}
+                    min="0"
+                    {%- if uses_comma_decimals -%}
+                      max="{{ filter.range_max | money_without_currency | replace: '.', '' | replace: ',', '.' | ceil }}"
+                    {%- else -%}
+                      max="{{ filter.range_max | money_without_currency | replace: ',', '' | ceil }}"
+                    {%- endif -%}
+                    step="1"
+                    type="range"/>
+                  <input class="filter-range__slider--input"
+                   {%- if filter.max_value.value -%}
+                      {%- if uses_comma_decimals -%}
+                        value="{{ filter.max_value.value | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+                      {%- else -%}
+                        value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+                      {% endif %}
+                    {%- else -%}
+                      {%- if uses_comma_decimals -%}
+                        value="{{ filter.range_max | money_without_currency | replace: '.', '' | replace: ',', '.' | ceil }}"
+                      {%- else -%}
+                        value="{{ filter.range_max | money_without_currency | replace: ',', '' | ceil }}"
+                      {% endif %}
+                    {%- endif -%}
+                    min="0"
+                    {%- if uses_comma_decimals -%}
+                      max="{{ filter.range_max | money_without_currency | replace: '.', '' | replace: ',', '.' | ceil }}"
+                    {%- else -%}
+                      max="{{ filter.range_max | money_without_currency | replace: ',', '' | ceil }}"
+                    {% endif %}
+                    step="1"
+                    type="range"/>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </li>
+    {% endcase %}
+  {%- endfor -%}
+{%- endif -%}
+{%- if has_sortby -%}
+  {% assign accordion_content_id = 'c-accordion__panel--' | append: sort_by_id | append: '-' | append: 3 %}
+  <li class="{{ class_prefix }}__sm-filter--tlink js-accordion-header c-accordion__header c-accordion__top-level"
+    aria-haspopup="true"
+    aria-expanded="false"
+    data-accordion-context="{{ sort_by_id }}"
+    {{ block.shopify_attributes }}>
+    <a class="js-accordion-link c-accordion__link mb0" href="" rel="nofollow">{{ 'collections.sorting.sort_title' | t }}</a>
+    <button class="dropdown-arrow" aria-controls="{{ accordion_content_id }}" aria-label="{{ 'collections.sorting.sort_title' | t }}" data-toggle="accordion" aria-expanded="false">
+      {% render 'snip-icons',
+         wrapper: '.c-accordion__header',
+         type: 'theme',
+         icon: 'down-carrot',
+         classes: 'c-accordion__header--icon vib-center',
+         size: '6px',
+         fill: 'var(--text-color)',
+         hover: 'var(--text-color)' %}
+    </button>
+  </li>
+  <li class="c-accordion__panel {{ accordion_content_id }}" id="{{ accordion_content_id }}"
+    data-parent="#c-accordion--{{ class_prefix }}-mobile-filters"
+    data-accordion-context="{{ sort_by_id }}">
+    <ul class="js-accordion c-accordion c-accordion--filters c-accordion--filters__inner c-accordion__second-level-wrapper">
+      <li class="{{ class_prefix }}__sm-filter--final-level" aria-haspopup="true" aria-expanded="false">
+        <a class="c-accordion__link" href="?sort_by=manual">{{ 'collections.sorting.featured' | t }}</a>
+      </li>
+      <li class="{{ class_prefix }}__sm-filter--final-level" aria-haspopup="true" aria-expanded="false">
+        <a class="c-accordion__link" href="?sort_by=price-ascending">{{ 'collections.sorting.price_ascending' | t }}</a>
+      </li>
+      <li class="{{ class_prefix }}__sm-filter--final-level" aria-haspopup="true" aria-expanded="false">
+        <a class="c-accordion__link" href="?sort_by=price-descending">{{ 'collections.sorting.price_descending' | t }}</a>
+      </li>
+      <li class="{{ class_prefix }}__sm-filter--final-level" aria-haspopup="true" aria-expanded="false">
+        <a class="c-accordion__link" href="?sort_by=title-ascending">{{ 'collections.sorting.az' | t }}</a>
+      </li>
+      <li class="{{ class_prefix }}__sm-filter--final-level" aria-haspopup="true" aria-expanded="false">
+        <a class="c-accordion__link" href="?sort_by=title-descending">{{ 'collections.sorting.za' | t }}</a>
+      </li>
+      <li class="{{ class_prefix }}__sm-filter--final-level" aria-haspopup="true" aria-expanded="false">
+        <a class="c-accordion__link" href="?sort_by=created-ascending">{{ 'collections.sorting.date_ascending' | t }}</a>
+      </li>
+      <li class="{{ class_prefix }}__sm-filter--final-level" aria-haspopup="true" aria-expanded="false">
+        <a class="c-accordion__link" href="?sort_by=created-descending">{{ 'collections.sorting.date_descending' | t }}</a>
+      </li>
+      <li class="{{ class_prefix }}__sm-filter--final-level" aria-haspopup="true" aria-expanded="false">
+        <a class="c-accordion__link" href="?sort_by=best-selling">{{ 'collections.sorting.best_selling' | t }}</a>
+      </li>
+    </ul>
+  </li>
+{%- endif -%}
+{%- if has_tag_group -%}
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'tag_group' -%}
+      {% assign accordion_content_id = 'c-accordion__panel--' | append: tag_group_id | append: '-' | append: 4 %}
+      <li class="{{ class_prefix }}__sm-filter--tlink js-accordion-header c-accordion__header c-accordion__top-level"
+      aria-haspopup="true"
+      aria-expanded="false"
+      data-accordion-context="{{ tag_group_id }}"
+      {{ block.shopify_attributes }}>
+        <a class="js-accordion-link c-accordion__link mb0" href="" rel="nofollow">{{ 'collections.filter.filter' | t }}: {{ block.settings.filter_by_heading }}</a>
+        <button class="dropdown-arrow" aria-label="{{ block.settings.filter_by_heading | escape }}" data-toggle="accordion" aria-expanded="false" aria-controls="{{ accordion_content_id }}" >
+          {% render 'snip-icons',
+             wrapper: '.c-accordion__header',
+             type: 'theme',
+             icon: 'down-carrot',
+             classes: 'c-accordion__header--icon vib-center',
+             size: '6px',
+             fill: 'var(--text-color)',
+             hover: 'var(--text-color)' %}
+        </button>
+      </li>
+      <li class="c-accordion__panel {{ accordion_content_id }}" id="{{ accordion_content_id }}"
+        data-parent="#c-accordion--{{ class_prefix }}-mobile-filters"
+        data-accordion-context="{{ tag_group_id }}">
+        <ul class="js-accordion c-accordion c-accordion--filters c-accordion--filters__inner c-accordion__second-level-wrapper">
+          {% assign selected_tags = block.settings.filter_by  | replace: ' ,', ',' | replace: ', ', ',' | split: ',' %}
+          {% for tag in type.all_tags %}
+            {% if selected_tags contains tag %}
+              {% if current_tags contains tag %}
+                <li class="{{ class_prefix }}__sm-filter--final-level selected" aria-haspopup="true" aria-expanded="false">
+                  <span class="c-accordion__tag-link">{{ tag | link_to_remove_tag: tag }}</span>
+                </li>
+              {% else %}
+                <li class="{{ class_prefix }}__sm-filter--final-level" aria-haspopup="true" aria-expanded="false">
+                  <span class="c-accordion__tag-link">{{ tag | link_to_add_tag: tag }}</span>
+                </li>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          {%- if selected_tags.size > 0 -%}
+            {%- if current_tags -%}
+              <li class="{{ class_prefix }}__sm-filter--final-level" aria-haspopup="true" aria-expanded="false">
+                <span class="c-accordion__tag-link">
+                  <a class="clear-tags" href="{{ type.url }}">
+                    {% render 'snip-icons',
+                       wrapper: '.c-accordion__tag-link',
+                       type: 'theme',
+                       icon: 'close',
+                       classes: 'c-accordion__tag-link--icon vib-center',
+                       size: '6px',
+                       fill: 'var(--text-color)',
+                       hover: 'var(--text-color)' %}
+                    <span class="vib-center">{{ 'collections.general.clear_all_tags' | t }}</span>
+                  </a>
+                </span>
+              </li>
+            {%- endif -%}
+          {%- endif -%}
+        </ul>
+      </li>
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}

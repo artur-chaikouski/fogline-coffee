@@ -1,0 +1,122 @@
+<article
+id="product-photos"
+class="{{ gallery_width }} mb4">
+<span class="demo-1 color-2">{{ 'product-1' | append: current | placeholder_svg_tag: 'placeholder-svg' }}</span>
+</article>
+
+<article
+  id="product-description"
+  class="{{ form_width }}">
+
+  <div class="sm-px6">
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'product_metafield' %}
+          <div class="rte pt2 mb2" {{ block.shopify_attributes }}>
+            {{ block.settings.text }}
+          </div>
+        {% when 'product_title' %}
+          <h3 class="lh2 pt2 mb2" {{ block.shopify_attributes }}>
+              {{ 'products.product.onboarding.title' | t }}
+          </h3>
+        {% when 'product_subtitle' %}
+          <h4 class="subtitle pt2 mb2" {{ block.shopify_attributes }}>{{ 'products.product.onboarding.subtitle' | t }}</h4>
+        {% when 'product_form' %}
+          <div {{ block.shopify_attributes }}>
+            <div class="variants">
+              {% if block.settings.show_quantity %}
+                <div class="product__quantity mt3 mb2" style="border-top: 1px solid;">
+                  <label class="product__quantity-label vib-center mt3" for="productQty-{{ product.id }}">{{ 'products.product.quantity' | t }}</label>
+                  <div class="product__quantity--selector">
+                    <a class="product__quantity-down downer js-qty-down mr1 mb0 vib-center" href="#" aria-label="Decrease" tabindex="0">
+                      {% render 'snip-icons',
+                         wrapper: '.product__quantity',
+                         type: 'theme',
+                         icon: 'minus',
+                         size: '10px',
+                         fill: 'var(--text-color)',
+                         hover: 'var(--text-color)' %}
+                    </a>
+                    <input id="productQty-{{ product.id }}"
+                      min="1"
+                      data-limit="{% if current_variant.inventory_management == 'shopify' %}{% unless current_variant.inventory_policy == 'continue' %}{{ current_variant.inventory_quantity }}{% endunless %}{% endif %}"
+                      type="text" name="quantity"
+                      class="product__quantity-input vib-center"
+                      value="1" />
+                    <a class="product__quantity-up js-qty-up up ml1 mb0 vib-center" href="#" aria-label="Increase" tabindex="0">
+                      {% render 'snip-icons',
+                         wrapper: '.product__quantity',
+                         type: 'theme',
+                         icon: 'plus',
+                         size: '10px',
+                         fill: 'var(--text-color)',
+                         hover: 'var(--text-color)' %}
+                    </a>
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+
+            <div class="product-add pt2 mb2">
+
+              <button
+               type="submit"
+               name="add"
+               class="add-item add w100 btn-secondary"
+               disabled="disabled">
+                   <span data-product-price>
+                     $14.55 -
+                   </span>
+
+                   <span class="hide" data-compare-text>
+                     {{ 'products.product.regular_price' | t }}
+                   </span>
+                   <span class="strike ml1" data-compare-price>
+                   </span>
+
+                   <span data-add-to-cart-text>
+                     {{ 'products.product.sold_out' | t }}
+                   </span>
+             </button>
+            </div>
+          </div>
+        {% when 'social_share' %}
+          <div class="product-template__social-share pt2 pb2 a-center" {{ block.shopify_attributes }}>
+            <p class="inline-block mb0 mr3 v-center">{{ 'products.product.social_share' | t }}</p>
+            {% render 'snip-social-sharing',
+              share_title: 'Featured Product',
+              share_permalink: '#',
+              share_image: blank %}
+          </div>
+        {% when 'rating' %}
+         <div class="product__section--rating-wrapper pt2 mb2" {{ block.shopify_attributes }}>
+           {% liquid
+            assign rating_decimal = 0
+            assign decimal = 3 | modulo: 1
+            if decimal >= 0.3 and decimal <= 0.7
+             assign rating_decimal = 0.5
+           elsif decimal > 0.7
+             assign rating_decimal = 1
+            endif
+           %}
+           <div class="product__section-rating" role="img" aria-label="{{ 'accessibility.star_reviews_info' | t: rating_value: 3, rating_max: 5 }}">
+             <span aria-hidden="true" class="product__section-rating-star color-icon" style="--rating: {{ 3 | floor }}; --rating-max: {{ 5 }}; --rating-decimal: {{ rating_decimal }};">
+             </span>
+           </div>
+           <p class="product__section-rating-text caption">
+             <span aria-hidden="true">3 / 5</span>
+           </p>
+           <p class="product__section-rating-count caption">
+             <span aria-hidden="true">(4)</span>
+             <span class="visually-hidden">4 {{ "accessibility.total_reviews" | t }}</span>
+           </p>
+         </div>
+        {% when '@app' %}
+          <div class="product__section--app" {{ block.shopify_attributes }}>
+            {% render block %}
+          </div>
+      {% endcase %}
+    {% endfor %}
+
+  </div>
+</article>

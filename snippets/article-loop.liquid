@@ -1,0 +1,136 @@
+{% if blog == blank %}
+  {% for i in (1..items_per_page) %}
+    <article class="article-loop__item {{ items_per_row }} relative article_wrapper--has-image {% if side_by_side %}grid__wrapper nest edge cg5{% endif %}">
+      <div class="{% if side_by_side %}span-6 auto v-center{% else %} inline-block w100 mb6{% endif %}">
+        <a class="demo-1 color-2 inline-block mb0 w100" href="#">
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        </a>
+        {% if section.settings.show_date %}
+          <p class="article-loop__date has-image--true posted inline-block mb0 mr2">{{ 'now' | date: "%a, %b %d, %y" }}</p>
+        {% endif %}
+      </div>
+      <div class="{% if side_by_side %}span-6 auto v-center{% endif %} article-loop__excerpt excerpt pt5">
+        <h3 class="post-title mb5">
+          <a class="no-hover" href="#">
+            Add a title or tagline
+          </a>
+        </h3>
+        <div class="article-headline">
+          <p class="rte">
+            Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.
+            {%- if section.settings.show_author or section.settings.show_tags -%}
+              <div class="article__rte--details">
+                {%- if section.settings.show_author -%}
+                  <p class="article__rte--author block">
+                    {{ 'blogs.article.by' | t }} Author Name
+                  </p>
+                {%- endif -%}
+
+                {%- if section.settings.show_tags -%}
+                  <p class="article__rte--tags block">
+                    {{ 'blogs.article.tagged' | t }}:&nbsp;
+                    <a href="">Tag 1</a>,&nbsp;<a href="">Tag 2</a>,&nbsp;<a href="">Tag 3</a>
+                  </p>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          </p>
+          <a class="button btn-outline" href="#">{{ 'blogs.article.read_more' | t }}</a>
+          {% if blog.comments_enabled? and section.settings.show_comments %}
+            <a class="inline-block mb0 ml3" href="#">{{ 'blogs.comments.comments_with_count' | t: count: i }}</a>
+          {% endif %}
+        </div>
+      </div>
+    </article>
+  {% endfor %}
+{% else %}
+  {% for article in blog.articles limit: items_per_page %}
+    {%- liquid
+      assign has_image = false
+      if article.image or article.content contains '<img'
+        assign has_image = true
+      endif
+
+      if has_image and side_by_side
+        assign image_width = 'span-4 push-1 auto v-center'
+        assign excerpt_width = 'span-6 auto v-center'
+      elsif has_image == false and side_by_side
+        assign image_width = 'span-8 push-2 auto v-center'
+        assign excerpt_width = 'span-8 push-2 auto v-center'
+      endif
+    -%}
+    <article class="{{ items_per_row }} relative {% if has_image %}article_wrapper--has-image{% endif %} {% if side_by_side %}grid__wrapper nest edge cg5 rg0{% endif %}">
+      <div class="{{ image_width }} relative">
+        {%- if article.image -%}
+          {%- liquid
+
+            assign has_image = true
+            assign sm_render = '100vw'
+            assign md_render = 'calc(100vw / ' | append: grid_items | append: ')'
+            assign lg_render = 'calc(1600px / ' | append: grid_items | append: ')'
+
+          -%}
+          <a class="inline-block mb0 w100" href="{{ article.url }}">
+            {% render 'helper-image',
+               type: article.image,
+               sm_render: sm_render
+               md_render: md_render,
+               lg_render: lg_render %}
+          </a>
+        {%- elsif article.content != blank and article.content contains "<img" -%}
+          {%- assign has_image = true -%}
+          {%- assign src = article.content | split: ' src="' | last | split: '"' | first -%}
+          <a class="inline-block mb0 w100" href="{{ article.url }}">
+            <img src="{{ src }}"
+              width="{{ src.width }}"
+              height="{{ src.height }}"
+              alt="{{ article.title }}"
+              loading="lazy">
+          </a>
+        {%- else -%}
+          {%- assign has_image = false -%}
+        {%- endif -%}
+        {% if section.settings.show_date %}
+          {% assign published_at = article.published_at | date: format: 'month_date_year' %}
+          <p class="article-loop__date posted has-image--{{ has_image }} inline-block mb0 mr2">{{ published_at | date: "%a, %b %d, %y" }}</p>
+        {% endif %}
+      </div>
+      <div class="{{ excerpt_width }} article-loop__excerpt pt5">
+        <h3 class="post-title mb5">
+          <a class="no-hover" href="{{ article.url }}">
+            {{ article.title }}
+          </a>
+        </h3>
+        <div class="article-headline">
+          <p class="rte">
+            {{ article.excerpt_or_content | strip_html | truncatewords: 30 }}
+
+            {%- if section.settings.show_author or section.settings.show_tags -%}
+              <div class="article__rte--details">
+                {%- if article.author != blank and section.settings.show_author -%}
+                  <p class="article__rte--author block">
+                    {{ 'blogs.article.by' | t }} {{ article.author }}
+                  </p>
+                {%- endif -%}
+
+                {%- if article.tags.size > 0 and section.settings.show_tags -%}
+                  <p class="article__rte--tags block">
+                    {{ 'blogs.article.tagged' | t }}:&nbsp;
+                    {%- for tag in article.tags -%}
+                      <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>{% unless forloop.last %},{% endunless %}
+                    {%- endfor -%}
+                  </p>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          </p>
+
+          <a class="button btn-outline" href="{{ article.url }}">{{ 'blogs.article.read_more' | t }}</a>
+          {% if blog.comments_enabled? and section.settings.show_comments %}
+            <a class="inline-block mb0 ml3" href="{{article.url}}#comments">{{ 'blogs.comments.comments_with_count' | t: count: article.comments_count }}</a>
+          {% endif %}
+        </div>
+      </div>
+    </article>
+  {% endfor %}
+{% endif %}

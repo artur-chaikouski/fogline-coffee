@@ -1,0 +1,148 @@
+{%- if collection != blank -%}
+  <h3 class="collection-menu__heading span-12 auto mb7">{{ collection.title }}</h3>
+
+  {% for product in collection.products limit: page_limit %}
+    <article class="menu-item span-6 auto product-{{ product.id }} mb4">
+      <div class="grid__wrapper wrapper-nest edge">
+        {% capture keys %}
+          {% if product.description contains '[#key]' %}
+            {{ product.description | split: '[/key]' | first | split: '[#key]' | last | strip_html }}
+          {% endif %}
+        {% endcapture %}
+
+        {% capture details %}
+          {%- if h5tag -%}
+            <h4 class="menu-item__title v-start mb1">
+              <a class="mb0" href="{{ product.url }}" title="{{ product.title }}">
+                {{ product.title }} <span class="menu-item__key">{{ keys }}</span>
+              </a>
+            </h4>
+          {%- else -%}
+            <a class="menu-item__title--sm v-start mb0" href="{{ product.url }}" title="{{ product.title }}">
+              {{ product.title }} <span class="menu-item__key">{{ keys }}</span>
+            </a>
+          {%- endif -%}
+
+          {% if block.settings.show_description and product.description != blank %}
+
+            {%- liquid
+              if product.description contains '[#'
+                assign description = product.description | split: '[#' | first
+                assign description = description | strip_html
+              else
+                assign description = product.description | strip_html
+              endif
+            -%}
+
+            <div class="menu-item__description">
+              <p class="a-left mb3">{{ description | truncatewords: 8 }}</p>
+            </div>
+          {% endif %}
+          {% if block.settings.show_variants %}
+            <p class="menu-item__variants v-start mb0">
+              {% for variant in product.variants %}
+                <a href="{{ variant.url }}" title="{{ variant.title }}">
+                  {% unless variant.title == 'Default Title' %}
+                    {{ variant.title }}
+                  {% endunless %}
+                  {{ variant.price | money }} {% unless forloop.last %}&nbsp;&nbsp;|&nbsp;&nbsp;{% endunless %}
+                </a>
+              {% endfor %}
+            </p>
+          {% else %}
+            <p class="menu-item__variants--price mb0 v-start">
+              {% if product.price_varies %}
+                <span class="v-price"><em class="from">{{ 'products.product.starting_at' | t }}</em> {{ product.price_min | money }}</span>
+              {% else %}
+                <span>{{ product.price | money }}</span>
+              {% endif %}
+            </p>
+          {% endif %}
+        {% endcapture %}
+
+        {% if block.settings.show_image and product.featured_media != blank %}
+          <div class="menu-item__image--wrapper span-3 auto v-start">
+            <a class="mb0" href="{{ product.url }}" title="{{ product.title }}">
+              {% render 'helper-image',
+               type: product.featured_media.preview_image,
+               sm_render: 'calc(100vw / 2)',
+               md_render: 'calc((100vw / 12) * 4)',
+               lg_render: 'calc((1600px / 12) * 4)' %}
+             </a>
+          </div>
+          <div class="menu-item__details--wrapper  span-9 auto v-start a-left">
+            {{ details }}
+          </div>
+        {% else %}
+          <div class="menu-item__details--wrapper span-12 auto {% if product.description == blank or block.settings.show_description == false %}one-row{% else %}a-left{% endif %}">
+            {{ details }}
+          </div>
+        {% endif %}
+
+      </div>
+    </article>
+  {% endfor %}
+
+  {% unless collection.products_count < page_limit %}
+    <div class="span-12 auto a-center mt6">
+      <a class="button btn-outline" href="{{ collection.url }}">{{ 'collections.general.shop_all' | t }}</a>
+    </div>
+  {% endunless %}
+{%- else -%}
+  <h3 class="collection-menu__heading span-12 auto mb7">{{ 'collections.onboarding.menu_title' | t }}</h3>
+  {%- for n in (1..page_limit) -%}
+    <article class="menu-item span-6 auto mb4">
+      <div class="grid__wrapper wrapper-nest edge">
+        {% capture details %}
+          {%- if h5tag -%}
+            <h4 class="menu-item__title v-start mb1">
+              <a class="mb0" href="#" rel="nofollow" title="{{ 'collections.onboarding.menu_item' | t }} {{ forloop.index }}">
+                {{ 'collections.onboarding.menu_item' | t }} {{ forloop.index }}
+              </a>
+            </h4>
+          {%- else -%}
+            <a class="menu-item__title--sm mb0 v-start" href="#" rel="nofollow" title="{{ 'collections.onboarding.menu_item' | t }} {{ forloop.index }}">
+              {{ 'collections.onboarding.menu_item' | t }} {{ forloop.index }}
+            </a>
+          {%- endif -%}
+
+          {% if block.settings.show_description %}
+            <div class="menu-item__description">
+              <p class="a-left mb3">{{ 'collections.onboarding.menu_item_description' | t }}</p>
+            </div>
+          {% endif %}
+          {% if block.settings.show_variants %}
+            <p class="menu-item__variants v-start mb0">
+              <a href="#" rel="nofollow" title="{{ 'collections.onboarding.menu_item_option' | t }} 1">
+                {{ 'collections.onboarding.menu_item_option' | t }} 1 <span>${{ n }}.00</span> |
+              </a>
+              <a href="#" rel="nofollow" title="{{ 'collections.onboarding.menu_item_option' | t }} 3">
+                {{ 'collections.onboarding.menu_item_option' | t }} 2 <span>${{ n }}.00</span>
+              </a>
+            </p>
+          {% else %}
+            <p class="menu-item__variants--price v-start mb0">
+              <span>${{ n }}.00 | ${{ n | plus: 3 }}.00</span>
+            </p>
+          {% endif %}
+        {% endcapture %}
+
+        {% if block.settings.show_image %}
+          <div class="menu-item__image--wrapper span-3 auto v-start">
+            <a class="mb0" href="#" rel="nofollow" title="{{ 'collections.onboarding.menu_item' | t }} {{ forloop.index }}">
+              <span class="demo-1 color-3">{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}</span>
+            </a>
+          </div>
+          <div class="menu-item__details--wrapper span-9 auto v-start a-left">
+            {{ details }}
+          </div>
+        {% else %}
+          <div class="menu-item__details--wrapper span-12 auto {% if block.settings.show_description == false %}one-row{% else %}a-left{% endif %}">
+            {{ details }}
+          </div>
+        {% endif %}
+
+      </div>
+    </article>
+  {%- endfor -%}
+{%- endif -%}
