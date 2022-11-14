@@ -155,6 +155,17 @@
       margin-right: auto;
       width: 100%;
     }
+    @media (max-width: 767px) {
+      .text-icons-{{ section.id }} .section-txt-icons__section-subheading p {
+        font-size: calc({{ section.settings.subtitle_size }}px - ({{ section.settings.subtitle_size }}px * 0.15));;
+      }
+      .text-icons-{{ section.id }} .section-txt-icons__section-subheading {
+        max-width: 100%;
+      }
+      .text-icons-{{ section.id }} .section-txt-icons__section-heading {
+        max-width: 100%;
+      }
+    }
     .section-txt-icons__text-icon--icon {
       border-radius: 50%;
       width: 160px;
