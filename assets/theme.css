@@ -422,7 +422,7 @@ img {
 
 .animation-text--active [data-section-loaded] .animate--text {
   opacity: 0;
-  transition: opacity 0.5s ease-in, transform 2s ease;
+  transition: opacity 0.5s ease-in, transform 2s ease, box-shadow .3s ease-out;
 }
 
 .animation--active [data-section-loaded] .animate--text {
@@ -882,7 +882,8 @@ button,.button{font-family:var(--main-family);font-size:var(--font-size);font-we
   position: relative;
   margin-bottom: .6875rem;
   padding: 0 var(--space-5);
-  height: auto
+  height: auto;
+  transition-delay: inherit !important;
 }
 
 [type=button].btn-outline:after, [type=submit].btn-outline:after, a.button.btn-outline:after, button.btn-outline:after {
@@ -892,18 +893,22 @@ button,.button{font-family:var(--main-family);font-size:var(--font-size);font-we
   z-index: -1;
   width: 100%;
   height: 100%;
-  content: "";
+  content: none;
   background-color: var(--button-bg);
   border: 1px solid var(--button-text);
   border-radius: 1px;
   left: .375rem;
-  top: .375rem
+  top: .375rem;
+}
+
+[type=button].btn-outline:hover, [type=submit].btn-outline:hover, a.button.btn-outline:hover, button.btn-outline:hover {
+  box-shadow: 8px 8px 0 0 var(--box-shadow-color) !important;
 }
 
 [type=button].btn-outline:hover:after, [type=submit].btn-outline:hover:after, a.button.btn-outline:hover:after, button.btn-outline:hover:after {
   left: -.0625rem;
   top: -.0625rem;
-  border-color: var(--button-hover)
+  border-color: var(--button-hover);
   background-color: var(--button-bg);
 }
 
