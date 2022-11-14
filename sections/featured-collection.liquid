@@ -156,9 +156,9 @@
       {% endif %}
       {%- unless carousel -%}</div>{%- endunless -%}
     </div>
-    {% if section.settings.button != blank %}
+    {% if section.settings.link != blank %}
       <div class="span-12 auto sm-span-8 a-center pt{%- if carousel -%}2{%- else -%}5{%- endif -%}">
-        <a href="{{ collection.url }}" class="button btn-outline mt3">{{ section.settings.button }}</a>
+        <a href="{{ section.settings.link }}" class="button btn-outline mt3">{{ section.settings.button }}</a>
       </div>
     {% endif %}
   </div>
@@ -186,6 +186,10 @@
         }
       {% endif %}
     }
+
+    .featured-collection-{{ section.id }} .section-featured-collection__section-subheading p {
+      font-size: {{ section.settings.subtitle_size }}px;
+    }
   </style>
 </div>
 {% schema %}
@@ -205,6 +209,16 @@
       "id": "subtitle",
       "label": "Description",
       "default": "Fuel up with a cup of the latest ethically sourced and freshly roasted beans."
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Description size",
+      "default": 20
     },
     {
       "id": "collection",
@@ -266,8 +280,13 @@
     {
       "type": "text",
       "id": "button",
-      "label": "Button text",
+      "label": "Button label",
       "default": "Shop all"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Button link"
     }
   ],
   "presets": [
