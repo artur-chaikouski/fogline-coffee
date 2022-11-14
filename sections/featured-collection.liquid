@@ -190,6 +190,12 @@
     .featured-collection-{{ section.id }} .section-featured-collection__section-subheading p {
       font-size: {{ section.settings.subtitle_size }}px;
     }
+
+    @media (max-width: 767px) {
+      .featured-collection-{{ section.id }} .section-featured-collection__section-subheading p {
+        font-size: calc({{ section.settings.subtitle_size }}px - ({{ section.settings.subtitle_size }}px * 0.15));
+      }
+    }
   </style>
 </div>
 {% schema %}
