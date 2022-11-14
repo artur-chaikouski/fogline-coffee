@@ -113,6 +113,11 @@
 
   <div class="grid__wrapper relative section-featured-collection__wrapper--{%- if carousel -%}carousel{%- else -%}grid{%- endif -%}">
     {% render 'snip-headings', grid: heading_width, classes: 'section-featured-collection__section-heading', align: heading_align, url: collection.url %}
+    {% if section.settings.subtitle != blank %}
+      <div class="section-featured-collection__section-subheading span-12 auto sm-span-8">
+        <p>{{ section.settings.subtitle }}</p>
+      </div>
+    {% endif %}
     <div class="featured-collection__wrapper--loop span-12{% if carousel %} js-carousel{% endif %}" {%- if carousel -%}data-flickity='{{ carousel_config }}'{%- endif -%}>
       {%- unless carousel -%}<div class="grid__wrapper edge cg6 rg6 {{ wrapper_class }}">{%- endunless -%}
       {% if collection != blank %}
@@ -151,6 +156,11 @@
       {% endif %}
       {%- unless carousel -%}</div>{%- endunless -%}
     </div>
+    {% if section.settings.button != blank %}
+      <div class="span-12 auto sm-span-8 a-center pt{%- if carousel -%}2{%- else -%}5{%- endif -%}">
+        <a href="{{ collection.url }}" class="button btn-outline mt3">{{ section.settings.button }}</a>
+      </div>
+    {% endif %}
   </div>
 
   <style>
@@ -189,6 +199,12 @@
       "id": "title",
       "label": "Heading",
       "default": "Featured collection"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Description",
+      "default": "Fuel up with a cup of the latest ethically sourced and freshly roasted beans."
     },
     {
       "id": "collection",
@@ -246,6 +262,12 @@
         }
       ],
       "default": "both"
+    },
+    {
+      "type": "text",
+      "id": "button",
+      "label": "Button text",
+      "default": "Shop all"
     }
   ],
   "presets": [

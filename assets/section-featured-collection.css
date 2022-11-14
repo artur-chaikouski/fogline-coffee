@@ -7,6 +7,15 @@
   padding-bottom: 0;
 }
 
+.section-featured-collection__section-subheading {
+  text-align: center;
+}
+
+.section-featured-collection__section-subheading p{
+  font-size: 20px;
+  font-weight: 400;
+}
+
 .section-featured-collection__wrapper--carousel .flickity-button.previous {
   position: absolute;
   top: -40px;
