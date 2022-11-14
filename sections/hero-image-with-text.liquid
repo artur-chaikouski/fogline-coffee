@@ -47,7 +47,7 @@
 
   <div class="grid__wrapper narrow">
     <article class="text span-6 auto {{ text_align }} {{ vertical_align }}">
-      <div class="text-with-image pt8 pb9 sm-pb5">
+      <div class="text-with-image pt6 pb10 sm-pb5">
         {% if section.settings.title != blank %}
           <h3 class="mb6 animate--text">{{ section.settings.title | escape }}</h3>
         {% endif %}
@@ -63,7 +63,7 @@
     </article>
     <article class="image span-6 auto relative {{ vertical_align }}">
       <div
-        class="image-container pt8">
+        class="image-container pt9">
 
         {% if section.settings.image == blank %}
           <div class="demo-1 color-1 placeholder-image">
@@ -82,7 +82,7 @@
 
   <style media="screen">
     .text-with-image-{{ section.id }}.section-text-with-image {
-      background: -webkit-linear-gradient({{ bg_color }} 80%, var(--background) 20%);
+      background: -webkit-linear-gradient({{ bg_color }} 85%, var(--background) 15%);
       color: {{ text_color }};
     }
     .text-with-image-{{ section.id }}.section-text-with-image p,
