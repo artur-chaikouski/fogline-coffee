@@ -7,6 +7,18 @@
   padding-bottom: 0;
 }
 
+.section-featured-collection__section-subheading {
+  text-align: center;
+}
+
+.section-featured-collection__section-subheading p {
+  font-weight: 400;
+  max-width: 540px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .section-featured-collection__wrapper--carousel .flickity-button.previous {
   position: absolute;
   top: -40px;
