@@ -23,6 +23,12 @@
     assign text_align =  'a-center'
   endcase
 
+  if section.settings.subtitle != blank
+    assign padding_b = 'p0-important'
+  else
+    assign padding_b = 'pb5'
+  endif
+
   case section.blocks.size
     when 0
     when 1
@@ -62,9 +68,13 @@
   data-section-loaded="false">
 
   <div class="section-txt-icons__outer-wrapper">
-    <div class="section-txt-icons__inner-wrapper grid__wrapper py9 cg9 sm-cg0 narrow">
-      {% render 'snip-headings', align: heading_align, classes: 'section-txt-icons__section-heading pb5', grid: 'span-12', heading: section.settings.title %}
-
+    <div class="section-txt-icons__inner-wrapper grid__wrapper py10 cg9 sm-cg0 narrow">
+      {% render 'snip-headings', align: text_align, classes: 'section-txt-icons__section-heading', padding: padding_b, grid: 'span-12', heading: section.settings.title %}
+      {% if section.settings.subtitle != blank %}
+        <div class="section-txt-icons__section-subheading span-12 {{ text_align }}">
+          <p class="mb7">{{ section.settings.subtitle }}</p>
+        </div>
+      {% endif %}
       {% for block in section.blocks %}
         <article class="section-txt-icons__item text-promo-{{ block.id }} {{ block_width }} {{ text_align }} animate--text delay--{{ forloop.index0 }}" {{ block.shopify_attributes }}>
           {% if block.settings.link != blank %}<a href="{{ block.settings.link }}">{% endif %}
@@ -129,19 +139,45 @@
       {% endif %}
     </div>
   </div>
-  <style >
+  <style>
+    .text-icons-{{ section.id }} .section-txt-icons__section-subheading p {
+      font-size: {{ section.settings.subtitle_size }}px;
+    }
+    .text-icons-{{ section.id }} .section-txt-icons__section-subheading {
+      max-width: {{ section.settings.max_width_description }}px;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+    }
+    .text-icons-{{ section.id }} .section-txt-icons__section-heading {
+      max-width: {{ section.settings.max_width_title }}px;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+    }
+    @media (max-width: 767px) {
+      .text-icons-{{ section.id }} .section-txt-icons__section-subheading p {
+        font-size: calc({{ section.settings.subtitle_size }}px - ({{ section.settings.subtitle_size }}px * 0.15));;
+      }
+      .text-icons-{{ section.id }} .section-txt-icons__section-subheading {
+        max-width: 100%;
+      }
+      .text-icons-{{ section.id }} .section-txt-icons__section-heading {
+        max-width: 100%;
+      }
+    }
     .section-txt-icons__text-icon--icon {
       border-radius: 50%;
-      width: 80px;
-      height: 80px;
+      width: 160px;
+      height: 160px;
       background-color: {{ text_color }};
       position: relative;
     }
     .section-txt-icons__text-icon--icon svg {
-      max-width: 50px;
+      max-width: 80px;
     }
     .section-txt-icons__text-icon--image {
-      max-width: 80px;
+      max-width: 160px;
     }
     .section-txt-icons__item.a-center .section-txt-icons__text-icon--icon,
     .section-txt-icons__item.a-center .section-txt-icons__text-icon--image {
@@ -175,6 +211,43 @@
       "id": "title",
       "label": "Heading",
       "default": "Text with Icons"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Description",
+      "default": "Whether you're a coffee connoisseur or just dipping your toe into the coffee world, it can be hard to sort through all the options available. We know everyone has different tastes- so let us take the mystery out of choosing your next bag!"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Description size",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "max_width_title",
+      "min": 430,
+      "max": 1290,
+      "step": 10,
+      "unit": "px",
+      "label": "Heading max-width",
+      "default": 540
+    },
+    {
+      "type": "range",
+      "id": "max_width_description",
+      "min": 430,
+      "max": 1290,
+      "step": 10,
+      "unit": "px",
+      "label": "Description max-width",
+      "default": 720,
+      "info": "If you need to align the text to the left, then set the value to 1290px"
     },
     {
       "type": "select",

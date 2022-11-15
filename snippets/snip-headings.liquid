@@ -1,6 +1,6 @@
 {%- if section.settings.title != blank -%}
   {%- unless grid == blank -%}<div class="{{ grid }}">{%- endunless -%}
-    <h2 class="section-heading {{ align }} mt2 pb2 {{ classes }}">
+    <h2 class="section-heading {{ align }} mt2 pb2 {{ padding }} {{ classes }}">
       {%- unless url == blank -%}<a href="{{ url }}">{%- endunless -%}
         {{ section.settings.title | escape }}
       {%- unless url == blank -%}</a>{%- endunless -%}
