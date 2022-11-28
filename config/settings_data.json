@@ -639,6 +639,8 @@
     }
   },
   "current": {
+    "font_size": 18,
+    "nav_size": 20,
     "h1_size": 40,
     "h2_size": 34,
     "h3_size": 24,
