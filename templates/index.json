@@ -15,7 +15,7 @@
         "overlay_color": "#000000",
         "show_overlay_color": false,
         "full_width": true,
-        "video_height": 600,
+        "video_height": 700,
         "section_padding": "both"
       }
     },
@@ -215,25 +215,6 @@
         "link": "shopify:\/\/products\/copy-of-el-mirador"
       }
     },
-    "8ce518a3-51f4-46ea-8d34-bda30a0b0247": {
-      "type": "image-with-text-overlay",
-      "disabled": true,
-      "settings": {
-        "image": "shopify:\/\/shop_images\/tim-mossholder-YC6RVdoTtIk-unsplash2.jpg",
-        "show_overlay_color": true,
-        "overlay_color": "#000000",
-        "image_height": 800,
-        "title": "Freshly Roasted With Care",
-        "subheading_text": "Whether you’re starting your day or need a midday pick-me-up, we care about your cup as much as you do. We schedule to ship your order within 24–48 hrs of being roasted, so your beans will always be fresh.",
-        "button_text": "Learn More [TEMP]",
-        "link": "shopify:\/\/pages\/contact",
-        "heading_size": 60,
-        "subheading_size": 22,
-        "text_color": "#ffffff",
-        "full_width": true,
-        "section_padding": "both"
-      }
-    },
     "c23e8dc5-2c33-4169-9147-bcb227a8c9ce": {
       "type": "slideshow",
       "blocks": {
@@ -366,7 +347,6 @@
     "16414896049a1a9501",
     "164148960755e05555",
     "05119e69-6c26-449f-ad52-7058cb295376",
-    "8ce518a3-51f4-46ea-8d34-bda30a0b0247",
     "c23e8dc5-2c33-4169-9147-bcb227a8c9ce",
     "55831ab0-44ba-4d50-a485-d56664c521e3"
   ]
