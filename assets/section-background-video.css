@@ -54,6 +54,19 @@
   z-index: 1;
 }
 
+.section-background-video .background-video__button-wrapper {
+  margin-top: 24px;
+}
+
+.section-background-video .background-video__button-wrapper a {
+  margin-bottom: 0;
+  margin-right: 20px;
+}
+
+.section-background-video .background-video__button-wrapper a:last-child {
+  margin-right: 0;
+}
+
 @media (max-width: 767px) {
  .section-background-video .background-video__caption {
     width: 90%;
