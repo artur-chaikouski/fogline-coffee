@@ -49,7 +49,7 @@
     <article class="text span-6 auto {{ text_align }} {{ vertical_align }}">
       <div class="text-with-image pt6 pb10 sm-pb5">
         {% if section.settings.title != blank %}
-          <h3 class="mb6 animate--text">{{ section.settings.title | escape }}</h3>
+          <h2 class="mb6 animate--text">{{ section.settings.title | escape }}</h2>
         {% endif %}
         {% if section.settings.text != blank %}
           <div class="rte mb6 animate--text delay--1">{{ section.settings.text }}</div>
@@ -93,14 +93,15 @@
     .text-with-image-{{ section.id }}.section-text-with-image .rte a:hover {
       color: {{ hover_color }};
     }
-    .text-with-image-{{ section.id }}.section-text-with-image h3 {
+    .text-with-image-{{ section.id }}.section-text-with-image h2 {
       font-size: {{ section.settings.heading_size }}px;
+      line-height: 1;
       color: {{ text_color }};
     }
     @media (min-width: 768px) {
       .text-with-image-{{ section.id }}.section-text-with-image .button,
       .text-with-image-{{ section.id }}.section-text-with-image a,
-      .text-with-image-{{ section.id }}.section-text-with-image h3 {
+      .text-with-image-{{ section.id }}.section-text-with-image h2 {
         color: {{ text_color }} !important;
       }
       .text-with-image-{{ section.id }}.section-text-with-image .rte a:hover {
@@ -129,7 +130,7 @@
       .text-with-image-{{ section.id }}.section-text-with-image {
         background: -webkit-linear-gradient({{ bg_color }} 35%, var(--background) 35%);
       }
-      .text-with-image-{{ section.id }}.section-text-with-image h3 {
+      .text-with-image-{{ section.id }}.section-text-with-image h2 {
         font-size: calc({{ section.settings.heading_size }}px - ({{ section.settings.heading_size }}px * 0.40));
       }
       .text-with-image-{{ section.id }}.section-text-with-image p {

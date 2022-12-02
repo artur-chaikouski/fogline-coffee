@@ -65,7 +65,7 @@
         <div class="background-video__caption {% if show_button_only %}md-hide lg-hide{% endif %}">
           {%- if section.settings.link != blank -%}<a href="{{ section.settings.link }}" title="{{ section.settings.title | escape }}">{%- endif -%}
             {% if section.settings.title != blank %}
-              <h3 class="background-video__heading {% if section.settings.animation %} slide-animate{% endif %}">{{ section.settings.title }}</h3>
+              <h2 class="background-video__heading {% if section.settings.animation %} slide-animate{% endif %}">{{ section.settings.title }}</h2>
             {% endif %}
             {% if section.settings.subheading_text != blank %}
               <p class="background-video__subheading mb0 {% if section.settings.animation %} slide-animate delay--1{% endif %}">{{ section.settings.subheading_text }}</p>
