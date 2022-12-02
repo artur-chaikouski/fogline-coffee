@@ -72,7 +72,7 @@
 
 .section-slideshow .slideshow__caption-wrapper {
   display: inline-block;
-  padding: 20px;
+  padding: 24px;
 }
 
 .section-slideshow .slideshow__btn-wrapper {
@@ -82,10 +82,23 @@
 
 .section-slideshow .slideshow__btn-wrapper a {
   display: inline-block;
-  -webkit-transition: background 0.3s ease, color 0.3s ease;
-  -moz-transition: background 0.3s ease, color 0.3s ease;
-  -o-transition: background 0.3s ease, color 0.3s ease;
-  transition: background 0.3s ease, color 0.3s ease;
+  -webkit-transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease 0s;
+  -moz-transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease 0s;
+  -o-transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease 0s;
+  transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease 0s;
+  box-shadow: 0 0 0 0 transparent;
+  border: 1px solid var(--button-text);
+}
+
+.section-slideshow .slideshow__btn-wrapper a:last-child {
+  margin-bottom: 0;
+}
+
+.section-slideshow .slideshow__btn-wrapper a:hover {
+  box-shadow: 8px 8px 0 0 var(--box-shadow-color);
+  color: var(--button-hover);
+  border: 1px solid var(--button-hover);
+  background-color: var(--button-bg);
 }
 
 @media (max-width: 767px) {

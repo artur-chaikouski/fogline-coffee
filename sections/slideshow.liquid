@@ -79,20 +79,20 @@ data-section-type="carousel">
             <div class="slideshow__caption slide-{{ block.id }}">
               <div class="slideshow__caption-wrapper">
                 {% if block.settings.heading != blank %}
-                  <h2 class="slideshow__title slide-animate delay--1">{{ block.settings.heading | escape }}</h2>
+                  <h2 class="slideshow__title {% if section.settings.animation %} slide-animate delay--1{% endif %}">{{ block.settings.heading | escape }}</h2>
                 {% endif %}
                 {% if block.settings.subheading != blank %}
-                  <div class="rte mb0 slide-animate delay--2">
+                  <div class="rte mb0 {% if section.settings.animation %} slide-animate delay--2{% endif %}">
                     {{ block.settings.subheading }}
                   </div>
                 {% endif %}
                 {% if block.settings.button_text != blank and block.settings.link != blank %}
-                  <div class="slideshow__btn-wrapper slide-animate delay--3">
+                  <div class="slideshow__btn-wrapper {% if section.settings.animation %} slide-animate delay--3{% endif %}">
                     <a class="button" href="{{ block.settings.link }}">{{ block.settings.button_text | escape }}</a>
                   </div>
                 {% endif %}
                 {% if block.settings.second_button_text != blank and block.settings.second_link != blank %}
-                <div class="slideshow__btn-wrapper slide-animate delay--3">
+                <div class="slideshow__btn-wrapper {% if section.settings.animation %} slide-animate delay--3{% endif %}">
                   <a class="button ml3" href="{{ block.settings.second_link }}">{{ block.settings.second_button_text | escape }}</a>
                 </div>
                 {% endif %}
@@ -429,6 +429,11 @@ data-section-type="carousel">
       "id": "enable_autoplay",
       "label": "Auto-change slides",
       "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "animation",
+      "label": "Slide animation"
     },
     {
       "type":      "range",
