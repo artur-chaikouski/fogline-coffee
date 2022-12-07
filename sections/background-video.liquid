@@ -70,16 +70,6 @@
             {% if section.settings.subheading_text != blank %}
               <p class="background-video__subheading mb0 {% if section.settings.animation %} slide-animate delay--1{% endif %}">{{ section.settings.subheading_text }}</p>
             {% endif %}
-            {% if section.settings.link_1 != blank or section.settings.link_2 != blank %}
-              <div class="background-video__button-wrapper {% if section.settings.animation %} slide-animate delay--2{% endif %}">
-                {% if  section.settings.link_1 != blank %}
-                  <a href="{{ section.settings.link_1 }}" class="button btn-outline">{{ section.settings.button_text_1 }}</a>
-                {% endif %}
-                {% if section.settings.link_2 != blank %}
-                  <a href="{{ section.settings.link_2 }}" class="button btn-outline">{{ section.settings.button_text_2 }}</a>
-                {% endif %}
-              </div>
-            {% endif %}
 
             {%- if alternative_video -%}
               <button class="section-gallery__play-button js-play-video btn-as-link md-hide lg-hide" type="button" name="button" data-video-trigger="video-{{ section.id }}" data-video-type="{{ video_type }}">
@@ -94,6 +84,16 @@
               </button>
             {%- endif -%}
           {%- if section.settings.link != blank -%}</a>{%- endif -%}
+          {% if section.settings.link_1 != blank or section.settings.link_2 != blank %}
+            <div class="background-video__button-wrapper {% if section.settings.animation %} slide-animate delay--2{% endif %}">
+              {% if section.settings.link_1 != blank %}
+                <a href="{{ section.settings.link_1 }}" class="button btn-outline">{{ section.settings.button_text_1 }}</a>
+              {% endif %}
+              {% if section.settings.link_2 != blank %}
+                <a href="{{ section.settings.link_2 }}" class="button btn-outline">{{ section.settings.button_text_2 }}</a>
+              {% endif %}
+            </div>
+          {% endif %}
         </div>
       {%- endif -%}
 
