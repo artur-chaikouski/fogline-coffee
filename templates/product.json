@@ -24,13 +24,19 @@
           "type": "social_share",
           "settings": {
           }
+        },
+        "f9aaf511-db5a-47d3-9f8a-10764caebba8": {
+          "type": "product_description",
+          "settings": {
+          }
         }
       },
       "block_order": [
         "90b84880-2bb4-4603-891c-c2bb5ddee26a",
         "ad98456e-8e56-466c-9858-9e2c5a43df91",
         "e6875fb5-148a-4e09-8072-5d5b4b2a1765",
-        "fa93d867-94af-47af-999d-e5cf78771b56"
+        "fa93d867-94af-47af-999d-e5cf78771b56",
+        "f9aaf511-db5a-47d3-9f8a-10764caebba8"
       ],
       "settings": {
         "form_bg_color": "#ece2cc",
