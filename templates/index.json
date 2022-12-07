@@ -319,7 +319,7 @@
         "04658cb0-c6c0-46b2-bfca-ab05fb91666e"
       ],
       "settings": {
-        "full_width": false,
+        "full_width": true,
         "enable_autoplay": true,
         "animation": false,
         "slider_speed": 8,
