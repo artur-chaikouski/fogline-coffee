@@ -150,7 +150,7 @@
             {% when 'product_description' %}
               {%- if product.description != blank -%}
                 <div class="product-template__description rte pt2 mb2" {{ block.shopify_attributes }}>
-                  <p class="label mb3">{{ 'products.product.product_info' | t }}</p>
+                  <p class="label mb3 h4">{{ 'products.product.product_info' | t }}</p>
                   {% if product.description contains '[#' %}
                     {{ product.description | split: '[#' | first }}
                   {% else %}
