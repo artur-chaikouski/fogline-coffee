@@ -39,7 +39,7 @@
           "type": "tag_group",
           "settings": {
             "filter_by_heading": "Flavor Profile",
-            "filter_by": "Floral, Fruity, Nutty, Sweet, Chocolate, Sour"
+            "filter_by": "Floral, Fruity, Nutty, Sweet, Chocolate, Sour, Caramel"
           }
         }
       },
