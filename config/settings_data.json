@@ -850,6 +850,15 @@
     },
     "content_for_index": [
 
-    ]
+    ],
+    "blocks": {
+      "12107416968155278870": {
+        "type": "shopify:\/\/apps\/paywhirl-subscription-payments\/blocks\/paywhirl-customer-portal\/41e95d60-82cf-46e8-84de-618d7e4c37b7",
+        "disabled": false,
+        "settings": {
+          "container_selector": "main#MainContent"
+        }
+      }
+    }
   }
 }
