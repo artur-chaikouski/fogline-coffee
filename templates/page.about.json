@@ -16,6 +16,20 @@
         "page_alignment": "a-left"
       }
     },
+    "68272f38-432e-4984-9ba6-ab1a5ba0616b": {
+      "type": "rich-text",
+      "settings": {
+        "title": "Welcome",
+        "rich_text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.<\/p>",
+        "heading_size": 40,
+        "text_size": 20,
+        "page": "",
+        "alignment": "a-center",
+        "content_width": 60,
+        "section_padding": "both",
+        "color_scheme": "1"
+      }
+    },
     "48e2ec77-2c4c-435b-910c-f3101a64d65e": {
       "type": "hero-image-with-text",
       "settings": {
@@ -51,6 +65,7 @@
   "order": [
     "banner",
     "main",
+    "68272f38-432e-4984-9ba6-ab1a5ba0616b",
     "48e2ec77-2c4c-435b-910c-f3101a64d65e",
     "1641490467976bd7d5"
   ]
