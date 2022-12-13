@@ -17,7 +17,7 @@
       "type": "newsletter",
       "settings": {
         "title": "Enjoy a cup, on us",
-        "subheading": "<p>Sign up for our email newsletter and you'll receive a coupon code for a free sample!<\/p>",
+        "subheading": "<p>Sign up for our email newsletter and you'll receive a coupon code for a free sample! You'll just pay shipping and handling.<\/p>",
         "mail_gdpr_text": "<p>*By completing this form you're signing up to receive our emails and can unsubscribe at any time.<\/p>",
         "alignment": "a-center",
         "heading_font_size": 32,
