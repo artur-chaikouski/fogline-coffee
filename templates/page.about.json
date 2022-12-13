@@ -1,1 +1,114 @@
-{"sections":{"banner":{"type":"banner-image","settings":{"full_width":true,"image":"","banner_height":400}},"main":{"type":"main-page","disabled":true,"settings":{"page_alignment":"a-left"}},"164149044837a86c50":{"type":"rich-text","settings":{"title":"Welcome","heading_size":40,"text_size":24,"page":"","alignment":"a-center","content_width":60,"section_padding":"both","color_scheme":"none"}},"1641490461c13a3bdb":{"type":"image-with-text","settings":{"iwt_image":"","iwt_layout":"image_left","iwt_button":"Button","iwt_link":"","color_scheme":"1","iwt_section_height":900,"section_padding":"both"}},"164149045192375295":{"type":"editorial-columns","blocks":{"1641490451123ae45d-0":{"type":"text_block","settings":{"image":"","link":"","subheading":""}},"1641490451123ae45d-1":{"type":"text_block","settings":{"image":"","link":"","subheading":""}},"1641490451123ae45d-2":{"type":"text_block","settings":{"image":"","link":"","subheading":""}}},"block_order":["1641490451123ae45d-0","1641490451123ae45d-1","1641490451123ae45d-2"],"settings":{"title":"","text_align":"left","section_padding":"both"}},"1641490467976bd7d5":{"type":"image-with-text","settings":{"iwt_image":"","iwt_layout":"image_left","iwt_button":"Button","iwt_link":"","color_scheme":"1","iwt_section_height":800,"section_padding":"both"}}},"order":["banner","main","164149044837a86c50","1641490461c13a3bdb","164149045192375295","1641490467976bd7d5"]}
+{
+  "sections": {
+    "banner": {
+      "type": "banner-image",
+      "settings": {
+        "full_width": true,
+        "image": "shopify:\/\/shop_images\/pouring-hot-coffee.jpg",
+        "banner_height": 400
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "page_alignment": "a-left"
+      }
+    },
+    "48e2ec77-2c4c-435b-910c-f3101a64d65e": {
+      "type": "hero-image-with-text",
+      "settings": {
+        "text_align": "left",
+        "vertical_align": "middle",
+        "title": "Fogline Coffee",
+        "text": "<p>We are a micro roasting company in Arcata, California, nestled along the Northern California coast. Our ancient redwood trees, mountains and Pacific Ocean meet with the embrace of our beloved Humboldt County fog. An iconic trait, the fogline running the coast to the interior mountain valleys is a respite to our ancient trees and supports our ecosystem.<\/p>",
+        "heading_size": 34,
+        "text_size": 16,
+        "button": "",
+        "link": "",
+        "section_padding": "bottom",
+        "color_scheme": "2",
+        "color_header": false
+      }
+    },
+    "1641490467976bd7d5": {
+      "type": "image-with-text",
+      "settings": {
+        "iwt_layout": "image_right",
+        "iwt_heading": "Ethos",
+        "iwt_text": "<p>By aligning ourselves with like-minded importers as well as farmers directly we source coffee that is most equitable to the farmer while bringing the highest quality to your cup. Our focus is to bring you coffee from small, family-run farms where cultural practices showcase natural and chemical-free farming and sustainable production. For us, that means a lot of source from small-lot, generational farms and paying a premium for their coffee. We're a small family-run micro-roaster that prides itself on the belief that from our source to you, the customer, we are connected by the cup.<\/p>",
+        "iwt_button": "Button",
+        "iwt_link": "",
+        "color_scheme": "1",
+        "iwt_section_height": 800,
+        "section_padding": "both"
+      }
+    },
+    "c6e19f60-f70d-4f24-98b6-7f94c14755a5": {
+      "type": "fact-columns",
+      "blocks": {
+        "template--17240993792316__c6e19f60-f70d-4f24-98b6-7f94c14755a5-1670963748ce0a10b5-0": {
+          "type": "text",
+          "settings": {
+            "bg_shape": "rough_circle_shape",
+            "title": "Fact Text",
+            "text_size": 32,
+            "bg_color": "#4B2C1B",
+            "text_color": "#ffffff",
+            "link": ""
+          }
+        },
+        "template--17240993792316__c6e19f60-f70d-4f24-98b6-7f94c14755a5-1670963748ce0a10b5-1": {
+          "type": "text",
+          "settings": {
+            "bg_shape": "rough_circle_shape",
+            "title": "Fact Text",
+            "text_size": 32,
+            "bg_color": "#4B2C1B",
+            "text_color": "#ffffff",
+            "link": ""
+          }
+        },
+        "template--17240993792316__c6e19f60-f70d-4f24-98b6-7f94c14755a5-1670963748ce0a10b5-2": {
+          "type": "text",
+          "settings": {
+            "bg_shape": "rough_circle_shape",
+            "title": "Fact Text",
+            "text_size": 32,
+            "bg_color": "#4B2C1B",
+            "text_color": "#ffffff",
+            "link": ""
+          }
+        },
+        "template--17240993792316__c6e19f60-f70d-4f24-98b6-7f94c14755a5-1670963748ce0a10b5-3": {
+          "type": "text",
+          "settings": {
+            "bg_shape": "rough_circle_shape",
+            "title": "Fact Text",
+            "text_size": 32,
+            "bg_color": "#4B2C1B",
+            "text_color": "#ffffff",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--17240993792316__c6e19f60-f70d-4f24-98b6-7f94c14755a5-1670963748ce0a10b5-0",
+        "template--17240993792316__c6e19f60-f70d-4f24-98b6-7f94c14755a5-1670963748ce0a10b5-1",
+        "template--17240993792316__c6e19f60-f70d-4f24-98b6-7f94c14755a5-1670963748ce0a10b5-2",
+        "template--17240993792316__c6e19f60-f70d-4f24-98b6-7f94c14755a5-1670963748ce0a10b5-3"
+      ],
+      "settings": {
+        "title": "",
+        "section_padding": "both"
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "main",
+    "48e2ec77-2c4c-435b-910c-f3101a64d65e",
+    "1641490467976bd7d5",
+    "c6e19f60-f70d-4f24-98b6-7f94c14755a5"
+  ]
+}
