@@ -31,7 +31,7 @@
           "type": "tag_group",
           "settings": {
             "filter_by_heading": "Roast Profile",
-            "filter_by": "Light, Medium, Dark"
+            "filter_by": "Light Roast, Medium Roast, Dark Roast"
           }
         }
       },
