@@ -689,6 +689,7 @@
     "show_shipping_countdown": true,
     "free_shipping_scheme": "2",
     "image_ratio": "square",
+    "product_grid_padding": true,
     "product_variants": "dropdowns",
     "show_color_swatches": false,
     "product_show_payment_button": true,
