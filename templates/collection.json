@@ -26,12 +26,20 @@
             "filter_by_heading": "Origin",
             "filter_by": "Columbia, Brazil, Nicaragua, Guatemala, Kenya, Sumatra, Mexico"
           }
+        },
+        "5fb2d991-aec2-4c68-bee9-28d6a48c5a57": {
+          "type": "tag_group",
+          "settings": {
+            "filter_by_heading": "Roast Profile",
+            "filter_by": "Light, Medium, Dark"
+          }
         }
       },
       "block_order": [
         "a8162060-cb0e-4be7-91eb-83a96e11ad84",
         "a693520f-e2ed-48e0-aaae-58e0dc5dcc3f",
-        "526b97e3-01d6-4099-9757-c47651f06f65"
+        "526b97e3-01d6-4099-9757-c47651f06f65",
+        "5fb2d991-aec2-4c68-bee9-28d6a48c5a57"
       ],
       "settings": {
         "items_per_page": 30,
