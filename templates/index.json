@@ -336,8 +336,8 @@
         "iwt_layout": "image_left",
         "iwt_heading": "Let us buy you a cup of coffee!",
         "iwt_text": "<p>Coffee should be a peaceful ritual, a moment of reflection in your busy day, and who wants to gamble with that? We know buying coffee online can feel like a leap of faith, so we’d like to treat you to a cup, risk free! <\/p>",
-        "iwt_button": "Sign Me Up [TEMP]",
-        "iwt_link": "shopify:\/\/pages\/contact",
+        "iwt_button": "Sign Me Up",
+        "iwt_link": "shopify:\/\/pages\/free-sample",
         "color_scheme": "3",
         "iwt_section_height": 500,
         "section_padding": "both"
