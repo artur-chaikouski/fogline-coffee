@@ -12,6 +12,7 @@
       "blocks": {
         "a8162060-cb0e-4be7-91eb-83a96e11ad84": {
           "type": "filter",
+          "disabled": true,
           "settings": {
           }
         },
@@ -33,13 +34,21 @@
             "filter_by_heading": "Roast Profile",
             "filter_by": "Light Roast, Medium Roast, Dark Roast"
           }
+        },
+        "ab19ce67-90d4-4ab0-98ab-56729b00bbb6": {
+          "type": "tag_group",
+          "settings": {
+            "filter_by_heading": "Flavor Profile",
+            "filter_by": "Floral, Fruity, Nutty, Sweet, Chocolate, Sour"
+          }
         }
       },
       "block_order": [
         "a8162060-cb0e-4be7-91eb-83a96e11ad84",
         "a693520f-e2ed-48e0-aaae-58e0dc5dcc3f",
         "526b97e3-01d6-4099-9757-c47651f06f65",
-        "5fb2d991-aec2-4c68-bee9-28d6a48c5a57"
+        "5fb2d991-aec2-4c68-bee9-28d6a48c5a57",
+        "ab19ce67-90d4-4ab0-98ab-56729b00bbb6"
       ],
       "settings": {
         "items_per_page": 30,
