@@ -8,15 +8,16 @@
   data-section-type="customer"
   data-asset-url="{{ 'section-customers.js' | asset_url }}">
 
-{% comment %} PayWhirl Subscription Notice {% endcomment %}
+  <div class="grid__wrapper">
+    <h1 class="span-12 auto a-center mb8">{{ 'customer.addresses.title' | t }}</h1>
+
+    {% comment %} PayWhirl Subscription Notice {% endcomment %}
   <p><center>
   Changing your default address does not affect existing subscriptions.
   If you'd like to change your delivery address for recurring orders, please visit the
   <a href="{{ routes.account_url | append: "?pw-page=/" }}">subscription page</a>.
   </center></p>
-
-  <div class="grid__wrapper">
-    <h1 class="span-12 auto a-center mb8">{{ 'customer.addresses.title' | t }}</h1>
+  
   </div>
   <div id="address-loop">
     <div class="grid__wrapper">
