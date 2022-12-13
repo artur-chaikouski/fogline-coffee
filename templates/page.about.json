@@ -2,6 +2,7 @@
   "sections": {
     "banner": {
       "type": "banner-image",
+      "disabled": true,
       "settings": {
         "full_width": true,
         "image": "shopify:\/\/shop_images\/pouring-hot-coffee.jpg",
@@ -15,45 +16,10 @@
         "page_alignment": "a-left"
       }
     },
-    "f9b318dc-f0b2-4b1e-9979-c8458ca806fb": {
-      "type": "accordion",
-      "blocks": {
-        "template--17240993792316__f9b318dc-f0b2-4b1e-9979-c8458ca806fb-1670964739d2938e5a-0": {
-          "type": "panel",
-          "settings": {
-            "heading": "Fogline Name",
-            "content": "<p>We are a micro roasting company in Arcata, California, nestled along the Northern California coast. Our ancient redwood trees, mountains and Pacific Ocean meet with the embrace of our beloved Humboldt County fog. An iconic trait, the fogline running the coast to the interior mountain valleys is a respite to our ancient trees and supports our ecosystem.<\/p>"
-          }
-        },
-        "template--17240993792316__f9b318dc-f0b2-4b1e-9979-c8458ca806fb-1670964739d2938e5a-1": {
-          "type": "panel",
-          "settings": {
-            "heading": "Ethos",
-            "content": "<p>By aligning ourselves with like-minded importers as well as farmers directly we source coffee that is most equitable to the farmer while bringing the highest quality to your cup. Our focus is to bring you coffee from small, family-run farms where cultural practices showcase natural and chemical-free farming and sustainable production. For us, that means a lot of source from small-lot, generational farms and paying a premium for their coffee. We're a small family-run micro-roaster that prides itself on the belief that from our source to you, the customer, we are connected by the cup.<\/p>"
-          }
-        },
-        "template--17240993792316__f9b318dc-f0b2-4b1e-9979-c8458ca806fb-1670964739d2938e5a-2": {
-          "type": "panel",
-          "settings": {
-            "heading": "Heading",
-            "content": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.<\/p>"
-          }
-        }
-      },
-      "block_order": [
-        "template--17240993792316__f9b318dc-f0b2-4b1e-9979-c8458ca806fb-1670964739d2938e5a-0",
-        "template--17240993792316__f9b318dc-f0b2-4b1e-9979-c8458ca806fb-1670964739d2938e5a-1",
-        "template--17240993792316__f9b318dc-f0b2-4b1e-9979-c8458ca806fb-1670964739d2938e5a-2"
-      ],
-      "settings": {
-        "heading": "About Fogline Coffee",
-        "allow_multiple": true,
-        "section_padding": "both"
-      }
-    },
     "48e2ec77-2c4c-435b-910c-f3101a64d65e": {
       "type": "hero-image-with-text",
       "settings": {
+        "image": "shopify:\/\/shop_images\/Fogline_Logo_png.png",
         "text_align": "left",
         "vertical_align": "middle",
         "title": "Fogline Coffee",
@@ -62,15 +28,16 @@
         "text_size": 16,
         "button": "",
         "link": "",
-        "section_padding": "bottom",
-        "color_scheme": "2",
+        "section_padding": "both",
+        "color_scheme": "1",
         "color_header": false
       }
     },
     "1641490467976bd7d5": {
       "type": "image-with-text",
       "settings": {
-        "iwt_layout": "image_right",
+        "iwt_image": "shopify:\/\/shop_images\/pexels-rachel-claire-4846347_73e6b175-b510-4aa2-9eb3-79a8cb647777.jpg",
+        "iwt_layout": "image_left",
         "iwt_heading": "Ethos",
         "iwt_text": "<p>By aligning ourselves with like-minded importers as well as farmers directly we source coffee that is most equitable to the farmer while bringing the highest quality to your cup. Our focus is to bring you coffee from small, family-run farms where cultural practices showcase natural and chemical-free farming and sustainable production. For us, that means a lot of source from small-lot, generational farms and paying a premium for their coffee. We're a small family-run micro-roaster that prides itself on the belief that from our source to you, the customer, we are connected by the cup.<\/p>",
         "iwt_button": "Button",
@@ -79,136 +46,12 @@
         "iwt_section_height": 800,
         "section_padding": "both"
       }
-    },
-    "c6e19f60-f70d-4f24-98b6-7f94c14755a5": {
-      "type": "fact-columns",
-      "blocks": {
-        "template--17240993792316__c6e19f60-f70d-4f24-98b6-7f94c14755a5-1670963748ce0a10b5-0": {
-          "type": "text",
-          "settings": {
-            "bg_shape": "rough_circle_shape",
-            "title": "Fact Text",
-            "text_size": 32,
-            "bg_color": "#4B2C1B",
-            "text_color": "#ffffff",
-            "link": ""
-          }
-        },
-        "template--17240993792316__c6e19f60-f70d-4f24-98b6-7f94c14755a5-1670963748ce0a10b5-1": {
-          "type": "text",
-          "settings": {
-            "bg_shape": "rough_circle_shape",
-            "title": "Fact Text",
-            "text_size": 32,
-            "bg_color": "#4B2C1B",
-            "text_color": "#ffffff",
-            "link": ""
-          }
-        },
-        "template--17240993792316__c6e19f60-f70d-4f24-98b6-7f94c14755a5-1670963748ce0a10b5-2": {
-          "type": "text",
-          "settings": {
-            "bg_shape": "rough_circle_shape",
-            "title": "Fact Text",
-            "text_size": 32,
-            "bg_color": "#4B2C1B",
-            "text_color": "#ffffff",
-            "link": ""
-          }
-        },
-        "template--17240993792316__c6e19f60-f70d-4f24-98b6-7f94c14755a5-1670963748ce0a10b5-3": {
-          "type": "text",
-          "settings": {
-            "bg_shape": "rough_circle_shape",
-            "title": "Fact Text",
-            "text_size": 32,
-            "bg_color": "#4B2C1B",
-            "text_color": "#ffffff",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "template--17240993792316__c6e19f60-f70d-4f24-98b6-7f94c14755a5-1670963748ce0a10b5-0",
-        "template--17240993792316__c6e19f60-f70d-4f24-98b6-7f94c14755a5-1670963748ce0a10b5-1",
-        "template--17240993792316__c6e19f60-f70d-4f24-98b6-7f94c14755a5-1670963748ce0a10b5-2",
-        "template--17240993792316__c6e19f60-f70d-4f24-98b6-7f94c14755a5-1670963748ce0a10b5-3"
-      ],
-      "settings": {
-        "title": "",
-        "section_padding": "both"
-      }
-    },
-    "38fa300c-29fa-4309-ac38-70b3f575cd4c": {
-      "type": "hero-image-with-text",
-      "settings": {
-        "text_align": "left",
-        "vertical_align": "middle",
-        "title": "Image with text",
-        "text": "<p>Pair large text with an image to give focus to your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
-        "heading_size": 34,
-        "text_size": 16,
-        "button": "",
-        "link": "",
-        "section_padding": "bottom",
-        "color_scheme": "2",
-        "color_header": false
-      }
-    },
-    "4eb16dc9-76d6-4086-80b7-02266770e3cf": {
-      "type": "image-with-text-overlay",
-      "settings": {
-        "show_overlay_color": false,
-        "overlay_color": "#000",
-        "image_height": 600,
-        "title": "Image with Text Overlay",
-        "subheading_text": "Use overlay text to give your customers insight into your brand. Select imagery and text that relates to your style and story.",
-        "button_text": "Learn More",
-        "link": "",
-        "heading_size": 60,
-        "subheading_size": 18,
-        "text_color": "#FFFFFF",
-        "full_width": true,
-        "section_padding": "both"
-      }
-    },
-    "468f0ad5-6c96-4b8c-bc1f-5905d0707651": {
-      "type": "image-carousel-with-text",
-      "blocks": {
-        "template--17240993792316__468f0ad5-6c96-4b8c-bc1f-5905d0707651-16709638370df76b8d-0": {
-          "type": "image",
-          "settings": {
-            "image": "shopify:\/\/shop_images\/origin_7b180055-34bb-4c05-be25-aedb7fc2fb59.png",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "template--17240993792316__468f0ad5-6c96-4b8c-bc1f-5905d0707651-16709638370df76b8d-0"
-      ],
-      "settings": {
-        "full_width": false,
-        "section_padding": "both",
-        "item_position": "left",
-        "item_width": "one_half",
-        "text_align": "left",
-        "vertical_align": "middle",
-        "title": "Image carousel with text",
-        "text": "<p>Pair large text with an image to give focus to your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>",
-        "button": "",
-        "link": ""
-      }
     }
   },
   "order": [
     "banner",
     "main",
-    "f9b318dc-f0b2-4b1e-9979-c8458ca806fb",
     "48e2ec77-2c4c-435b-910c-f3101a64d65e",
-    "1641490467976bd7d5",
-    "c6e19f60-f70d-4f24-98b6-7f94c14755a5",
-    "38fa300c-29fa-4309-ac38-70b3f575cd4c",
-    "4eb16dc9-76d6-4086-80b7-02266770e3cf",
-    "468f0ad5-6c96-4b8c-bc1f-5905d0707651"
+    "1641490467976bd7d5"
   ]
 }
