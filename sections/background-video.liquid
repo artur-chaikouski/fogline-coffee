@@ -65,10 +65,10 @@
         <div class="background-video__caption {% if show_button_only %}md-hide lg-hide{% endif %}">
           {%- if section.settings.link != blank -%}<a href="{{ section.settings.link }}" title="{{ section.settings.title | escape }}">{%- endif -%}
             {% if section.settings.title != blank %}
-              <h3 class="background-video__heading animate--text">{{ section.settings.title }}</h3>
+              <h2 class="background-video__heading {% if section.settings.animation %} slide-animate{% endif %}">{{ section.settings.title }}</h2>
             {% endif %}
             {% if section.settings.subheading_text != blank %}
-              <p class="background-video__subheading mb0 animate--text delay--1">{{ section.settings.subheading_text }}</p>
+              <p class="background-video__subheading mb0 {% if section.settings.animation %} slide-animate delay--1{% endif %}">{{ section.settings.subheading_text }}</p>
             {% endif %}
 
             {%- if alternative_video -%}
@@ -84,6 +84,16 @@
               </button>
             {%- endif -%}
           {%- if section.settings.link != blank -%}</a>{%- endif -%}
+          {% if section.settings.link_1 != blank or section.settings.link_2 != blank %}
+            <div class="background-video__button-wrapper {% if section.settings.animation %} slide-animate delay--2{% endif %}">
+              {% if section.settings.link_1 != blank %}
+                <a href="{{ section.settings.link_1 }}" class="button btn-outline">{{ section.settings.button_text_1 }}</a>
+              {% endif %}
+              {% if section.settings.link_2 != blank %}
+                <a href="{{ section.settings.link_2 }}" class="button btn-outline">{{ section.settings.button_text_2 }}</a>
+              {% endif %}
+            </div>
+          {% endif %}
         </div>
       {%- endif -%}
 
@@ -163,6 +173,11 @@
   "class": "dynamic-section",
   "settings": [
     {
+      "type": "checkbox",
+      "id": "animation",
+      "label": "Slide animation"
+    },
+    {
       "type":"url",
       "id":"mp4_url",
       "label":"MP4 url",
@@ -195,6 +210,26 @@
       "id": "subheading_text",
       "label": "Subheading",
       "default": "Use overlay text to give your customers insight into your brand. Select imagery and text that relates to your style and story."
+    },
+    {
+      "type": "url",
+      "id": "link_1",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "button_text_1",
+      "label": "Button text"
+    },
+    {
+      "type": "url",
+      "id": "link_2",
+      "label": "Button 2 link"
+    },
+    {
+      "type": "text",
+      "id": "button_text_2",
+      "label": "Button 2 text"
     },
     {
       "type": "url",

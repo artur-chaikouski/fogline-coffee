@@ -4,7 +4,7 @@
   padding: 0 var(--space-11) var(--space-8) var(--space-11);
 }
 
-.section-text-with-image h3 {
+.section-text-with-image h2 {
   color: var(--background);
   font-size: var(--h3-size);
   font-stretch: normal;
@@ -30,7 +30,7 @@
     color: var(--text-color) !important;
   }
 
-  .section-text-with-image h3 {
+  .section-text-with-image h2 {
     color: var(--text-color) !important;
   }
 

@@ -126,10 +126,10 @@
     <article class="{{ width_one }} {{ position_two }} {{ text_align }} {{ vertical_align }}">
       <div class="text-with-image p3">
         {% if section.settings.title != blank %}
-          <h3 class="section-image-carousel-text__block-heading mb1">{{ section.settings.title | escape }}</h3>
+          <h2 class="section-image-carousel-text__block-heading mb4">{{ section.settings.title | escape }}</h2>
         {% endif %}
         {% if section.settings.text != blank %}
-          <div class="section-image-carousel-text__block-subheading rte mb4">{{ section.settings.text }}</div>
+          <div class="section-image-carousel-text__block-subheading rte mb6">{{ section.settings.text }}</div>
         {% endif %}
         {% if section.settings.button != blank and section.settings.link != blank %}
           <a href="{{ section.settings.link }}" class="section-image-carousel-text__button button btn-outline mt3">
