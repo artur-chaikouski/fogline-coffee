@@ -55,7 +55,7 @@
     .rich-text-{{ section.id }} .pages-content,
     .rich-text-{{ section.id }} .pages-content p,
     .rich-text-{{ section.id }} .pages-content a {
-      font-family: var(--heading-family);
+      font-family: var(--main-family);
       font-size: {{ section.settings.text_size }}px !important;
       line-height: calc(({{ section.settings.text_size }}px * .375) + {{ section.settings.text_size }}px);
     }
@@ -121,7 +121,7 @@
       "step": 1,
       "unit": "px",
       "label": "Heading size",
-      "default": 40
+      "default": 32
     },
     {
       "type": "range",
