@@ -39,7 +39,7 @@
         "f9aaf511-db5a-47d3-9f8a-10764caebba8"
       ],
       "settings": {
-        "form_bg_color": "#ece2cc",
+        "form_bg_color": "#ececed",
         "form_text_color": "#292929",
         "thumbnail_position": "right",
         "click_to_enlarge": true,
@@ -51,6 +51,7 @@
       "blocks": {
         "a3ec2846-2640-4d01-bcba-2a3e889128b8": {
           "type": "product_description",
+          "disabled": true,
           "settings": {
           }
         },
@@ -138,7 +139,7 @@
     "product-recommendations": {
       "type": "product-recommendations",
       "settings": {
-        "product_recommendations_heading": "Related Products",
+        "product_recommendations_heading": "You might be interested in...",
         "items_per_row": 4,
         "items_shown": 4,
         "section_padding": "both"
@@ -146,6 +147,7 @@
     },
     "image-with-text": {
       "type": "image-with-text",
+      "disabled": true,
       "settings": {
         "iwt_layout": "image_left",
         "iwt_heading": "Heading",

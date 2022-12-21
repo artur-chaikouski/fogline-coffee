@@ -665,9 +665,9 @@
     "button_bg": "rgba(0,0,0,0)",
     "button_text": "#262b2c",
     "button_hover": "#745d4a",
-    "secondary_button_bg": "#303030",
+    "secondary_button_bg": "#408185",
     "secondary_button_text": "#FAF4E8",
-    "secondary_button_hover": "#404040",
+    "secondary_button_hover": "#35a4b5",
     "directional_bg": "#408185",
     "directional_hover": "#35a4b5",
     "prefooter_bg": "#478a90",
@@ -689,8 +689,10 @@
     "show_shipping_countdown": true,
     "free_shipping_scheme": "2",
     "image_ratio": "square",
+    "product_grid_padding": true,
     "product_variants": "dropdowns",
     "show_color_swatches": false,
+    "product_show_payment_button": true,
     "cart_added_event": "product_page",
     "sections": {
       "mobile-navigation": {
