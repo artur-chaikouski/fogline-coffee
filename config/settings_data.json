@@ -762,10 +762,10 @@
         ],
         "settings": {
           "inline_layout": false,
-          "logo_align_left": true,
+          "logo_align_left": false,
           "enable_sticky": false,
-          "logo": "shopify:\/\/shop_images\/Fogline_Logo_png.png",
-          "logo_max_width": 260,
+          "logo": "shopify:\/\/shop_images\/Fogline_Logo_10c1ee80-2fef-49bf-b65f-d02bf9dd1833.jpg",
+          "logo_max_width": 270,
           "logo_size": 32,
           "main_nav": "main-menu",
           "nav_alignment": "center",
