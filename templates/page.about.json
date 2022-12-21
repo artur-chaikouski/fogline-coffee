@@ -19,8 +19,8 @@
     "68272f38-432e-4984-9ba6-ab1a5ba0616b": {
       "type": "rich-text",
       "settings": {
-        "title": "Welcome",
-        "rich_text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.<\/p>",
+        "title": "About Us",
+        "rich_text": "<p>We are a micro roasting company in Arcata, California, nestled along the Northern California coast.<\/p>",
         "heading_size": 40,
         "text_size": 20,
         "page": "",
@@ -37,7 +37,7 @@
         "text_align": "left",
         "vertical_align": "middle",
         "title": "Fogline Coffee",
-        "text": "<p>We are a micro roasting company in Arcata, California, nestled along the Northern California coast. Our ancient redwood trees, mountains and Pacific Ocean meet with the embrace of our beloved Humboldt County fog. An iconic trait, the fogline running the coast to the interior mountain valleys is a respite to our ancient trees and supports our ecosystem.<\/p>",
+        "text": "<p>Our ancient redwood trees, mountains and Pacific Ocean meet with the embrace of our beloved Humboldt County fog. An iconic trait, the fogline running the coast to the interior mountain valleys is a respite to our ancient trees and supports our ecosystem.<\/p>",
         "heading_size": 34,
         "text_size": 16,
         "button": "",
