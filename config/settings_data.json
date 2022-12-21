@@ -761,8 +761,8 @@
           "3508d5ea-f741-46a3-b11c-bdc5b29879b8"
         ],
         "settings": {
-          "inline_layout": true,
-          "logo_align_left": true,
+          "inline_layout": false,
+          "logo_align_left": false,
           "enable_sticky": false,
           "logo": "shopify:\/\/shop_images\/fogline_coffee_logo_words_only_25bf4ed7-2bd9-40d5-91b6-fbeba0597aaf.png",
           "logo_max_width": 325,
