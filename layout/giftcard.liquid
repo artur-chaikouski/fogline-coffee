@@ -34,7 +34,7 @@
   {% render 'snip-social-meta-tags' %}
   {% render 'snip-structured-data' %}
 
-  {{ content_for_header }}
+  {% include 'globo.filter.script' %}{{ content_for_header }}
 
   {% render 'css-variables' %}
 
@@ -78,5 +78,6 @@
 
   <script src="{{ 'theme.js' | asset_url }}"></script>
 
-</body>
+{% include 'globo.filter.action' %}
+	</body>
 </html>
