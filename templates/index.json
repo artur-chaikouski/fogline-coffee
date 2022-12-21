@@ -64,9 +64,9 @@
           "settings": {
             "icon": "chat",
             "image": "shopify:\/\/shop_images\/origin_7b180055-34bb-4c05-be25-aedb7fc2fb59.png",
-            "link": "",
+            "link": "shopify:\/\/collections\/shop-all",
             "title": "Shop by Origin",
-            "subheading": "<p><\/p>"
+            "subheading": ""
           }
         },
         "template--14384131998012__0db485c0-a5e4-47a5-a546-b97142c75401-166663517543ab5737-1": {
@@ -74,9 +74,9 @@
           "settings": {
             "icon": "chat",
             "image": "shopify:\/\/shop_images\/flavor_profile_895ece24-017d-4df0-b39f-913aaf96951f.png",
-            "link": "",
+            "link": "shopify:\/\/collections\/shop-all",
             "title": "Shop by Flavor Profile",
-            "subheading": "<p><\/p>"
+            "subheading": ""
           }
         },
         "template--14384131998012__0db485c0-a5e4-47a5-a546-b97142c75401-166663517543ab5737-2": {
@@ -84,9 +84,9 @@
           "settings": {
             "icon": "chat",
             "image": "shopify:\/\/shop_images\/roast_profile.png",
-            "link": "",
+            "link": "shopify:\/\/collections\/shop-all",
             "title": "Shop by Roast Profile",
-            "subheading": "<p><\/p>"
+            "subheading": ""
           }
         }
       },
@@ -97,7 +97,7 @@
       ],
       "settings": {
         "title": "Start your day with good coffee, not stress.",
-        "subtitle": "Whether you're a coffee connoisseur or just dipping your toe into the coffee world, it can be hard to sort through all the options available. We know everyone has different tastes- so let us take the mystery out of choosing your next bag!",
+        "subtitle": "Whether you're a coffee connoisseur or just dipping your toe into the coffee world, it can be hard to sort through all the options available. We know everyone has different tastes—so let us take the mystery out of choosing your next bag!",
         "subtitle_size": 20,
         "max_width_title": 540,
         "max_width_description": 720,
