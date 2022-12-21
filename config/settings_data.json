@@ -775,10 +775,10 @@
       "footer": {
         "type": "footer",
         "settings": {
-          "footer_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut laborez.<\/p>",
+          "footer_text": "",
           "show_social": true,
           "footer_nav": "footer",
-          "show_credit_cards": true,
+          "show_credit_cards": false,
           "show_copyright": true,
           "show_locale_selector": true,
           "show_country_selector": true
