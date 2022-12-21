@@ -1,16 +1,18 @@
 {
   "sections": {
-    "banner": {
-      "type": "banner-image",
-      "settings": {
-        "full_width": true,
-        "banner_height": 400
-      }
-    },
     "main": {
       "type": "main-page",
       "settings": {
         "page_alignment": "a-left"
+      }
+    },
+    "banner": {
+      "type": "banner-image",
+      "disabled": true,
+      "settings": {
+        "full_width": true,
+        "image": "shopify:\/\/shop_images\/battlecreek-coffee-roasters-3q3f1uDQk94-unsplash.jpg",
+        "banner_height": 400
       }
     },
     "346b68d8-b8f8-437f-b061-fc855305e257": {
@@ -20,16 +22,16 @@
         "subheading": "<p>Sign up for our email newsletter and you'll receive a coupon code for a free sample! You'll just pay shipping and handling.<\/p>",
         "mail_gdpr_text": "<p>*By completing this form you're signing up to receive our emails and can unsubscribe at any time.<\/p>",
         "alignment": "a-center",
-        "heading_font_size": 32,
-        "subheading_font_size": 16,
+        "heading_font_size": 36,
+        "subheading_font_size": 20,
         "color_scheme": "2",
         "section_padding": "both"
       }
     }
   },
   "order": [
-    "banner",
     "main",
+    "banner",
     "346b68d8-b8f8-437f-b061-fc855305e257"
   ]
 }
