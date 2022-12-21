@@ -40,7 +40,7 @@
   data-section-id="{{ section.id }}"
   data-asset-url="{{ 'section-main-search.js' | asset_url }}"
   data-section-type="search-template">
-  <div data-section-id="{% if section.id %}{{section.id}}{% endif %}" data-sectionId="{% if section.id %}{{section.id}}{% endif %}" {% if section.blocks %}data-blocks='{ {%- capture blocks_json -%}{% for block in section.blocks %}{%- capture block_json -%}"{{ block.type }}":{{ block.settings | json }}{%- endcapture -%}{{ block_json | prepend: ","  }}{% endfor %}{%- endcapture -%}{{ blocks_json | remove_first: "," }} }' {% endif %} data-settings='{% if section.settings %}{{section.settings | json}}{% endif %}' data-globo-filter-items id="searchResultsWrapper" class="grid__wrapper pt8">
+  <div id="searchResultsWrapper" class="grid__wrapper pt8">
     <div class="span-12 a-center">
       <h1>{{ 'general.search.title' | t }}</h1>
     </div>
@@ -167,7 +167,7 @@
              <div class="span-12 auto">
                <div id="search-pages" class="grid__wrapper pt5">
                  {% render 'snip-headings',  align: heading_align, grid: 'span-12 mt3', translation: 'general.search.pages' %}
-                 <ul data-section-id="{% if section.id %}{{section.id}}{% endif %}" data-sectionId="{% if section.id %}{{section.id}}{% endif %}" {% if section.blocks %}data-blocks='{ {%- capture blocks_json -%}{% for block in section.blocks %}{%- capture block_json -%}"{{ block.type }}":{{ block.settings | json }}{%- endcapture -%}{{ block_json | prepend: ","  }}{% endfor %}{%- endcapture -%}{{ blocks_json | remove_first: "," }} }' {% endif %} data-settings='{% if section.settings %}{{section.settings | json}}{% endif %}' data-globo-filter-items class="bullet span-12">
+                 <ul class="bullet span-12">
                    {% for item in search.results %}
                      {% if item.object_type == 'page' %}
                       <li>
@@ -185,7 +185,7 @@
 
             {% if settings.search_show_products_only == false and has_articles %}
              <div class="span-12 auto">
-               <div data-section-id="{% if section.id %}{{section.id}}{% endif %}" data-sectionId="{% if section.id %}{{section.id}}{% endif %}" {% if section.blocks %}data-blocks='{ {%- capture blocks_json -%}{% for block in section.blocks %}{%- capture block_json -%}"{{ block.type }}":{{ block.settings | json }}{%- endcapture -%}{{ block_json | prepend: ","  }}{% endfor %}{%- endcapture -%}{{ blocks_json | remove_first: "," }} }' {% endif %} data-settings='{% if section.settings %}{{section.settings | json}}{% endif %}' data-globo-filter-items id="search-pages" class="grid__wrapper pt5">
+               <div id="search-pages" class="grid__wrapper pt5">
                  {% render 'snip-headings', align: heading_align,  grid: 'span-12 mt3', translation: 'general.search.articles' %}
 
                  {% for item in search.results %}
@@ -227,7 +227,7 @@
             {% if has_products %}
               {% render 'snip-headings',  grid: 'span-12 mb0 p0', align: heading_align, translation: 'general.search.products' %}
               <div class="span-12">
-                <div data-section-id="{% if section.id %}{{section.id}}{% endif %}" data-sectionId="{% if section.id %}{{section.id}}{% endif %}" {% if section.blocks %}data-blocks='{ {%- capture blocks_json -%}{% for block in section.blocks %}{%- capture block_json -%}"{{ block.type }}":{{ block.settings | json }}{%- endcapture -%}{{ block_json | prepend: ","  }}{% endfor %}{%- endcapture -%}{{ blocks_json | remove_first: "," }} }' {% endif %} data-settings='{% if section.settings %}{{section.settings | json}}{% endif %}' data-globo-filter-items class="product-loop grid__wrapper cg9 rg6 sm-cg2">
+                <div class="product-loop grid__wrapper cg9 rg6 sm-cg2">
                   {% for item in search.results %}
                     {% if item.object_type == 'product' %}
                       {% render 'product-loop',

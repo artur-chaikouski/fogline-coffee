@@ -38,7 +38,7 @@
 
   <script src="{{ 'theme.js' | asset_url }}" defer></script>
 
-  {{ content_for_header }}
+  {% include 'globo.filter.script' %}{{ content_for_header }}
 
   {% render 'css-variables' %}
 
@@ -124,5 +124,6 @@
 
   <aside class="slideout slideout__drawer-right" data-wau-slideout="store-availability" id="slideout-store-availability"></aside>
 {% render 'paywhirl-main' %}
-</body>
+{% include 'globo.filter.action' %}
+	</body>
 </html>

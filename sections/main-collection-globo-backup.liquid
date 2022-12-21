@@ -160,7 +160,7 @@
 
       {%- if collection.products.size >= 1 -%}
         <div class="collection span-12" id="main-collection-product-grid" data-id="{{ section.id }}">
-          <div data-section-id="{% if section.id %}{{section.id}}{% endif %}" data-sectionId="{% if section.id %}{{section.id}}{% endif %}" {% if section.blocks %}data-blocks='{ {%- capture blocks_json -%}{% for block in section.blocks %}{%- capture block_json -%}"{{ block.type }}":{{ block.settings | json }}{%- endcapture -%}{{ block_json | prepend: ","  }}{% endfor %}{%- endcapture -%}{{ blocks_json | remove_first: "," }} }' {% endif %} data-settings='{% if section.settings %}{{section.settings | json}}{% endif %}' data-globo-filter-items class="product-loop grid__wrapper edge cg6 sm-cg1 rg9">
+          <div class="product-loop grid__wrapper edge cg6 sm-cg1 rg9">
             {% if collection != blank %}
               {% for product in collection.products limit: page_limit %}
                 {% render 'product-loop',
