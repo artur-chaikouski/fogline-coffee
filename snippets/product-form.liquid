@@ -155,10 +155,12 @@
          </span>
      </button>
 
+    {% render 'paywhirl-plan-selector', product: product %}
+
     {% if settings.product_show_payment_button %}
       <div class="product-additional-buttons mb2">
         {{ form | payment_button }}
-        {% render 'paywhirl-plan-selector', product: product %}
+        
       </div>
     {% endif %}
   </div>
