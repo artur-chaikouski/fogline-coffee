@@ -75,9 +75,12 @@ ul.header__navigation a,
 }
 
 @media (min-width: 768px) {
+  .section-header__main-bar {
+    padding: 20px 0;
+  }
+
   .section-header__main-bar .header__logo-wrapper {
-    padding-top: var(--space-4);
-    padding-bottom: var(--space-4);
+    padding: 0;
   }
 }
 
