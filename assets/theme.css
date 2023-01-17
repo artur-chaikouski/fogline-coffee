@@ -1142,4 +1142,12 @@ img.spf-product-card__image {
   transform: translate(0);
 }
 
+.spf-has-filter #gf-products {
+  grid-column-gap: 0;
+}
+
+#gf-products .spf-product-card:not(.spf-product-card__template-4) .open-quick-view {
+  display: none;
+}
+
 /*.spf-product-card.spf-product-card__template-1:hover button.spf-product__form-btn-addtocart*/
