@@ -8,7 +8,7 @@
         "video_url": "",
         "title": "Enjoy a truly excellent cup of coffee that’s both good for you and good for the planet.",
         "subheading_text": "",
-        "link_1": "shopify:\/\/collections",
+        "link_1": "shopify:\/\/collections\/shop-all",
         "button_text_1": "Shop Coffee",
         "link_2": "shopify:\/\/products\/el-mirador-columbian",
         "button_text_2": "Shop Subscriptions",
@@ -64,9 +64,9 @@
           "settings": {
             "icon": "chat",
             "image": "shopify:\/\/shop_images\/origin_7b180055-34bb-4c05-be25-aedb7fc2fb59.png",
-            "link": "",
+            "link": "shopify:\/\/collections\/shop-all",
             "title": "Shop by Origin",
-            "subheading": "<p><\/p>"
+            "subheading": ""
           }
         },
         "template--14384131998012__0db485c0-a5e4-47a5-a546-b97142c75401-166663517543ab5737-1": {
@@ -74,9 +74,9 @@
           "settings": {
             "icon": "chat",
             "image": "shopify:\/\/shop_images\/flavor_profile_895ece24-017d-4df0-b39f-913aaf96951f.png",
-            "link": "",
+            "link": "shopify:\/\/collections\/shop-all",
             "title": "Shop by Flavor Profile",
-            "subheading": "<p><\/p>"
+            "subheading": ""
           }
         },
         "template--14384131998012__0db485c0-a5e4-47a5-a546-b97142c75401-166663517543ab5737-2": {
@@ -84,9 +84,9 @@
           "settings": {
             "icon": "chat",
             "image": "shopify:\/\/shop_images\/roast_profile.png",
-            "link": "",
+            "link": "shopify:\/\/collections\/shop-all",
             "title": "Shop by Roast Profile",
-            "subheading": "<p><\/p>"
+            "subheading": ""
           }
         }
       },
@@ -97,93 +97,13 @@
       ],
       "settings": {
         "title": "Start your day with good coffee, not stress.",
-        "subtitle": "Whether you're a coffee connoisseur or just dipping your toe into the coffee world, it can be hard to sort through all the options available. We know everyone has different tastes- so let us take the mystery out of choosing your next bag!",
+        "subtitle": "Whether you're a coffee connoisseur or just dipping your toe into the coffee world, it can be hard to sort through all the options available. We know everyone has different tastes—so let us take the mystery out of choosing your next bag!",
         "subtitle_size": 20,
         "max_width_title": 540,
         "max_width_description": 720,
         "text_align": "center",
         "color_scheme": "1",
         "section_padding": "both"
-      }
-    },
-    "16414895354da60685": {
-      "type": "menu",
-      "disabled": true,
-      "blocks": {
-        "164148953504248185-0": {
-          "type": "menu_collection",
-          "settings": {
-            "menu_collection": "",
-            "show_product_options": true,
-            "show_product_desc": true,
-            "items_shown": 8
-          }
-        }
-      },
-      "block_order": [
-        "164148953504248185-0"
-      ],
-      "settings": {
-        "show_box_shadow": false,
-        "title": "Menu",
-        "text_color": "#303030",
-        "button": "",
-        "menu_link": "",
-        "section_padding": "both"
-      }
-    },
-    "16414896049a1a9501": {
-      "type": "locations",
-      "disabled": true,
-      "blocks": {
-        "16414896041f8c3d2c-0": {
-          "type": "location",
-          "settings": {
-            "location_name": "Location Name",
-            "location_link": ""
-          }
-        },
-        "16414896041f8c3d2c-1": {
-          "type": "location",
-          "settings": {
-            "location_name": "Location Name",
-            "location_link": ""
-          }
-        },
-        "16414896041f8c3d2c-2": {
-          "type": "location",
-          "settings": {
-            "location_name": "Location Name",
-            "location_link": ""
-          }
-        }
-      },
-      "block_order": [
-        "16414896041f8c3d2c-0",
-        "16414896041f8c3d2c-1",
-        "16414896041f8c3d2c-2"
-      ],
-      "settings": {
-        "title": "Locations",
-        "item_position": "left",
-        "item_width": "one_half",
-        "section_padding": "both"
-      }
-    },
-    "164148960755e05555": {
-      "type": "featured-collection",
-      "disabled": true,
-      "settings": {
-        "title": "Featured Collection",
-        "subtitle": "Fuel up with a cup of the latest ethically sourced and freshly roasted beans.",
-        "subtitle_size": 20,
-        "collection": "",
-        "display_type": "carousel",
-        "items_per_row": 3,
-        "items_per_page": 9,
-        "section_padding": "both",
-        "button": "Shop all",
-        "link": ""
       }
     },
     "05119e69-6c26-449f-ad52-7058cb295376": {
@@ -196,16 +116,25 @@
             "link": ""
           }
         },
-        "template--14384131998012__05119e69-6c26-449f-ad52-7058cb295376-1666967309fcb1f94a-1": {
+        "a2b43357-fb94-4a87-ad7a-07a7778216f0": {
           "type": "image",
           "settings": {
+            "image": "shopify:\/\/shop_images\/battlecreek-coffee-roasters-3q3f1uDQk94-unsplash.jpg",
+            "link": ""
+          }
+        },
+        "0206e3a2-188e-4934-ae6d-fee05b03fa31": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/battlecreek-coffee-roasters-mY4hAwxNA_0-unsplash.jpg",
             "link": ""
           }
         }
       },
       "block_order": [
         "template--14384131998012__05119e69-6c26-449f-ad52-7058cb295376-1666967309fcb1f94a-0",
-        "template--14384131998012__05119e69-6c26-449f-ad52-7058cb295376-1666967309fcb1f94a-1"
+        "a2b43357-fb94-4a87-ad7a-07a7778216f0",
+        "0206e3a2-188e-4934-ae6d-fee05b03fa31"
       ],
       "settings": {
         "full_width": false,
@@ -216,8 +145,8 @@
         "vertical_align": "middle",
         "title": "Freshly roasted with care",
         "text": "<p>Whether you’re starting your day or need a midday pick-me-up, we care about your cup as much as you do. We schedule to ship your order within 24–48 hrs of being roasted, so your beans will always be fresh.<\/p>",
-        "button": "Learn More [TEMP]",
-        "link": "shopify:\/\/products\/copy-of-el-mirador"
+        "button": "",
+        "link": ""
       }
     },
     "c23e8dc5-2c33-4169-9147-bcb227a8c9ce": {
@@ -349,9 +278,6 @@
     "16260997139ae0f76a",
     "b0b2f345-c4c2-4d0a-81ef-8d6b96ce44a2",
     "0db485c0-a5e4-47a5-a546-b97142c75401",
-    "16414895354da60685",
-    "16414896049a1a9501",
-    "164148960755e05555",
     "05119e69-6c26-449f-ad52-7058cb295376",
     "c23e8dc5-2c33-4169-9147-bcb227a8c9ce",
     "55831ab0-44ba-4d50-a485-d56664c521e3"

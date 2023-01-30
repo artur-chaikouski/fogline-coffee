@@ -775,10 +775,10 @@
       "footer": {
         "type": "footer",
         "settings": {
-          "footer_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut laborez.<\/p>",
+          "footer_text": "",
           "show_social": true,
           "footer_nav": "footer",
-          "show_credit_cards": true,
+          "show_credit_cards": false,
           "show_copyright": true,
           "show_locale_selector": true,
           "show_country_selector": true
@@ -844,9 +844,9 @@
         "type": "pre-footer",
         "settings": {
           "show_prefooter": true,
-          "prefooter_heading": "Join the Club",
+          "prefooter_heading": "Stay in Touch",
           "prefooter_heading_size": 40,
-          "prefooter_heading_style": "italic"
+          "prefooter_heading_style": "normal"
         }
       }
     },
