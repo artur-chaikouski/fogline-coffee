@@ -762,10 +762,10 @@
         ],
         "settings": {
           "inline_layout": false,
-          "logo_align_left": true,
+          "logo_align_left": false,
           "enable_sticky": false,
-          "logo": "shopify:\/\/shop_images\/Fogline_Logo_png.png",
-          "logo_max_width": 260,
+          "logo": "shopify:\/\/shop_images\/fogline_coffee_logo_words_only_25bf4ed7-2bd9-40d5-91b6-fbeba0597aaf.png",
+          "logo_max_width": 325,
           "logo_size": 32,
           "main_nav": "main-menu",
           "nav_alignment": "center",
@@ -775,10 +775,10 @@
       "footer": {
         "type": "footer",
         "settings": {
-          "footer_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut laborez.<\/p>",
+          "footer_text": "",
           "show_social": true,
           "footer_nav": "footer",
-          "show_credit_cards": true,
+          "show_credit_cards": false,
           "show_copyright": true,
           "show_locale_selector": true,
           "show_country_selector": true
@@ -844,9 +844,9 @@
         "type": "pre-footer",
         "settings": {
           "show_prefooter": true,
-          "prefooter_heading": "Join the Club",
+          "prefooter_heading": "Stay in Touch",
           "prefooter_heading_size": 40,
-          "prefooter_heading_style": "italic"
+          "prefooter_heading_style": "normal"
         }
       }
     },
