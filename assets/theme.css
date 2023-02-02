@@ -1151,3 +1151,7 @@ img.spf-product-card__image {
 }
 
 /*.spf-product-card.spf-product-card__template-1:hover button.spf-product__form-btn-addtocart*/
+
+.gf-block-title h3, .gf-block-title .h3, .gf-form-input-inner label {
+    line-height: 1;
+}
