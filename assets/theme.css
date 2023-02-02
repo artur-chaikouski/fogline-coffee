@@ -1155,3 +1155,6 @@ img.spf-product-card__image {
 .gf-block-title h3, .gf-block-title .h3, .gf-form-input-inner label {
     line-height: 1;
 }
+.gf-option-block ul li a{
+    margin-bottom: auto;
+}
