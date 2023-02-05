@@ -39,7 +39,7 @@
   <script src="{{ 'theme.js' | asset_url }}" defer></script>
 
   {% include 'globo.filter.script' %}{{ content_for_header }}
-
+<script>window.filterOptionCollapseMode = 2;</script>
   {% render 'css-variables' %}
 
   {{ 'theme.css' | asset_url | stylesheet_tag }}
