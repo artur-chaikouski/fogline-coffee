@@ -17,6 +17,7 @@
     },
     "image-with-text": {
       "type": "image-with-text",
+      "disabled": true,
       "settings": {
         "iwt_layout": "image_left",
         "iwt_heading": "Heading",
