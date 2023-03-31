@@ -15,9 +15,18 @@
     },
     "form": {
       "type": "contact-form",
+      "disabled": true,
       "settings": {
         "title": "",
         "width": 80,
+        "section_padding": "both"
+      }
+    },
+    "fe3014a1-c5d2-4c43-8af0-e922eb255fe5": {
+      "type": "wholesale-form",
+      "settings": {
+        "title": "Wholesale Form",
+        "width": 60,
         "section_padding": "both"
       }
     }
@@ -25,6 +34,7 @@
   "order": [
     "banner",
     "main",
-    "form"
+    "form",
+    "fe3014a1-c5d2-4c43-8af0-e922eb255fe5"
   ]
 }
