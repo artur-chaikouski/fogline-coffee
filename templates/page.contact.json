@@ -17,7 +17,7 @@
       "type": "contact-form",
       "settings": {
         "title": "",
-        "width": 80,
+        "width": 60,
         "section_padding": "both"
       }
     }
