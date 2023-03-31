@@ -9,25 +9,15 @@
     },
     "main": {
       "type": "main-page",
-      "disabled": true,
       "settings": {
         "page_alignment": "a-left"
       }
     },
     "form": {
       "type": "contact-form",
-      "disabled": true,
       "settings": {
         "title": "",
         "width": 80,
-        "section_padding": "both"
-      }
-    },
-    "25951040-1abe-46df-a187-137a97436949": {
-      "type": "wholesale-form",
-      "settings": {
-        "title": "Wholesale",
-        "width": 60,
         "section_padding": "both"
       }
     }
@@ -35,7 +25,6 @@
   "order": [
     "banner",
     "main",
-    "form",
-    "25951040-1abe-46df-a187-137a97436949"
+    "form"
   ]
 }
