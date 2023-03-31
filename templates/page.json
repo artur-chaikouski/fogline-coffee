@@ -27,11 +27,20 @@
         "color_scheme": "2",
         "section_padding": "both"
       }
+    },
+    "65ed3e1c-a26d-48aa-b520-07f504dc6773": {
+      "type": "wholesale-form",
+      "settings": {
+        "title": "Wholesale Form",
+        "width": 60,
+        "section_padding": "both"
+      }
     }
   },
   "order": [
     "main",
     "banner",
-    "346b68d8-b8f8-437f-b061-fc855305e257"
+    "346b68d8-b8f8-437f-b061-fc855305e257",
+    "65ed3e1c-a26d-48aa-b520-07f504dc6773"
   ]
 }
