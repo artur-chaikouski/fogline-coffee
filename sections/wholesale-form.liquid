@@ -1,0 +1,190 @@
+{%- liquid
+
+  assign section_padding = ''
+  if section.settings.section_padding == 'top'
+    assign section_padding = 'pb0'
+  elsif section.settings.section_padding == 'bottom'
+    assign section_padding = 'mt0'
+  elsif section.settings.section_padding == 'none'
+    assign section_padding = 'mt0 pb0'
+  endif
+
+  if settings.section_title_align == 'left'
+    assign heading_align = 'a-left'
+  else
+    assign heading_align = 'a-center'
+  endif
+
+-%}
+<div class="global__section contact__form-section section-{{ section.id }} {{ section_padding }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="contact-form"
+  data-section-loaded="false">
+  {% render 'snip-headings', align: heading_align, grid: 'span-12' %}
+
+  <div class="contact__form--inner-wrapper">
+    {% form 'contact' %}
+      <div class="contact-form__wrapper grid__wrapper form rg5">
+
+        {% if form.posted_successfully? %}
+          <div class="span-12 auto note note-success">
+            <div class="inline-block v-center w10">
+              {% render 'snip-icons',
+                      wrapper: '.contact-form__wrapper',
+                      type: 'theme',
+                      icon: 'checkmark',
+                      size: '20px',
+                      classes: 'mr3',
+                      fill: 'var(--success-msg-dark)',
+                      hover: 'var(--success-msg-dark)' %}
+            </div>
+            <p class="sm-caps inline-block v-center mb0 w80 a-center">Thank you for your Wholesale inquiry! We'll follow up with you soon.</p>
+          </div>
+        {% endif %}
+
+        <div class="span-12 a-left relative">
+          <label for="contactFormCompanyName">{{ 'contact.form.companyname' | t }}</label>
+          <input type="text" id="contactFormCompanyName" name="contact[CompanyName]" />
+        </div>
+
+        <div class="span-6 auto a-left relative">
+          <label for="contactFormFirstName">{{ 'contact.form.name' | t }}</label>
+          <input type="text" id="contactFormFirstName" name="contact[FirstName]" required />
+          <small>{{ 'contact.form.firstname' | t }}</small>
+        </div>
+
+        <div class="span-6 auto a-left relative">
+          <label for="contactFormLastName">&nbsp;</label>
+          <input type="text" id="contactFormLastName" name="contact[LastName]" required />
+          <small>{{ 'contact.form.lastname' | t }}</small>
+        </div>
+
+        <div class="span-12 a-left relative">
+          <label for="contactFormAddress">{{ 'contact.form.address' | t }}</label>
+          <input type="text" id="contactFormAddress" name="contact[address]" />
+        </div>
+
+        <div class="span-12 a-left relative">
+          <label for="contactFormTelephone">{{ 'contact.form.phone' | t }}</label>
+          <input type="text" id="contactFormTelephone" name="contact[phone]" />
+        </div>
+
+        <div class="span-12 a-left relative">
+          <label for="contactFormEmail">{{ 'contact.form.email' | t }}</label>
+          <input type="email" id="contactFormEmail" name="contact[email]" required />
+        </div>
+
+        {% if section.settings.cf_show_custom_field_one == true and section.settings.cf_custom_field_one_type == 'input' %}
+          <div class="span-12 a-left relative">
+            <label for="contactFormCustomFieldOne">{{ section.settings.cf_custom_field_one }}</label>
+            <input type="text" id="contactFormCustomFieldOne" name="contact[CustomFieldOne]" />
+          </div>
+        {% elsif section.settings.cf_show_custom_field_one == true and section.settings.cf_custom_field_one_type == 'textarea' %}
+          <div class="span-12 a-left relative">
+            <label for="contactFormCustomFieldOne">{{ section.settings.cf_custom_field_one }}</label>
+            <textarea rows="15" cols="90" id="contactFormCustomFieldOne" name="contact[CustomFieldOne]"></textarea>
+          </div>
+        {% endif %}
+
+
+        {% if section.settings.cf_show_custom_field_two == true and section.settings.cf_custom_field_two_type == 'input' %}
+          <div class="span-12 a-left relative">
+            <label for="contactFormCustomFieldTwo">{{ section.settings.cf_custom_field_two }}</label>
+            <input type="text" id="contactFormCustomFieldTwo" name="contact[CustomFieldTwo]" />
+          </div>
+        {% elsif section.settings.cf_show_custom_field_two == true and section.settings.cf_custom_field_two_type == 'textarea' %}
+          <div class="span-12 a-left relative">
+            <label for="contactFormCustomFieldTwo">{{ section.settings.cf_custom_field_two }}</label>
+            <textarea rows="15" cols="90" id="contactFormCustomFieldTwo" name="contact[CustomFieldTwo]"></textarea>
+          </div>
+        {% endif %}
+
+        <div class="span-12 a-left relative">
+          <label for="contactFormMessage">Social Media</label>
+          <textarea rows="15" cols="90" id="contactFormMessage" name="contact[SocialMedia]"></textarea>
+        </div>
+
+        {% if form.errors %}
+          <div class="span-12 auto note note-error">
+            <div class="inline-block v-center w10">
+              {% render 'snip-icons',
+                      wrapper: '.contact-form__wrapper',
+                      type: 'apollo',
+                      icon: 'error',
+                      size: '20px',
+                      classes: 'mr3',
+                      fill: 'var(--error-msg-dark)',
+                      hover: 'var(--error-msg-dark)' %}
+            </div>
+            <p class="sm-caps inline-block v-center mb0 w80">{{ form.errors | default_errors | strip_html }}</p>
+          </div>
+        {% endif %}
+
+        <div class="span-12 a-left">
+          <input type="submit" id="contactFormSubmit" class="btn-secondary button" value="{{ 'contact.form.send' | t }}" />
+        </div>
+
+      </div>
+    {% endform %}
+
+  </div>
+  <style>
+    .section-{{ section.id }} .contact__form--inner-wrapper {
+      width: {{ section.settings.width }}%;
+      margin: 0 auto;
+    }
+  </style>
+</div>
+{% schema %}
+{
+  "name": "Wholesale form",
+  "tag": "section",
+  "class": "dynamic-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Wholesale Form"
+    },
+    {
+      "type": "range",
+      "id": "width",
+      "min": 20,
+      "max": 100,
+      "step": 10,
+      "unit": "%",
+      "label": "Form width",
+      "default": 60
+    },
+    {
+      "type": "select",
+      "id": "section_padding",
+      "label": "Section spacing",
+      "options": [
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        },
+        {
+          "value": "both",
+          "label": "Both"
+        },
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "both"
+    }
+  ],
+  "presets": [{
+    "name": "Wholesale form"
+  }],
+  "templates": ["404", "article", "page", "product"]
+}
+{% endschema %}
