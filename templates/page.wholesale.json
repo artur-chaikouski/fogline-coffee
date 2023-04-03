@@ -16,7 +16,7 @@
     "f3e4a73c-5f39-41b4-ae7e-6e5c9622591c": {
       "type": "custom-liquid",
       "settings": {
-        "liquid": "<p style=\"max-width: 60%; margin: 0 auto; text-align: center;\">\nPlease complete the form below to become a wholesale partner with Fogline Coffee\n<\/p>",
+        "liquid": "<p style=\"max-width: 60%; margin: -40px auto 24px; text-align: center; text-transform: uppercase;\">\nPlease complete the form below to become a wholesale partner with Fogline Coffee\n<\/p>",
         "full_width": false,
         "section_padding": "none"
       }
