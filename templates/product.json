@@ -47,7 +47,7 @@
       ],
       "custom_css": [
         "#product-description > div h1 + .rte {display: none;}",
-        "#product-description > div h1 + .rte {display: none;}"
+        "#customer-39-s-choice-subscription #product-description > div h1 + .rte {display: block;}"
       ],
       "settings": {
         "form_bg_color": "#ececed",
