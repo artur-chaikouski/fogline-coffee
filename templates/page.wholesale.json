@@ -13,6 +13,14 @@
         "page_alignment": "a-left"
       }
     },
+    "f3e4a73c-5f39-41b4-ae7e-6e5c9622591c": {
+      "type": "custom-liquid",
+      "settings": {
+        "liquid": "<p style=\"max-width: 60%; margin: 0 auto; text-align: center;\">\nPlease complete the form below to become a wholesale partner with Fogline Coffee\n<\/p>",
+        "full_width": false,
+        "section_padding": "none"
+      }
+    },
     "form": {
       "type": "contact-form",
       "disabled": true,
@@ -34,6 +42,7 @@
   "order": [
     "banner",
     "main",
+    "f3e4a73c-5f39-41b4-ae7e-6e5c9622591c",
     "form",
     "fe3014a1-c5d2-4c43-8af0-e922eb255fe5"
   ]
