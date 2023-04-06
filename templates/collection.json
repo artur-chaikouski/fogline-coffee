@@ -7,6 +7,23 @@
         "banner_height": 400
       }
     },
+    "b0366a65-b613-4f16-a31f-1b9f93735ad7": {
+      "type": "rich-text",
+      "custom_css": [
+
+      ],
+      "settings": {
+        "title": "Subscriptions",
+        "rich_text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.<\/p>",
+        "heading_size": 60,
+        "text_size": 20,
+        "page": "",
+        "alignment": "a-center",
+        "content_width": 60,
+        "section_padding": "none",
+        "color_scheme": "none"
+      }
+    },
     "main": {
       "type": "main-collection",
       "custom_css": [
@@ -31,29 +48,12 @@
         "iwt_section_height": 500,
         "section_padding": "both"
       }
-    },
-    "b0366a65-b613-4f16-a31f-1b9f93735ad7": {
-      "type": "rich-text",
-      "custom_css": [
-
-      ],
-      "settings": {
-        "title": "Welcome",
-        "rich_text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.<\/p>",
-        "heading_size": 32,
-        "text_size": 20,
-        "page": "",
-        "alignment": "a-center",
-        "content_width": 60,
-        "section_padding": "top",
-        "color_scheme": "none"
-      }
     }
   },
   "order": [
     "banner",
+    "b0366a65-b613-4f16-a31f-1b9f93735ad7",
     "main",
-    "image-with-text",
-    "b0366a65-b613-4f16-a31f-1b9f93735ad7"
+    "image-with-text"
   ]
 }
