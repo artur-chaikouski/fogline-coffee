@@ -761,6 +761,9 @@
         "block_order": [
           "3508d5ea-f741-46a3-b11c-bdc5b29879b8"
         ],
+        "custom_css": [
+
+        ],
         "settings": {
           "inline_layout": false,
           "logo_align_left": false,
