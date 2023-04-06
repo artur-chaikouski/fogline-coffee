@@ -35,7 +35,7 @@
     "b0366a65-b613-4f16-a31f-1b9f93735ad7": {
       "type": "rich-text",
       "custom_css": [
-        "#collection-page h1 {display: none;}"
+
       ],
       "settings": {
         "title": "Welcome",

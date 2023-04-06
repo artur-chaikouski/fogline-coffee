@@ -866,5 +866,10 @@
         }
       }
     }
+  },
+  "platform_customizations": {
+    "custom_css": [
+      "#collection-page .collection__page--description {display: none;}"
+    ]
   }
 }
