@@ -10,8 +10,7 @@
     "88a8c3fc-af64-4768-b318-3476692a4f4a": {
       "type": "rich-text",
       "custom_css": [
-        "h2 {text-align: center !important;}",
-        ".collection__page--description h1 {display: none;}"
+        "h2 {text-align: center !important;}"
       ],
       "settings": {
         "title": "Subscriptions",
@@ -27,6 +26,9 @@
     },
     "main": {
       "type": "main-collection",
+      "custom_css": [
+        ".collection__page--description h1 {display: none;}"
+      ],
       "settings": {
         "items_per_page": 30,
         "items_per_row": 3,
