@@ -871,7 +871,9 @@
     "custom_css": [
       "#subscriptions .collection__page--description {display: none;}",
       ".template-collection .section-richtext {display: none;}",
-      "#subscriptions.template-collection .section-richtext {display: block;}"
+      "#subscriptions.template-collection .section-richtext {display: block;}",
+      "#subscriptions.template-collection .section-richtext .grid__wrapper {padding-bottom: 0;}",
+      "#subscriptions.template-collection .section-richtext h2 {text-align: center}"
     ]
   }
 }
