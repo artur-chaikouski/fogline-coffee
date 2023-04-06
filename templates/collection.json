@@ -9,6 +9,9 @@
     },
     "88a8c3fc-af64-4768-b318-3476692a4f4a": {
       "type": "rich-text",
+      "custom_css": [
+        "h2 {text-align: center !important;}"
+      ],
       "settings": {
         "title": "Subscriptions",
         "rich_text": "<ol><li>Chose from the coffee selections below.<\/li><li>You get to choose the frequency that beans arrive at your door.<\/li><li>Brew, Sip, Repeat...<\/li><\/ol>",
