@@ -27,7 +27,7 @@
     "main": {
       "type": "main-collection",
       "custom_css": [
-        ".collection__page--description h1 {display: none;}"
+        ".collection__page--description {display: none;}"
       ],
       "settings": {
         "items_per_page": 30,
