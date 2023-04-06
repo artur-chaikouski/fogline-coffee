@@ -870,7 +870,8 @@
   "platform_customizations": {
     "custom_css": [
       "#subscriptions .collection__page--description {display: none;}",
-      ".template-collection .section-richtext {display: none;}"
+      ".template-collection .section-richtext {display: none;}",
+      "#subscriptions.template-collection .section-richtext {display: block;}"
     ]
   }
 }
