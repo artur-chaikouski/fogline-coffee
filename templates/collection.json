@@ -14,11 +14,11 @@
       ],
       "settings": {
         "title": "Subscriptions",
-        "rich_text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.<\/p>",
+        "rich_text": "<ol><li>Chose from the coffee selections below.<\/li><li>You get to choose the frequency that beans arrive at your door.<\/li><li>Brew, Sip, Repeat...<\/li><\/ol>",
         "heading_size": 60,
         "text_size": 20,
         "page": "",
-        "alignment": "a-center",
+        "alignment": "a-left",
         "content_width": 60,
         "section_padding": "none",
         "color_scheme": "none"
