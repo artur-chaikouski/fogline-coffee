@@ -869,7 +869,7 @@
   },
   "platform_customizations": {
     "custom_css": [
-      "#collection-page .collection__page--description {display: none;}"
+      "#subscriptions .collection__page--description {display: none;}"
     ]
   }
 }
