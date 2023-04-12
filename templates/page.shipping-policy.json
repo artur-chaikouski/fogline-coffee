@@ -17,6 +17,7 @@
     },
     "346b68d8-b8f8-437f-b061-fc855305e257": {
       "type": "newsletter",
+      "disabled": true,
       "settings": {
         "title": "Enjoy a cup, on us",
         "subheading": "<p>Sign up for our email newsletter and you'll receive a coupon code for a free sample! You'll just pay shipping and handling.<\/p>",
@@ -30,6 +31,7 @@
     },
     "65ed3e1c-a26d-48aa-b520-07f504dc6773": {
       "type": "wholesale-form",
+      "disabled": true,
       "settings": {
         "title": "Wholesale Form",
         "width": 60,
