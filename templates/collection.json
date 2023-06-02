@@ -32,7 +32,7 @@
       "settings": {
         "items_per_page": 30,
         "items_per_row": 3,
-        "collection_image": false
+        "collection_image": true
       }
     },
     "image-with-text": {
