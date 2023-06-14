@@ -20,7 +20,7 @@
         "overlay_color": "#000000",
         "show_overlay_color": false,
         "full_width": true,
-        "video_height": 700,
+        "video_height": 500,
         "section_padding": "none"
       }
     },
