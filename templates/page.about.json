@@ -16,6 +16,17 @@
         "page_alignment": "a-left"
       }
     },
+    "38fca7be-f082-4d48-8a39-6b85b2f6200d": {
+      "type": "video",
+      "disabled": true,
+      "settings": {
+        "full_width": true,
+        "heading": "Video",
+        "video_url": "https:\/\/www.youtube.com\/watch?v=5EPw0ctoX1U",
+        "description": "Describe the video for customers using screen readers",
+        "section_padding": "both"
+      }
+    },
     "68272f38-432e-4984-9ba6-ab1a5ba0616b": {
       "type": "rich-text",
       "settings": {
@@ -65,6 +76,7 @@
   "order": [
     "banner",
     "main",
+    "38fca7be-f082-4d48-8a39-6b85b2f6200d",
     "68272f38-432e-4984-9ba6-ab1a5ba0616b",
     "48e2ec77-2c4c-435b-910c-f3101a64d65e",
     "1641490467976bd7d5"
