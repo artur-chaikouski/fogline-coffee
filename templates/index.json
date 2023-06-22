@@ -125,7 +125,6 @@
         },
         "a2b43357-fb94-4a87-ad7a-07a7778216f0": {
           "type": "image",
-          "disabled": true,
           "settings": {
             "image": "shopify:\/\/shop_images\/FOGLINE_-6-2.jpg",
             "link": ""
