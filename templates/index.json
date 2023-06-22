@@ -112,29 +112,37 @@
         "template--14384131998012__05119e69-6c26-449f-ad52-7058cb295376-1666967309fcb1f94a-0": {
           "type": "image",
           "settings": {
-            "image": "shopify:\/\/shop_images\/tim-mossholder-YC6RVdoTtIk-unsplash2.jpg",
-            "link": ""
-          }
-        },
-        "a2b43357-fb94-4a87-ad7a-07a7778216f0": {
-          "type": "image",
-          "settings": {
-            "image": "shopify:\/\/shop_images\/battlecreek-coffee-roasters-3q3f1uDQk94-unsplash.jpg",
+            "image": "shopify:\/\/shop_images\/FOGLINE_-13.jpg",
             "link": ""
           }
         },
         "0206e3a2-188e-4934-ae6d-fee05b03fa31": {
           "type": "image",
           "settings": {
-            "image": "shopify:\/\/shop_images\/battlecreek-coffee-roasters-mY4hAwxNA_0-unsplash.jpg",
+            "image": "shopify:\/\/shop_images\/FOGLINE_-2-2.jpg",
+            "link": ""
+          }
+        },
+        "a2b43357-fb94-4a87-ad7a-07a7778216f0": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "image": "shopify:\/\/shop_images\/FOGLINE_-6-2.jpg",
+            "link": ""
+          }
+        },
+        "c0f44923-7bfa-4576-ae51-5a7556e1a330": {
+          "type": "image",
+          "settings": {
             "link": ""
           }
         }
       },
       "block_order": [
         "template--14384131998012__05119e69-6c26-449f-ad52-7058cb295376-1666967309fcb1f94a-0",
+        "0206e3a2-188e-4934-ae6d-fee05b03fa31",
         "a2b43357-fb94-4a87-ad7a-07a7778216f0",
-        "0206e3a2-188e-4934-ae6d-fee05b03fa31"
+        "c0f44923-7bfa-4576-ae51-5a7556e1a330"
       ],
       "settings": {
         "full_width": false,
@@ -151,6 +159,7 @@
     },
     "c23e8dc5-2c33-4169-9147-bcb227a8c9ce": {
       "type": "slideshow",
+      "disabled": true,
       "blocks": {
         "template--14384131998012__c23e8dc5-2c33-4169-9147-bcb227a8c9ce-16669673374b727410-0": {
           "type": "image",
